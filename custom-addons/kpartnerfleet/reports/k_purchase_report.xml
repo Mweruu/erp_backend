@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="kpurchase_order_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div>
+                        <t t-set="address">
+                            <div t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' />
+                            <p t-if="o.partner_id.vat">
+                                <t t-esc="o.company_id.account_fiscal_country_id.vat_label or 'Tax ID'" />
+                                :
+                                <span t-field="o.partner_id.vat" />
+                            </p>
+                        </t>
+
+                    </div>
+                    <t t-if="o.supplier">
+                        <t t-set="information_block">
+                            <div t-field="o.supplier" t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="vendor_address" />
+                        </t>
+                    </t>
+                    <br />
+
+                    <!-- po -->
+
+                    <h3>
+                        Purchase order:
+                        <span t-field="o.name" />
+                    </h3>
+
+                    <hr />
+                    <div style='display:flex; flex-wrap:auto;'>
+                        <div class="w-100">
+                            <h3>Pick Up Information</h3>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.name" name="o.name">
+                                <strong>LPO Reference:</strong>
+                                <p class="m-0" t-field="o.name" />
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.vehicle_id" name="o.vehicle_id">
+                                <strong>Delivery/PickUp Vehicle:</strong>
+                                <p class="m-0" t-field="o.vehicle_id" />
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.location_id" name="o.location_id">
+                                <strong>Delivery/PickUp Location:</strong>
+                                <p class="m-0" t-field="o.location_id" />
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <h3>Product Details</h3>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.product" name="o.product">
+                                <strong>Product:</strong>
+                                <p class="m-0" t-field="o.product" />
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.quantity" name="o.quantity">
+                                <strong>Quantity:</strong>
+                                <p class="m-0" t-field="o.quantity" />
+                            </div>
+                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.tonnage" name="o.tonnage">
+                                <strong>Tonnage:</strong>
+                                <p class="m-0" t-field="o.tonnage" />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!-- template -->
+    <record id="report_kpurchase_quotation" model="ir.actions.report">
+        <field name="name">Request for Quotation</field>
+        <field name="model">purchase.kpurchase</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kpartnerfleet.kpurchase_order_report</field>
+        <field name="report_file">kpartnerfleet.kpurchase_order_report</field>
+        <field name="print_report_name">'Purchase Order - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_purchase_kpurchase" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

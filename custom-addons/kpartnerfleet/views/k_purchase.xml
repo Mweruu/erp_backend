@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="k_purchase_order_action_list" model="ir.ui.view">
+        <field name="name">purchase.kpurchase.list</field>
+        <field name="model">purchase.kpurchase</field>
+        <!-- <field name="inherited_id" ref="base_view"/> -->
+        <field name="arch" type="xml">
+            <tree string="Order Form">
+                <field name="name" string="LPO Number" decoration-bf="1" />
+                <field name="partner_id" />
+                <field name="vehicle_id" />
+                <field name="supplier" />
+                <field name="product" />
+                <field name="quantity" />
+                <field name="tonnage" />
+                <field name="cost_price" widget="monetary" decoration-bf="1" />
+                <field name="sale_price" widget="monetary" decoration-bf="1" />
+                <field name="state" optional="show" widget="badge" decoration-warning="state == 'cancel'" decoration-bf="state=='paid'" decoration-success="state=='paid'" decoration-info="state == 'purchase' or state == 'draft' or state == 'sent' or state == 'purchase' or state == 'collected' or state == 'invoiced'" />
+            </tree>
+        </field>
+    </record>
+    <record id="k_purchase_order_action_form" model="ir.ui.view">
+        <field name="name">purchase.kpurchase.form</field>
+        <field name="model">purchase.kpurchase</field>
+        <field name="arch" type="xml">
+            <form string="Order Form">
+                <header>
+                    <button name="print_po" string="Print PO" type="object" class="oe_highlight" />
+                    <field name="emailed" attrs="{'invisible':True}" />
+                    <button name="email_po" string="Send by Email" type="object" class="oe_highlight" attrs="{'invisible': [('emailed' ,'=',True)]}" />
+                    <button name="email_po" string="Resend by Email" type="object" class="oe_highlight" attrs="{'invisible': [('emailed' ,'=', False)]}" />
+                    <button string='Set Collected' type="object" name="set_collected" attrs="{'invisible':['|',('state','not in',('sent','draft',)), ('state', 'in','cancel')]}" />
+
+                    <button name="set_approved" type="object" string="Approve LPO" class="" groups="kpartnerfleet.kpartnerfleet_admin" attrs="{'invisible':[('state', '!=', 'collected')]}" />
+
+                    <button name="set_cancel" type="object" string="Cancel" class="" attrs="{'invisible': [('state', 'in', ('cancel','paid','approved', 'invoiced', 'done'))]}" />
+                    <button name="undo_cancel" type="object" string="Undo Cancel" class="" attrs="{'invisible': ['|',('state', 'in', ('paid','approved', 'invoiced', 'done')), ('state', 'not in',('cancel') )]}" />
+
+                    <!--state(s) breadcrumbs -->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,collected,approved,invoiced,paid,cancel" readonly="1" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': True}" />
+                            <field name="partner_id" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                            <field name="vehicle_id" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" domain='[("partner_id", "in",[partner_id])]' />
+                            <field name="should_print_invoice"/>
+                        </group>
+                        <group>
+                            <group colspan="2">
+                                <field name="supplier" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                                <field name="location_id" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" domain='[("partner_id", "in",[supplier])]' />
+                                <field name="product" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                                <field name="quantity" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                                <field name="tonnage" attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                            </group>
+                            <group colspan="2">
+                                <group colspan="1">
+                                    <field name='cost_price' attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                                </group>
+                                <group colspan="1">
+                                    <field name='sale_price' attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                                </group>
+                            </group>
+                        </group>
+                    </group>
+                    <hr />
+                    <group colspan="2">
+                        <group colspan="1"></group>
+                        <group class="oe-right" colspan="1">
+                            <group colspan="1">
+                                <field name='total_cost_price' attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                            </group>
+                            <group colspan="1">
+                                <field name='total_sale_price' attrs="{'readonly': [('state', 'in', ('cancel','paid','approved','invoiced',))]}" />
+                            </group>
+                        </group>
+                    </group>
+                    <group colspan="2">
+                        <group colspan="1">
+                            <field name="invoice_paid" attrs="{'invisible': True}" />
+                            <field name="bill_paid" attrs="{'invisible': True}" />
+                        </group>
+                    </group>
+
+
+                    <footer style="display: flex; border-top: 1px solid rgb(100,100,100, 0.2);">
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px;" attrs="{'invisible': [('purchase_order_id', '=', False )]}">
+                            <b>View Purchase Order</b>
+                            <br />
+                            <strong>
+                                <field name="purchase_order_id" />
+                            </strong>
+                        </div>
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px;" attrs="{'invisible': [('sale_order_id', '=', False )]}">
+                            <b>View Sale Order</b>
+                            <br />
+                            <strong>
+                                <field name="sale_order_id" />
+                            </strong>
+                        </div>
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px;" attrs="{'invisible': ['|',('invoice_id', '=', False ),('invoice_paid', '=', True)]}">
+                            <b>View Invoice</b>
+                            <br />
+                            <strong>
+                                <field name="invoice_id" />
+                            </strong>
+                        </div>
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px;" attrs="{'invisible': ['|',('bill_id', '=', False ), ('bill_paid', '=', True )]}">
+                            <b>View Bill</b>
+                            <br />
+                            <strong>
+                                <field name="bill_id" />
+                            </strong>
+                        </div>
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px; background:#bef4c4eb" attrs="{'invisible': ['|',('invoice_id', '=', False ),('invoice_paid', '!=', True)]}">
+                            <b>View Invoice</b>
+                            <br />
+                            <strong>
+                                <field name="invoice_id" style="color: white;" />
+                            </strong>
+                            <br />
+                            <strong style="color: blue;">Paid</strong>
+                        </div>
+                        <div class="flex" style="text-align:center;margin: 3px; box-shadow: 0 0 5px 0px gray; padding:10px; background: #bef4c4eb; " attrs="{'invisible': ['|',('bill_id', '=', False ), ('bill_paid', '!=', True )]}">
+                            <b>View Bill</b>
+                            <br />
+                            <strong>
+                                <field name="bill_id" style="color: white;" />
+                            </strong>
+                            <br />
+                            <strong style="color: blue;">Paid</strong>
+                        </div>
+                    </footer>
+                </sheet>
+                <!-- LOGS -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+
+    </record>
+    <record id="k_purchase_order_action" model="ir.actions.act_window">
+        <field name="name">KPurchase</field>
+        <field name="res_model">purchase.kpurchase</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- menu -->
+    <menuitem id="kpurchase_main" name="KPurchase" sequence="2" />
+    <menuitem id="kpurchase_orders" name="Purchase Orders" parent="kpurchase_main" action="k_purchase_order_action" sequence="3" />
+    <menuitem id="kpurchase_reports" name="Reports" parent="kpurchase_main" sequence="3" />
+</odoo>

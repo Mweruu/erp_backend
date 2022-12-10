@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="k_partner_fleet_account_move" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_right_group']" position="inside">
+                <field name="kpurchase_id" string="LPO Number" readonly="True" />
+                <field name="vehicle_id" string="Delivery/PickUp Vehicle" readonly="True" />
+                <field name="location_id" string="Delivery/PickUp Location" readonly="True" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="should_print_invoice_search_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="html">
+            <xpath expr="//search/group" position='inside'>
+                <separator />
+                <filter name="should_print_invoice" string="Should Print Invoice" domain="[('should_print_invoice','=',True)]" />
+            </xpath>
+        </field>
+    </record>
+    <!-- <filter string="Current" domain="[('state','in',('open','draft'))]" help="Draft, Open and Pending Tasks" icon="terp-project"/>
+<field name="project_id" select="1" widget="selection">
+    <filter domain="[('project_id.user_id','=',uid)]" help="My Projects" icon="terp-project"/>
+</field> -->
+</odoo>

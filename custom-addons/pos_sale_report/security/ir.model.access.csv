@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+pos_sale_report.access_pos_order_report_diffs,access_pos_order_report_diffs,pos_sale_report.model_pos_order_report_diffs,base.group_user,1,1,1,0
+pos_sale_report.access_sale_order_report_diffs,access_sale_order_report_diffs,pos_sale_report.model_sale_order_report_diffs,base.group_user,1,1,1,0
+pos_sale_report.access_pos_order_report_refunds,access_pos_order_report_refunds,pos_sale_report.model_pos_order_report_refunds,base.group_user,1,1,1,0

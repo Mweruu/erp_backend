@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_k_purchase_purchase_user,access_k_purchase,model_purchase_kpurchase,kpartnerfleet.kpartnerfleet_user,1,1,1,0
+access_k_purchase_location_user,access_k_purchase_location,model_partner_location,kpartnerfleet.kpartnerfleet_user,1,1,1,0
+
+access_k_purchase_purchase_admin,access_k_purchase,model_purchase_kpurchase,kpartnerfleet.kpartnerfleet_admin,1,1,1,1
+access_k_purchase_location_admin,access_k_purchase_location,model_partner_location,kpartnerfleet.kpartnerfleet_admin,1,1,1,1
+
+access_k_purchase_purchase_user_u,access_k_purchase,model_purchase_kpurchase,base.group_user,1,1,1,0
+access_k_purchase_location_user_u,access_k_purchase_location,model_partner_location,base.group_user,1,1,1,0
+
+kpartnerfleet.access_purchase_kpurchase_wizard,access_purchase_kpurchase_wizard,kpartnerfleet.model_purchase_kpurchase_wizard,base.group_user,1,1,1,0
+
+

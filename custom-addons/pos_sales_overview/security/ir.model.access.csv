@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+pos_sales_overview.access_pos_order_daily_report_line,access_pos_order_daily_report_line,pos_sales_overview.model_pos_order_daily_report_line,base.group_user,1,1,1,0
+pos_sales_overview.access_pos_order_daily_report,access_pos_order_daily_report,pos_sales_overview.model_pos_order_daily_report,base.group_user,1,1,1,0

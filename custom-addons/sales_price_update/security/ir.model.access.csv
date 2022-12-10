@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+sales_price_update.access_sales_price_differences,access_sales.price.differences,sales_price_update.model_sales_price_differences,base.group_user,1,1,1,0

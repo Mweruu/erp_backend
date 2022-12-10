@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="k_partner_fleet_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//page[@name='sales_purchases']" position="before">
+            <page name="vehicles" string="Vehicles">
+                <field name="vehicles">    
+                    <tree editable="bottom">
+                        <field name="model_id"/>
+                        <field name="license_plate"/>
+                        <field name="model_id"/>
+                        <field name="driver_id"/>
+                        <field name="tonnage"/>
+                    </tree>
+                </field>
+            </page>
+            <page name="locations" string="Locations">
+                <field name="locations">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                    </tree>
+                </field>
+            </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

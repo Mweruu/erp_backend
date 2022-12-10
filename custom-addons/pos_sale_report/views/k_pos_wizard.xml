@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="k_pos_diff_report_wizard" model="ir.ui.view">
+        <field name="name">k_sale_diff_report_wizard</field>
+        <field name="model">pos.order.report.diffs</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" />
+                        </group>
+                        <group>
+                            <field name='date_from' />
+                            <field name='date_to' />
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print" name="action_print_difference_report" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="k_pos_diff_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Difference Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.report.diffs</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='k_pos_diff_report_wizard' />
+    </record>
+
+    <!-- Reporting menu -->
+    <menuitem id="menu_point_diff_rep" name="Price Difference" parent="point_of_sale.menu_point_rep" sequence="100" action="k_pos_diff_report_wizard_action" groups="point_of_sale.group_pos_manager" />
+
+</odoo>

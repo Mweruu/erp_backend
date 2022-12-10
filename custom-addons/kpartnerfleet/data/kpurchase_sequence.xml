@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="kpurchase_sequence" model="ir.sequence">
+
+    <field name="name">KPurchase Sequence</field>
+    <field name="code">kpurchase.sequence</field>
+    <field name="active">TRUE</field>
+    <field name="prefix">LPO </field>
+    <field name="padding">6</field>
+    <field name="number_next">1</field>
+    <field name="number_increment">1</field>
+    </record>
+</odoo>

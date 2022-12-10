@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="k_pos_orders_transactions_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div>
+                    <t t-set="address">
+                        <div t-field="user.company_id" t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' />
+                        <p t-if="user.company_id.vat">
+                            <t t-esc="user.company_id.account_fiscal_country_id.vat_label or 'Tax ID'" />
+                            :
+                            <span t-field="user.company_id.vat" />
+                        </p>
+                    </t>
+                </div>
+                <div class="text-center">
+                    <h3>
+                        Differential report 
+                        <t t-if='self["date_from"] == self["date_to"]'>
+                            for <t t-esc='self["date_from"]'/>
+                        </t>
+                        <t t-if='self["date_from"] != self["date_to"]'><t t-if='self["date_from"]'>from <t t-esc="self['date_from']"/></t> <t t-if='self["date_to"]'> till <t t-esc="self['date_to']"/></t></t>
+                    </h3>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Date</b>
+                                </td>
+                                <td>
+                                    <b>Order No.</b>
+                                </td>
+                                <td>
+                                    <b>SalesPerson</b>
+                                </td>
+                                <td>
+                                    <b>Product</b>
+                                </td>
+                                <td>
+                                    <b>Quantity</b>
+                                </td>
+                                <td>
+                                    <b>Sold Price</b>
+                                </td>
+                                <td>
+                                    <b>Fixed Price</b>
+                                </td>
+                                <td>
+                                    <b>Difference</b>
+                                </td>
+                                <td>
+                                    <b>Total Difference</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total" t-value="0"/>
+                            <t t-foreach="records   " t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['date']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['pos_no']" />
+                                    </td>
+                                     <td>
+                                        <t t-esc="d['user']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['product_id']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['qty']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['sale']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['fixed']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['diff']" />
+                                    </td>
+                                    <td>
+                                        <b t-esc="d['tot']" />
+                                        <t t-set="total" t-value="total+d['tot']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="text-right">
+                                        <b> Total</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b t-esc='round(total,2)'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="k_pos_orders_transactions_report" model="ir.actions.report">
+        <field name="name">POS Sale Price vs Fixed Price difference Report</field>
+        <field name="model">pos.order.report.diffs</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sale_report.k_pos_orders_transactions_report_template</field>
+        <field name="report_file">pos_sale_report.k_pos_orders_transactions_report_template</field>
+        <field name="print_report_name">'POS Sale Price - Fixed Price difference Report'</field>
+        <field name="binding_model_id" ref="model_pos_order_report_diffs" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

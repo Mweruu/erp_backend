@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="k_partner_fleet_vehicle_form" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='license_plate']" position="after">
+                <group name="delivery_details">                
+                    <field name="partner_id"/>
+                    <field name="tonnage"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+  <record id="k_partner_fleet_vehicle_list" model="ir.ui.view">
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="before">
+                <t t-if="record.driver_id.partner_id"><field name="partner_id"/> </t>  
+                <t t-if="record.tonnage.raw_value"> <field name="tonnage"/> </t>
+            </xpath>   
+        </field>
+    </record>
+    
+</odoo>
