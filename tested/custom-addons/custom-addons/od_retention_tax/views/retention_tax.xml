@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="retention_tax_report_wizard" model="ir.ui.view">
+        <field name="name">retention_tax_report_wizard</field>
+        <field name="model">retention.tax.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_retention_tax_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_retention_tax_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="retention_tax_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Retention Tax Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">retention.tax.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='retention_tax_report_wizard'/>
+    </record>
+     <menuitem id="menu_action_retention_tax" name="Retention tax report"
+               action="retention_tax_report_wizard_action" sequence="1" parent="account.menu_finance_reports"/>
+</odoo>

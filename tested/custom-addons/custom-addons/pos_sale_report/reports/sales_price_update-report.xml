@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_price_difference_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Sales Price Update Report</h2>
+                    <p>Date from:
+                        <t t-esc='self["date_from"]'/>
+                        - Date to:
+                        <t t-esc='self["date_to"]'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Date time</b>
+                                </td>
+                                <td>
+                                    <b>Username</b>
+                                </td>
+                                <td>
+                                    <b>Product name</b>
+                                </td>
+                                <td>
+                                    <b>Old price</b>
+                                </td>
+                                <td>
+                                    <b>Sales price</b>
+                                </td>
+                                <td>
+                                    <b>Difference</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Time']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['User_id']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Product_id']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Old Price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Sales Price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Price Difference']"/>
+                                    </td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="sales_price_difference_report" model="ir.actions.report">
+        <field name="name">Changes in price of a product report</field>
+        <field name="model">sales.price.differences</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sale_report.sales_price_difference_report_template</field>
+        <field name="report_file">pos_sale_report.sales_price_difference_report_template</field>
+        <field name="print_report_name">'Old price vs Current price'</field>
+        <field name="binding_model_id" ref="model_sales_price_differences"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

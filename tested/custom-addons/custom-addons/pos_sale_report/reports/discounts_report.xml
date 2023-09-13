@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_discounts_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Sales Price vs New Base Price</h2>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Product Name</b>
+                                </td>
+                                <td>
+                                    <b>Sales Price</b>
+                                </td>
+                                 <td>
+                                    <b>Standard Price</b>
+                                </td>
+                                <td>
+                                    <b>Sale Base Price</b>
+                                </td>
+                                <td>
+                                    <b>Difference</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Product Name']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Sales Price']"/>
+                                    </td>
+                                     <td>
+                                        <t t-esc="d['Standard Price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Sale Base Price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Difference']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="5">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="product_discounts_report" model="ir.actions.report">
+        <field name="name">Sales Price with variance</field>
+        <field name="model">product.discounts.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sale_report.product_discounts_report_template</field>
+        <field name="report_file">pos_sale_report.product_discounts_report_template</field>
+        <field name="print_report_name">'Sales Price vs New Base Price'</field>
+        <field name="binding_model_id" ref="model_product_discounts_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

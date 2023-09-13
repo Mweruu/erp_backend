@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="retention_tax_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Retention tax report</h2>
+                    <p>Date from:
+                        <t t-esc='self["date_from"]'/>
+                        - Date to:
+                        <t t-esc='self["date_to"]'/>
+                    </p>
+                    <p>
+                         For:
+                        <t t-esc="account_name"/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Datetime</b>
+                                </td>
+                                <td>
+                                    <b>Journal Entry</b>
+                                </td>
+                                <td>
+                                    <b>Label</b>
+                                </td>
+                                 <td>
+                                    <b>Customer</b>
+                                </td>
+                                <td>
+                                    <b>Amount</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Datetime']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Journal Entry']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Label']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Customer']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Amount']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="5">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <div class="oe-right text-right">
+                        <h3>Total:
+                            <t t-esc="grand_total"/>
+                        </h3>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="retention_tax_report" model="ir.actions.report">
+        <field name="name">Sum of all Retention taxes paid</field>
+        <field name="model">retention.tax.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">od_retention_tax.retention_tax_report_template</field>
+        <field name="report_file">od_retention_tax.retention_tax_report_template</field>
+        <field name="print_report_name">'Retention tax'</field>
+        <field name="binding_model_id" ref="model_retention_tax_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

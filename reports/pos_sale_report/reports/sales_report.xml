@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Sales Report</h2>
+                    <p>Date:
+                        <t t-esc='self["date"]'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Sale No. </b>
+                                </td>
+                                <td>
+                                    <b>Partner</b>
+                                </td>
+                                <td>
+                                    <b>Amount</b>
+                                </td>
+                                <td>
+                                    <b>Date Paid/Cleared</b>
+                                </td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Sale_no']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Partner']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Amount']"/>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="sales_report" model="ir.actions.report">
+        <field name="name">All Sales</field>
+        <field name="model">sales.reports</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sale_report.sales_report_template</field>
+        <field name="report_file">pos_sale_report.sales_report_template</field>
+        <field name="print_report_name">'Sales'</field>
+        <field name="binding_model_id" ref="model_sales_reports"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

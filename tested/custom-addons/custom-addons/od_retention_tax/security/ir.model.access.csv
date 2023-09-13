@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+od_retention_tax.access_retention_tax_report,access_retention_tax_report,od_retention_tax.model_retention_tax_report,base.group_user,1,1,1,0

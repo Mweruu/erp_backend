@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="pos_daily_overview_list" model="ir.ui.view">
+        <field name="name">POS daily Overview</field>
+        <field name="model">pos.order.daily_report</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit='false'>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="grand_total"/>
+                <field name="total_refunds"/>
+                <field name="cash_in_hand"/>
+            </tree>
+        </field>
+    </record>
+    <record id="pos_daily_overview_form" model="ir.ui.view">
+        <field name="name">POS daily Overview</field>
+        <field name="model">pos.order.daily_report</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button type="object" name="update_pos" string="Refresh" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <div style="padding-right: 0.6em;margin-right: 0.4em; border-right: 1px solid gray;">
+                                <u>
+                                    <h4 class="text-center">Sales</h4>
+                                </u>
+                                <field name="pos_line" nolabel="1">
+                                    <tree string="Summary" create="false" edit='false'>
+                                        <field name="salesperson"/>
+                                        <field name="tot"/>
+                                        <field name="total_refunds"/>
+                                    </tree>
+                                </field>
+                                <div class="text-right" style="display: flex; border-top: 1px solid #00000023;">
+                                    <div style="width:100%;"></div>
+                                    <div style="width:100%;">
+                                        <field name="grand_total"/>
+                                    </div>
+                                    <div style="width:100%;">
+                                        <field name="total_refunds"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <u>
+                                <h4 class="text-center">Refunds</h4>
+                            </u>
+
+                            <field name="total_refunds" readonly="True"/>
+                            <field name="cash_in_hand"/>
+
+                            <field name="difference"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="pos_daily_overview_view_action" model="ir.actions.act_window">
+        <field name="name">POS daily Overview</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.daily_report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+    <record model="ir.actions.server" id="pos_daily_overview_action">
+        <field name="name">Res Partner Server Action</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_pos_order_daily_report"/>
+        <field name="state">code</field>
+        <field name="code">
+            action=env['pos.order.daily_report'].update_all()
+        </field>
+    </record>
+    <menuitem id="pos_sales_overview" name="Sales Overview" action="pos_daily_overview_action"
+              parent="point_of_sale.menu_point_of_sale"/>
+</odoo>

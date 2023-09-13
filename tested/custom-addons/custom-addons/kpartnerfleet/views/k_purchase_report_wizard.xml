@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="k_purchase_report_wizard" model="ir.ui.view">
+        <field name="name">k_purchase_report_wizard</field>
+        <field name="model">purchase.kpurchase.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner"/>
+                        </group>
+                        <group>
+                            <field name='date_from'/>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="kpurchase_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.kpurchase.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='k_purchase_report_wizard'/>
+    </record>
+
+    <menuitem id="k_purchase_report_wizard_menu_item" name="Purchases report" sequence="4"
+              action="kpurchase_report_wizard_action" parent="kpartnerfleet.kpurchase_reports"/>
+</odoo>

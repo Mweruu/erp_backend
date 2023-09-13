@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="journal_items_report_wizard" model="ir.ui.view">
+        <field name="name">journal_items_report_wizard</field>
+        <field name="model">journal.items.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='journal_type'/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_journal_items_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_journal_items_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="journal_items_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Statement Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">journal.items.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='journal_items_report_wizard'/>
+    </record>
+     <menuitem id="menu_action_journal_items" name="Statement Report"
+               action="journal_items_report_wizard_action" sequence="1" parent="account.menu_finance_reports"/>
+</odoo>

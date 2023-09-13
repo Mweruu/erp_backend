@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="quantity_track_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Quantity track Report</h2>
+                    <p>Date from:
+                        <t t-esc='self["date_from"]'/>
+                        - Date to:
+                        <t t-esc='self["date_to"]'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Datetime</b>
+                                </td>
+                                <td>
+                                    <b>Company name</b>
+                                </td>
+                                <td>
+                                    <b>Location</b>
+                                </td>
+                                <td style="width:20%;">
+                                    <b>Warehouse</b>
+                                </td>
+                                <td>
+                                    <b>Username</b>
+                                </td>
+                                <td>
+                                    <b>Product name</b>
+                                </td>
+                                <td>
+                                    <b>New Quantity</b>
+                                </td>
+                                <td>
+                                    <b>Initial quantity</b>
+                                </td>
+                                <td>
+                                    <b>Difference</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Datetime']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Company name']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Location']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Warehouse']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['User_id']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Product_id']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['New Quantity']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Initial quantity']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Total difference']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="9">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="quantity_track_report" model="ir.actions.report">
+        <field name="name">Changes in the quantity of a product</field>
+        <field name="model">quantity.track.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_sale_report.quantity_track_report_template</field>
+        <field name="report_file">pos_sale_report.quantity_track_report_template</field>
+        <field name="print_report_name">'Old product quantity vs Current product quantity'</field>
+        <field name="binding_model_id" ref="model_quantity_track_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

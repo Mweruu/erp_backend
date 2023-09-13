@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="view_account_payment_invoice_form_inherited" model="ir.ui.view">-->
+<!--            <field name="name">account.payment.invoice.form1</field>-->
+<!--            <field name="model">account.payment</field>-->
+<!--            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='communication']" position="after">-->
+<!--                    <field name="tax_type" invisible="1"/>-->
+<!--                    <field name="tax_id" domain="[('type_tax_use', '=', tax_type),('is_withholding_tax', '=', True)]"/>-->
+<!--                    <field name="tax_amount" attrs="{'invisible': [('tax_id', '=', False)]}" readonly="1"/>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="view_account_payment_form_inherited" model="ir.ui.view">
+            <field name="name">account.payment.form22</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="tax_type" invisible="1"/>
+                    <field name="tax_id" domain="[('type_tax_use', '=', tax_type), ('is_withholding_tax', '=', True)]"
+                           attrs="{'invisible': [('is_internal_transfer', '=', True)]}"/>
+                    <field name="tax_amount" readonly="1"
+                           attrs="{'invisible': [('tax_id', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

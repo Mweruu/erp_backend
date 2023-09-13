@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="custom_pos_config_extended_form_view">
+			<field name="name">pos.config.form.extended.return.view</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[4]" position="after">
+					<br/>
+					<h2>Configure Return Policy</h2>
+					<div class="row mt16 o_settings_container" id="session_return_config">
+						<div id="show_r_is_enabled_refund" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="is_enabled_refund"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_enabled_refund" string='Is Enabled Refund Qty'/>
+							</div>
+						</div>
+						<div id="show_r_is_enabled_return" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="is_enabled_return"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_enabled_return" string='Is Enabled Return Qty'/>
+							</div>
+						</div>
+						<div id="show_r_is_hide_order_button" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="is_hide_order_button"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_hide_order_button" string='Is Show Orders Button'/>
+							</div>
+						</div>
+						<div id="show_r_max_day_refund" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="max_day_refund" string='Set Max Days Of Return/Refund Qty'/>
+								<field name="max_day_refund"/>
+							</div>
+						</div>
+						<div id="show_r_is_show_all_orders_button" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="is_show_all_orders"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="is_show_all_orders" string='Is Show All Orders On Refund'/>
+							</div>
+						</div>
+					</div>
+				</xpath>  	
+			</field>
+		</record>
+		<record model="ir.ui.view" id="pos_return_order">
+			<field name="name">pos.order.view.return.form</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="return_order_ref" attrs="{'invisible': [('return_order_ref', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//form/sheet/notebook/page/field[@name='lines']//tree/field[@name='discount']" position="before">
+					<field name="original_line_id" invisible="1"/>
+					<field name="return_qty"  invisible="0"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

@@ -1,0 +1,26 @@
+{
+    'name': 'Retention TAx',
+    'version': '15.0.1',
+    'category': 'Accounting',
+    'license': "AGPL-3",
+    'summary': "Retention Tax on Payments",
+    'author': "Younis",
+    'depends': [
+        'sale',
+        'purchase',
+        'account',
+        'payment',
+    ],
+    'data': [
+        "security/ir.model.access.csv",
+        'views/account_tax.xml',
+        'views/payment_view.xml',
+        'views/account_payment_register.xml',
+        'views/retention_tax.xml',
+        'views/res_config_settings.xml',
+        'reports/retention_tax_report.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

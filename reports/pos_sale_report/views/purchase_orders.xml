@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_report_wizard" model="ir.ui.view">
+        <field name="name">purchase_report_wizard</field>
+        <field name="model">purchase.order.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='partner_id'/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_purchase_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_purchase_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="purchase_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Purchase order report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='purchase_report_wizard'/>
+    </record>
+    <menuitem id="purchase_report_porder_main" name="Purchase Order Report" sequence="100"
+              action="purchase_report_wizard_action" parent="purchase.purchase_report_main"/>
+</odoo>

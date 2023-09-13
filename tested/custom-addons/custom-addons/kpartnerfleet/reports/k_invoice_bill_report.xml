@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="account_move_report_extension" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div class="col-auto col-3 mw-100 mb-2" t-if="o.kpurchase_id" name="o.kpurchase_id">
+                <strong>LPO Reference:</strong>
+                <p class="m-0" t-field="o.kpurchase_id"/>
+            </div>
+            <div class="col-auto col-3 mw-100 mb-2" t-if="o.vehicle_id" name="o.vehicle_id">
+                <strong>Delivery/PickUp Vehicle:</strong>
+                <p class="m-0" t-field="o.vehicle_id"/>
+            </div>
+            <div class="col-auto col-3 mw-100 mb-2" t-if="o.location_id" name="o.location_id">
+                <strong>Delivery/PickUp Location:</strong>
+                <p class="m-0" t-field="o.location_id"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
+ 

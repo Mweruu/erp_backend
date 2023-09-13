@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_global_discs_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pricing_setting_container']" position="after">
+                <div class="row mt16 o_settings_container" id="pricing_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box"
+                         id="global_discount_sale_order_lines">
+                        <div class="o_setting_left_pane">
+                            <field name="global_discount_per_so_line"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="global_discount_per_so_line" string="Global Discounts"/>
+                            <div class="text-muted">
+                                Discounts on the total amount of an order
+                            </div>
+                            <div class="content-group">
+                                <field name="global_discount_value" class="o_light_label" style="width: 50px;"/>
+                                <span>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

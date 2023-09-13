@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sales_report_wizard" model="ir.ui.view">
+        <field name="name">sales_report_wizard</field>
+        <field name="model">sales.reports</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='date'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_sales_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_sales_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sales_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Sales Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sales.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='sales_report_wizard'/>
+    </record>
+<!--     <menuitem id="sales_menu_item" name="All Sales" parent="sale.menu_sale_report" sequence="100"-->
+<!--              action="sales_report_wizard_action"/>-->
+    <menuitem id="sales_menu_item" name="All Sales"
+               action="sales_report_wizard_action" sequence="1" parent="account.menu_finance_reports"/>
+</odoo>

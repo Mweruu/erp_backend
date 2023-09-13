@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bi_pos_return_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-22 08:01+0000\n"
+"PO-Revision-Date: 2021-12-22 08:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Apply"
+msgstr "Solicitar"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/js/pos_return_order.js:0
+#, python-format
+msgid "Invalid Barcode"
+msgstr "Código de barras inválido"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Orders"
+msgstr "Pedidos"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Product"
+msgstr "Producto"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Return Order"
+msgstr "Orden de devolución"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Return Order Barcode"
+msgstr "Código de barras de orden de devolución"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Return Order with Barcode"
+msgstr "Orden de devolución con código de barras"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Return Products"
+msgstr "Productos de devolución"
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/xml/pos_return_order.xml:0
+#, python-format
+msgid "Return Qty"
+msgstr "Devolver Cant."
+
+#. module: bi_pos_return_order
+#. openerp-web
+#: code:addons/bi_pos_return_order/static/src/js/pos_return_order.js:0
+#, python-format
+msgid "The Barcode You are Entering is Invalid"
+msgstr "El código de barras que está ingresando no es válido"

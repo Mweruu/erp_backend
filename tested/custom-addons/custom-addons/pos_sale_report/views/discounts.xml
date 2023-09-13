@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="discounts_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='purchase']" position="after">
+                <page name="group_standard_price" string="Discounts">
+                    <group>
+                        <group>
+                            <label for="list_base_price" class="mt-1"/>
+                            <div name="pricing">
+                                <field name="list_base_price" class="oe_inline" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="global_discount_value"/>
+                            <div>
+                                <field name="global_discount_value"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="list_price" class="mt-1"/>
+                            <div name="pricing">
+                                <field name="list_price" class="oe_inline" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="new_standard_price" class="mt-1"/>
+                            <div name="pricing">
+                                <field name="new_standard_price" class="oe_inline" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="standard_price" class="mt-1"/>
+                            <div name="pricing">
+                                <field name="standard_price" class="oe_inline" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="variance" class="mt-1"/>
+                            <div name="pricing">
+                                <field name="variance" decoration-danger="variance &lt; 0" class="oe_inline"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            </div>
+                            <label for="variance_percentage" class="mt-1"/>
+                            <div>
+                                <field name="variance_percentage" decoration-danger="variance_percentage &lt; 0"/>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
