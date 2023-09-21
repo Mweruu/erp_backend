@@ -45,7 +45,7 @@ class StockPicking(models.Model):
             positive_picking._create_move_from_pos_order_lines(positive_lines)
             try:
                 with self.env.cr.savepoint():
-                    self.done = positive_picking._action_done()
+                    positive_picking._action_done()
             except (UserError, ValidationError):
                 pass
 

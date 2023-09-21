@@ -13,6 +13,7 @@ logger.setLevel(logging.DEBUG)
 class RetentionTaxReport(models.Model):
     _name = "retention.tax.report"
     _report_type = 'csv'
+    _description = "Retention tax"
 
     @api.model
     def _default_user(self):
@@ -41,7 +42,7 @@ class RetentionTaxReport(models.Model):
         items = self.env['account.move.line'].search([
                 ('create_date', '>=', self.date_from),
                 ('create_date', '<=', self.date_to),
-                ('payment_id', '=', acc_records.ids),
+                ('payment_id', 'in', acc_records.ids),
                 ('account_id', '=', retention_account_id),
                 ('amount_currency', '>', 0),
                 ('parent_state', '=', 'posted')
@@ -61,9 +62,9 @@ class RetentionTaxReport(models.Model):
                     'Customer': item['partner_id'].name,
                     'Amount': formatted_amount,
                 })
-
+        sorted_data = sorted(data, key=lambda time: time['Datetime'], reverse=True)
         data = {
-            'records': data,
+            'records': sorted_data,
             'grand_total': grand_total,
             'self': self.read()[0],
             'account_name': account.name

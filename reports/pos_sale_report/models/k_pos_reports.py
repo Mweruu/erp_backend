@@ -14,6 +14,7 @@ logger.setLevel(logging.DEBUG)
 
 class POSDifferenceReport(models.Model):
     _name = "pos.order.report.diffs"
+    _description = "POS price difference"
 
     user_id = fields.Many2one('res.users')
     date_from = fields.Date(default=datetime.now())
@@ -21,7 +22,7 @@ class POSDifferenceReport(models.Model):
 
     def get_difference_report_data(self):
         data, domain = [], []
-        total = 0
+        grand_total = 0
         if self.date_from:
             domain += [('create_date', '>=', self.date_from)]
         if self.date_to:
@@ -33,11 +34,11 @@ class POSDifferenceReport(models.Model):
 
         pos = self.env['pos.order'].search(domain)
         po_ids = [po.id for po in pos]
-        domain += [('price_unit', ">=", 0)]
 
-        order_lines = self.env['pos.order.line'].search([('order_id', '=', po_ids),
-                                                        ('gift_card_id', '=', False),
-                                                        ('gift_card_id', '=', None)])
+        order_lines = self.env['pos.order.line'].search([('order_id', 'in', po_ids),
+                                                         ('generated_gift_card_ids', '=', False),
+                                                         ('gift_card_id', '=', False)
+                                                         ])
         for order_line in order_lines:
             # create a datamodel
             product = self.env['product.product'].search_read([('id', '=', order_line.product_id.id)])[0]
@@ -46,7 +47,6 @@ class POSDifferenceReport(models.Model):
                 local_create_date = order_line['create_date'].astimezone(local_tz)
                 date = local_create_date.strftime('%d-%m-%Y')
                 domain += [('id', '=', [0])]
-
                 user = order_line.order_id.user_id.name
                 parts = user.split()
                 initials = [part[0] for part in parts]
@@ -57,12 +57,13 @@ class POSDifferenceReport(models.Model):
                 result = re.sub(pattern, '', product_id)
                 qty = order_line['qty']
                 sale = order_line['price_unit']
-                fix = product['lst_price']
-                fixed = round(fix, 2)
-                diff = round(sale - fixed, 2)
-                tot = round(diff * qty, 2)
-                total += tot
-                logger.debug(f"sale: {sale}, fixed:{fixed}, qty:{qty},difference: {diff},tot: {tot}")
+                list_price = product['lst_price']
+                rounded_list_price = round(list_price, 2)
+                difference = round(sale - rounded_list_price, 2)
+                total = round(difference * qty, 2)
+                grand_total += total
+                logger.debug(
+                    f"sale: {sale}, rounded_list_price:{rounded_list_price}, qty:{qty},difference: {difference},total: {total}")
                 data.append({
                     'date': date,
                     'user': abbreviated,
@@ -70,16 +71,16 @@ class POSDifferenceReport(models.Model):
                     'product_id': result,
                     'qty': qty,
                     'sale': sale,
-                    'fixed': fixed,
-                    'diff': diff,
-                    'tot': tot
+                    'rounded_list_price': rounded_list_price,
+                    'difference': difference,
+                    'total': total
                 })
 
-        sorted_data = sorted(data, key=lambda tot: tot['tot'])
+        sorted_data = sorted(data, key=lambda total: total['total'])
 
         data = {
             'records': sorted_data,
-            'grand_total': round(total, 2),
+            'grand_total': round(grand_total, 2),
             'self': self.read()[0]
         }
         return data

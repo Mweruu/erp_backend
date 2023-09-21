@@ -12,8 +12,9 @@ logger.setLevel(logging.DEBUG)
 
 class GiftCards(models.Model):
     _name = "gift.cards.report"
+    _description = "Gift Card Report"
 
-    date = fields.Date(default=datetime.now(), editable=False)
+    date = fields.Date(default=datetime.now())
 
     @api.model
     def _default_user(self):

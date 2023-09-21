@@ -13,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 
 class PriceDifference(models.Model):
     _name = "sales.price.differences"
-
+    _description = "Sales price update"
     @api.model
     def _default_user(self):
         return self.env.context.get('user_id', self.env.user.id)
@@ -33,20 +33,17 @@ class PriceDifference(models.Model):
             user_name = sales_price_difference['user_id']
             old_price = sales_price_difference['old_price']
             list_price = sales_price_difference['list_price']
-            diff = int(float(list_price)) - int(float(old_price))
-            logger.debug(f"old price: {old_price}, list price:{list_price},Difference: {diff}")
+            difference = int(float(list_price)) - int(float(old_price))
             local_tz = pytz.timezone('Etc/GMT-3')
             local_create_date = sales_price_difference['create_date'].astimezone(local_tz)
             if product_name:
                 data.append({
-                    "Date from": sales_price_difference['date_from'],
-                    "Date to": sales_price_difference['date_to'],
-                    "Old Price": sales_price_difference['old_price'],
-                    "Sales Price": sales_price_difference['list_price'],
+                    "Time": local_create_date.strftime('%d-%m-%Y, %H:%M:%S'),
                     "User_id": user_name.name,
                     'Product_id': product_name.name,
-                    'Price Difference': diff,
-                    'Time': local_create_date.strftime('%d-%m-%Y, %H:%M:%S'),
+                    "Old Price": sales_price_difference['old_price'],
+                    "Sales Price": sales_price_difference['list_price'],
+                    'Price Difference': difference,
                 })
         data = {
             'records': data,

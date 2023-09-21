@@ -11,6 +11,7 @@ logger.setLevel(logging.DEBUG)
 
 class ProductDiscountsReport(models.Model):
     _name = 'product.discounts.report'
+    _description = "Sales price with variance"
 
     @api.model
     def _default_user(self):
@@ -81,7 +82,7 @@ class ProductDiscountsReport(models.Model):
 
 class BasePriceReport(models.Model):
     _name = 'base.price.report'
-
+    _description = "Sales price without variance"
     @api.model
     def _default_user(self):
         return self.env.context.get('user_id', self.env.user.id)

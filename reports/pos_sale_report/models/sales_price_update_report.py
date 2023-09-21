@@ -3,6 +3,7 @@ from odoo import models, fields, api
 
 class PriceDifference(models.Model):
     _name = "sales.price.difference"
+    _description = "Sales price update report"
 
     @api.model
     def _default_user(self):

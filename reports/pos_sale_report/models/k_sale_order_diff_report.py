@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 class POSDifferenceReport(models.Model):
     _name = "sale.order.report.diffs"
+    _description = "Sale price difference"
 
     user_id = fields.Many2one('res.users')
     date_from = fields.Date(default=datetime.now())
@@ -21,7 +22,7 @@ class POSDifferenceReport(models.Model):
 
     def get_price_difference_report_data(self):
         data, domain, domain_user = [], [], []
-        total = 0
+        grand_total = 0
         if self.date_from:
             domain += [('create_date', '>=', self.date_from)]
         if self.date_to:
@@ -35,7 +36,7 @@ class POSDifferenceReport(models.Model):
         pos = self.env['sale.order'].search(domain)
         po_ids = [po.id for po in pos]
         domain += [('price_unit', ">=", 0)]
-        order_lines = self.env['sale.order.line'].search([('order_id', '=', po_ids)])
+        order_lines = self.env['sale.order.line'].search([('order_id', 'in', po_ids)])
 
         for order_line in order_lines:
             # create a datamodel
@@ -54,11 +55,11 @@ class POSDifferenceReport(models.Model):
                 result = re.sub(pattern, '', product_id)
                 qty = order_line.product_uom_qty
                 sale = order_line.price_unit
-                fixed = product['lst_price']
-                diff = round(sale - fixed, 2)
-                tot = round(diff * qty, 2)
-                total += tot
-                logger.debug(f"sale: {sale}, fixed:{fixed}, qty:{qty},difference: {diff},tot: {tot}")
+                list_price = product['lst_price']
+                difference = round(sale - list_price, 2)
+                total = round(difference * qty, 2)
+                grand_total += total
+                logger.debug(f"sale: {sale}, list_price:{list_price}, qty:{qty},difference: {difference},total: {total}")
                 data.append({
                     'date': date,
                     'user': user,
@@ -67,18 +68,18 @@ class POSDifferenceReport(models.Model):
                     'product_id': result,
                     'qty': qty,
                     'sale': sale,
-                    'fixed': fixed,
-                    'diff': diff,
-                    'tot': tot
+                    'list_price': list_price,
+                    'difference': difference,
+                    'total': total
                 }
                 )
 
         # sort
-        sorted_data = sorted(data, key=lambda tot: tot['tot'])
+        sorted_data = sorted(data, key=lambda total: total['total'])
 
         data = {
             'records': sorted_data,
-            'grand_total': round(total, 2),
+            'grand_total': round(grand_total, 2),
             'self': self.read()[0]
         }
         return data

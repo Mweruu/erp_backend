@@ -9,7 +9,7 @@ logger.setLevel(logging.DEBUG)
 
 class ScheduledActions(models.Model):
     _inherit = "pos.config"
-    email_to = fields.Char('Email', required=True)
+    email_to = fields.Char('Email', required=True, default='example@example.com')
 
     @api.model
     def _cron_send_reports(self):
@@ -54,6 +54,9 @@ class ScheduledActions(models.Model):
         sales_reports = self.env['sales.reports'].create({})
         report13 = sales_reports.get_sales_report_data()
 
+        Order_refunds = self.env['pos.order.refunds'].create({})
+        report14 = Order_refunds.get_refunded_orders_report_data()
+
         pdfs = [
             self.env.ref('pos_sale_report.quantity_track_report')._render(
                 'pos_sale_report.quantity_track_report_template', report),
@@ -79,6 +82,8 @@ class ScheduledActions(models.Model):
                 'journal_items_report.journal_items_report_template', report12),
             self.env.ref('pos_sale_report.sales_report')._render(
                 'pos_sale_report.sales_report_template', report13),
+            self.env.ref('pos_sale_report.k_pos_refunded_orders_transactions_report')._render(
+                'pos_sale_report.k_pos_refunded_orders_transactions_report_template', report14),
 
         ]
         templates = [
@@ -93,7 +98,8 @@ class ScheduledActions(models.Model):
             self.env.ref('pos_sale_report.gift_cards_report_template').name,
             self.env.ref('od_retention_tax.retention_tax_report_template').name,
             self.env.ref('journal_items_report.journal_items_report_template').name,
-            self.env.ref('pos_sale_report.sales_report_template').name
+            self.env.ref('pos_sale_report.sales_report_template').name,
+            self.env.ref('pos_sale_report.k_pos_refunded_orders_transactions_report_template').name
 
         ]
         names = [
@@ -109,6 +115,7 @@ class ScheduledActions(models.Model):
             self.env.ref('od_retention_tax.retention_tax_report').name,
             self.env.ref('journal_items_report.journal_items_report').name,
             self.env.ref('pos_sale_report.sales_report').name,
+            self.env.ref('pos_sale_report.k_pos_refunded_orders_transactions_report').name,
 
         ]
 
@@ -137,4 +144,4 @@ class ScheduledActions(models.Model):
 class ScheduledAction(models.Model):
     _inherit = "ir.cron"
 
-    email_to = fields.Char('Email')
+    email_to = fields.Char('Email', required=True, default='example@example.com')

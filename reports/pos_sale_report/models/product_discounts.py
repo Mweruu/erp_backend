@@ -8,6 +8,7 @@ logger.setLevel(logging.DEBUG)
 class ProductDiscounts(models.Model):
     _name = 'product.discounts'
     _description = 'Product Discounts'
+
     discount_id = fields.Many2one('product.template', string='Discount', readonly=True)
     name = fields.Char('Name', related='discount_id.name', index=True, required=True, translate=True)
     minimum_allowed_price = fields.Float(string='Minimum Allowed Price', digits='Product Price',
@@ -31,6 +32,6 @@ class ProductDiscounts(models.Model):
     list_base_price = fields.Float(related='discount_id.list_base_price')
     standard_price = fields.Float(related='discount_id.standard_price')
     list_price = fields.Float(related='discount_id.list_price')
-    new_standard_price = fields.Float(related='discount_id.new_standard_price', default=0.0)
+    new_standard_price = fields.Float(related='discount_id.new_standard_price')
     tax = fields.Float("Tax%", default='get_tax')
     variance = fields.Float("Variance", default='get_variance')

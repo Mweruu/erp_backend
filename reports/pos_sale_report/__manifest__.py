@@ -20,6 +20,7 @@
         "views/base-price.xml",
         "views/giftcards.xml",
         "views/sales.xml",
+        "views/refund_orders.xml",
         "views/scheduled_actions.xml",
         "reports/k_pos_refund_report.xml",
         "reports/k_pos_diff_report.xml",
@@ -31,6 +32,7 @@
         "reports/product_discounts.xml",
         "reports/giftcards-reports.xml",
         "reports/sales_report.xml",
+        "reports/refund_orders_report.xml",
 
     ],
     'license': 'LGPL-3',

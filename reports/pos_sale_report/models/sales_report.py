@@ -16,8 +16,9 @@ locale.setlocale(locale.LC_ALL, '')
 
 class Sales(models.Model):
     _name = 'sales.reports'
+    _description = "Sales report"
 
-    date = fields.Date(default=datetime.now(), editable=False)
+    date = fields.Date(default=datetime.now())
 
     def get_sales_report_data(self):
         data = []

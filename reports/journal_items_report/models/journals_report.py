@@ -13,6 +13,7 @@ logger.setLevel(logging.DEBUG)
 class JournalsReport(models.Model):
     _name = 'journal.items.report'
     _report_type = 'csv'
+    _description = "Statement report"
 
     @api.model
     def _default_type(self):

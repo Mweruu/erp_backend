@@ -27,6 +27,9 @@
                                     <b>Journal Entry</b>
                                 </td>
                                 <td>
+                                    <b>Customer</b>
+                                </td>
+                                <td>
                                     <b>Label</b>
                                 </td>
                                 <td>
@@ -42,6 +45,9 @@
                                     </td>
                                     <td>
                                         <t t-esc="d['Journal Entry']"/>
+                                    </td>
+                                     <td>
+                                        <t t-esc="d['Customer']"/>
                                     </td>
                                     <td>
                                         <t t-esc="d['Label']"/>

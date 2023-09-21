@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="k_pos_refunded_orders_report_wizard" model="ir.ui.view">
+        <field name="name">k_pos_refunded_orders_report_wizard</field>
+        <field name="model">pos.order.refunds</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name='date_from'/>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_refunded_orders_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_refunded_orders_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="k_pos_refunded_orders_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Order Refunds Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.refunds</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='k_pos_refunded_orders_report_wizard'/>
+    </record>
+    <!-- Reporting menu -->
+        <menuitem id="menu_point_refunded_orders_rep" name="Order Refunds" parent="point_of_sale.menu_point_rep" sequence="100"
+              action="k_pos_refunded_orders_report_wizard_action" groups="point_of_sale.group_pos_manager"/>
+</odoo>

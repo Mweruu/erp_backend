@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="k_sale_orders_transactions_report_template">
+    <template id="k_pos_refunded_orders_transactions_report_template">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="text-center">
                     <h3>
-                        Differential report
+                        Refunds report
                         <t t-if='self["date_from"] == self["date_to"]'>
                             for
                             <t t-esc='self["date_from"]'/>
@@ -38,29 +38,11 @@
                                 <td>
                                     <b>Date</b>
                                 </td>
-                                <td>
+                                <td style="width:20%">
                                     <b>Order No.</b>
                                 </td>
                                 <td>
-                                    <b>Customer</b>
-                                </td>
-                                <td>
                                     <b>SalesPerson</b>
-                                </td>
-                                <td>
-                                    <b>Product</b>
-                                </td>
-                                <td>
-                                    <b>Quantity</b>
-                                </td>
-                                <td>
-                                    <b>Sold Price</b>
-                                </td>
-                                <td>
-                                    <b>Fixed Price</b>
-                                </td>
-                                <td>
-                                    <b>Difference</b>
                                 </td>
                                 <td>
                                     <b>Total Difference</b>
@@ -78,25 +60,7 @@
                                         <t t-esc="d['pos_no']"/>
                                     </td>
                                     <td>
-                                        <t t-esc="d['customer']"/>
-                                    </td>
-                                    <td>
                                         <t t-esc="d['user']"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="d['product_id']"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="d['qty']"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="d['sale']"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="d['list_price']"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="d['difference']"/>
                                     </td>
                                     <td>
                                         <b t-esc="d['total']"/>
@@ -105,7 +69,7 @@
                                 </tr>
                             </t>
                             <tr>
-                                <td colspan="10">
+                                <td colspan="7">
                                     <div class="text-right">
                                         <b>Total</b>
                                     </div>
@@ -120,14 +84,14 @@
             </t>
         </t>
     </template>
-    <record id="k_sale_orders_transactions_report" model="ir.actions.report">
-        <field name="name">POS Sale Price vs Fixed Price difference Report</field>
-        <field name="model">sale.order.report.diffs</field>
+    <record id="k_pos_refunded_orders_transactions_report" model="ir.actions.report">
+        <field name="name">Refunds Report</field>
+        <field name="model">pos.order.refunds</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">pos_sale_report.k_sale_orders_transactions_report_template</field>
-        <field name="report_file">pos_sale_report.k_sale_orders_transactions_report_template</field>
-        <field name="print_report_name">'Sales [Sale Price - Fixed Price] difference Report'</field>
-        <field name="binding_model_id" ref="model_pos_order_report_diffs"/>
+        <field name="report_name">pos_sale_report.k_pos_refunded_orders_transactions_report_template</field>
+        <field name="report_file">pos_sale_report.k_pos_refunded_orders_transactions_report_template</field>
+        <field name="print_report_name">'POS Sale Price - Fixed Price difference Report'</field>
+        <field name="binding_model_id" ref="model_pos_order_refunds"/>
         <field name="binding_type">report</field>
     </record>
 </odoo>

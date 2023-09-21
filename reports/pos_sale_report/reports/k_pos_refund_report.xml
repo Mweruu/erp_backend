@@ -82,8 +82,8 @@
                                         <t t-esc="d['sale']"/>
                                     </td>
                                     <td>
-                                        <b t-esc="d['tot']"/>
-                                        <t t-set="total" t-value="total+d['tot']"/>
+                                        <b t-esc="d['total']"/>
+                                        <t t-set="total" t-value="total+d['total']"/>
                                     </td>
                                 </tr>
                             </t>

@@ -14,8 +14,6 @@ odoo.define('bi_pos_return_order.TicketScreen', function(require) {
     const RefundTicketScreen = (TicketScreen) =>
         class extends TicketScreen {
             async _onDoRefund() {
-                        console.log(userId, session.user_context);
-
                 const order = this.getSelectedSyncedOrder();
                 const date1 = new Date(order.validation_date);
                 const date2 = new Date()
@@ -34,6 +32,7 @@ odoo.define('bi_pos_return_order.TicketScreen', function(require) {
                 const orderStates = this._getOrderStates();
                 if(this.env.pos.config.is_enabled_refund){
                     orderStates.set('SYNCED', { text: this.env._t('Paid') });
+                    console.log(orderStates)
                 }
                 return orderStates;
             }

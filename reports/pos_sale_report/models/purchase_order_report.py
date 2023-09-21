@@ -14,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 
 class PurchaseReport(models.Model):
     _name = "purchase.order.report"
-
+    _description = "Purchase Order Report"
     @api.model
     def _default_user(self):
         return self.env.context.get('user_id', self.env.user.id)
@@ -32,7 +32,7 @@ class PurchaseReport(models.Model):
                                                        ('create_date', '<=', self.date_to),
                                                        ])
         for purchase in purchases:
-            order_line_items = self.env['purchase.order.line'].search_read([('order_id', '=', purchase.id)])
+            order_line_items = self.env['purchase.order.line'].search_read([('order_id', 'in', purchase.id)])
             for order_line_item in order_line_items:
                 local_tz = pytz.timezone('Etc/GMT-3')
                 local_create_date = order_line_item['create_date'].astimezone(local_tz)

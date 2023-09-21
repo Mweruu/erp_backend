@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 class QuantityTrack(models.Model):
     _name = "quantity.track"
+    _description = "Quantity track"
     location = fields.Char(string="Location")
 
     @api.model

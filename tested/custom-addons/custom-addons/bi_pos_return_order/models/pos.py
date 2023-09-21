@@ -39,19 +39,3 @@ class POSConfig(models.Model):
     is_hide_order_button = fields.Boolean(string="Is Show Orders Button")
     max_day_refund = fields.Integer(string="Set Max Days Of Return/Refund Qty")
     is_show_all_orders = fields.Boolean(string="Is Show All Orders On Refund")
-    orders = fields.Char(compute="_get_all_orders")
-
-    def _get_all_orders(self):
-        for config in self:
-            # Search for pos.orders related to the current company
-            orders = self.env['pos.order'].search([('company_id', '=', config.company_id.id)])
-
-            # Assuming you want to concatenate order names into a comma-separated string
-            # for order in orders:
-            #     print(order)
-            #     config.orders = order
-            orders_value =', '.join(order.name for order in orders)
-            # (order for order in orders)
-            # order_names = [order.name for order in orders]
-            # orders_value = ', '.join(order_names)
-            config.orders = orders

@@ -257,8 +257,8 @@ odoo.define('point_of_sale.TicketScreen', function (require) {
         shouldShowNewOrderButton() {
             return true;
         }
-        getFilteredOrderList() {
-            if (this._state.ui.filter == 'SYNCED') return this._state.syncedOrders.toShow;
+         getFilteredOrderList() {
+            if (this._state.ui.filter == 'SYNCED')return this._state.syncedOrders.toShow;
             const filterCheck = (order) => {
                 if (this._state.ui.filter && this._state.ui.filter !== 'ACTIVE_ORDERS') {
                     const screen = order.get_screen_data();
@@ -266,6 +266,7 @@ odoo.define('point_of_sale.TicketScreen', function (require) {
                 }
                 return true;
             };
+
             const { fieldName, searchTerm } = this._state.ui.searchDetails;
             const searchField = this._getSearchFields()[fieldName];
             const searchCheck = (order) => {

@@ -27,6 +27,7 @@ class KPurchaseReportWizard(models.TransientModel):
             domain += [('create_date', '<=', self.date_to)]
 
         transactions = self.env['purchase.kpurchase'].search_read(domain, order='id')
+        logger.info(transactions)
         data = {
             'form': self.read()[0],
             'transactions': transactions

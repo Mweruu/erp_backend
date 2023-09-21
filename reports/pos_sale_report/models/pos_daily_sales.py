@@ -4,6 +4,7 @@ from odoo import models, api, fields
 
 class PointOfSaleDailyReportLine(models.Model):
     _name = "pos.order.daily_report.line"
+    _description = "POS Sales Overview"
     report = fields.Many2one("pos.order.daily_report", readonly=True)
     salesperson = fields.Many2one('res.users', string="SalesPerson", readonly=True)
     tot = fields.Float(string="Total", readonly=True)

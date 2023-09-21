@@ -14,6 +14,7 @@ logger.setLevel(logging.DEBUG)
 class QuantityTrackReport(models.Model):
     _name = "quantity.track.report"
     _report_type = 'csv'
+    _description = "Quantity track report"
 
     @api.model
     def _default_user(self):
