@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_rejection_reason_wizard_view_form" model="ir.ui.view">
+        <field name="name">sh.reject.reason.wizard.view.form</field>
+        <field name="model">sh.reject.reason.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" string="Confirm" type="object" name="action_reject_order" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="sh_rejection_reason_action" model="ir.actions.act_window">
+        <field name="name">Reason</field>
+        <field name="res_model">sh.reject.reason.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

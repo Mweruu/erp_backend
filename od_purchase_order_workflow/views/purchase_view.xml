@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="inherit_purchase_purchase_order_form" model="ir.ui.view">
+		<field name="name">purchase.order.form</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form" />
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="ywt_purchase_order_automation_id"></field>
+            </xpath>
+<!--            <xpath expr="/form/header/button[@name='button_cancel']" position="after">-->
+<!--                <button name="action_purchase_order_automation_method" type="object" string="Auto Confirm Order"-->
+<!--                        attrs="{'invisible':['|',('ywt_purchase_order_automation_id','=',False),('state','not in',('draft', 'waiting_for_approve'))]}"></button>-->
+<!--            </xpath>-->
+			<xpath expr="//field[@name='order_line']//tree//field[@name='date_planned']"
+				position="after">
+				<field name="picking_type_id" domain="[('code', '=', 'incoming')]"
+					attrs="{'readonly': [('id', '!=', False), ('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}"
+					force_save="1" options="{'no_create_edit': 1}" required="1"
+					groups="stock.group_stock_multi_locations" />
+			</xpath>
+			<xpath
+				expr="//field[@name='order_line']//form//field[@name='date_planned']"
+				position="after">
+				<field name="picking_type_id" domain="[('code', '=', 'incoming')]"
+					attrs="{'readonly': [('id', '!=', False), ('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}"
+					force_save="1" options="{'no_create_edit': 1}" required="1"
+					groups="stock.group_stock_multi_locations" />
+			</xpath>
+			<field name="partner_ref" position="after">
+                <field name="approval_level_id" />
+                <field name="is_boolean"  invisible="1"/>
+
+            </field>
+
+            <xpath expr="//header" position="inside">
+                <button class="oe_highlight" string="Approve" type="object" name="action_approve_order" attrs="{'invisible':['|',('state','not in',['waiting_for_approval']),('is_boolean','=',False)]}" />
+                <button string="Reject" type="action" name="%(od_purchase_order_workflow.sh_rejection_reason_action)d" attrs="{'invisible':['|',('state','not in',['waiting_for_approval']),('is_boolean','=',False)]}" />
+                <button string="Reset to Draft" type="object" name="action_reset_to_draft" attrs="{'invisible':[('state','not in',['reject'])]}" />
+
+            </xpath>
+
+            <xpath expr="//notebook//page[@name='purchase_delivery_invoice']" position="after">
+                <page string="Approval Info" name="">
+                    <group>
+
+                        <group string="Next Approval">
+                            <field name="level" />
+                            <field name="user_ids" widget="many2many_tags" />
+                            <field name="group_ids" widget="many2many_tags" />
+                        </group>
+
+                        <group string="Reject Order Info">
+                            <field name="rejection_date" />
+                            <field name="reject_by" />
+                            <field name="reject_reason" />
+                        </group>
+
+                        <field name="approval_info_line" nolabel="1" context="{'form_view_ref': 'od_purchase_order_workflow.sh_approval_info_view_form'}">
+                            <tree>
+                                <field name="level" />
+                                <field name="user_ids" />
+                                <field name="group_ids" />
+                                <field name="status" widget="boolean_toggle" readonly="1" />
+                                <field name="approval_date" />
+                                <field name="approved_by" />
+                                <field name="purchase_order_id" invisible="1" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+		</field>
+	</record>
+
+</odoo>

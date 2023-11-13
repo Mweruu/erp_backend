@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<odoo>
+ <data>	   	
+		<record id="ywt_purchase_order_automation_history_tree_view" model="ir.ui.view">
+		    <field name="name">ywt.purchase.order.automation.history.tree.view</field>
+		    <field name="model">ywt.purchase.order.automation.history</field>
+			<field name="arch" type="xml">
+	            <tree string="Purchase Order Automation History" create="false">
+					<field name="name"/>
+					<field name="create_date"/>
+					<field name="mismatch_type"/>
+					<field name="error_message"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="ywt_purchase_order_automation_history_form_view" model="ir.ui.view">
+			<field name="name">ywt.purchase.order.automation.history.form.view</field>
+			<field name="model">ywt.purchase.order.automation.history</field>
+			<field name="arch" type="xml">
+			 <form create="false" edit="false">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+							</group>
+							<group>
+								<field name="create_date"/>
+								<field name="mismatch_type"/>
+							</group>
+						</group>
+						<group>
+							<field name="error_message" nolabel="1"/>
+						</group>
+					</sheet>	
+			 </form>
+			</field>
+		</record>	
+		
+		<record id="ywt_purchase_order_automation_history_action" model="ir.actions.act_window">
+			<field name="name">Purchase Order Automation History</field>
+			<field name="res_model">ywt.purchase.order.automation.history</field>
+			<field name="view_mode">tree,form</field>
+	        <field name="view_id" ref="ywt_purchase_order_automation_history_tree_view"/>
+		</record>
+	
+		<menuitem id="ywt_purchase_order_automation_history_main_menu" parent="ywt_purchase_order_automation_main_menu"  name="Purchase Order Automation History" action="ywt_purchase_order_automation_history_action" sequence="2"/>
+</data>
+</odoo>
+	
+	
+	
+	
+	
+	

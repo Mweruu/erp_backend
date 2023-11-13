@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+  Copyright (C) 2016 Sodexis <dev@sodexis.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+     <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale_automatic_workflow.sale_order.view_form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[2]" position="after">
+                <page name="automation_information" string="Automation Information">
+                    <group name="workflow">
+                        <field name="workflow_process_id" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_inherit_sale_stock" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.stock</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_shipping']" position="inside">
+                <field name="all_qty_delivered" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_with_location" model="ir.ui.view">
+        <field name="name">delivery.sale.order.form.view.with_location</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']/form/group/group/div/field[@name='product_uom_qty']" position="before">
+                <field name="location_id" groups="stock.group_stock_multi_locations"/>
+             </xpath>
+            <xpath expr="//field[@name='order_line']/kanban/field[@name='product_uom_qty']" position="before">
+                <field name="location_id" groups="stock.group_stock_multi_locations"/>
+             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="location_id" groups="stock.group_stock_multi_locations"/>
+             </xpath>
+        </field>
+    </record>
+
+   <record model="ir.ui.view" id="view_order_form_ext">
+        <field name="name">View Order Form Ext</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                    string="Confirm" class="btn-primary" type="object"
+                    attrs="{'invisible': [('state', 'not in', ['to_approve'])]}"/>
+                <button name="action_cancel" type="object" string="Cancel"
+                        attrs="{'invisible': ['|', ('state', 'not in', ['to_approve']), ('id', '=', False)]}" data-hotkey="z"/>
+                <button name="action_draft" states="to_approve" type="object" string="Set to Quotation" data-hotkey="w"/>
+            </xpath>
+<!--                <field name="fiscal_position_id" options="{'no_create': True}" position="after">-->
+<!--                    <field name="auto_workflow_process_id"/>-->
+<!--                </field>-->
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record forcecreate="1" id="ywt_purchase_automation_history_sequence" model="ir.sequence">
+			<field name="name">Purchase Automation History</field>
+			<field name="code">purchase_automation_history</field>
+			<field name="padding">4</field>
+			<field name="prefix">PUR_AUTO_HIS</field>
+			<field name="company_id" eval="False" />
+		</record>
+	</data>
+</odoo>

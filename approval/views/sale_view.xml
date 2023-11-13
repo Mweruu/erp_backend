@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_ext">
+            <field name="name">View Order Form Ext</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                        string="Confirm" class="btn-primary" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['to_approve'])]}"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            attrs="{'invisible': ['|', ('state', 'not in', ['to_approve']), ('id', '=', False)]}" data-hotkey="z"/>
+                    <button name="action_draft" states="to_approve" type="object" string="Set to Quotation" data-hotkey="w"/>
+                </xpath>
+<!--                <field name="fiscal_position_id" options="{'no_create': True}" position="after">-->
+<!--                    <field name="auto_workflow_process_id"/>-->
+<!--                </field>-->
+            </field>
+        </record>
+    </data>
+</odoo>

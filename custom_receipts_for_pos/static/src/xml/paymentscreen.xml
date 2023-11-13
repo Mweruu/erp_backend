@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('payment-controls')]" position="inside">
+            <div class="input" id="customer_number">
+                    <input style="border:white; height: 60px; width:100%;
+                    padding-left: 40px;
+                    border: solid 1px rgb(209, 209, 209);"
+                    t-on-input="_updateInputValue"
+                   t-att-value="currentOrder.customer_number"
+                   type="text" placeholder="Enter Customer Number"/>
+            </div>
+            <div id="color" class="button" style="background-color:blue; font-color:white" t-on-click="_updateColorValue">
+               <i class="fa fa-flag fa-fw" style="color:white;"></i>
+               <span style="padding-left: 40px; color:white;">Select Color</span>
+            </div>
+        </xpath>
+    </t>
+
+     <t t-name="DeliverButton" owl="1">
+        <div class="control-button">
+            <span>Deliver Receipt</span>
+        </div>
+    </t>
+</templates>

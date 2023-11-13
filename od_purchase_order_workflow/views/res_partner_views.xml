@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <data>
+		<record id ="ywt_res_partner_form_view_extended" model="ir.ui.view">
+			 <field name="name">ywt.res.partner.form.view.extended</field>
+			 <field name="model">res.partner</field>
+			  <field name="inherit_id" ref="base.view_partner_form"/>
+		      <field name="arch" type="xml">
+		            <xpath expr="//page/group/group[@name='purchase']" position="inside">
+		            	<field name="is_auto_purchase_order_automation"/>
+		            	<field name="ywt_purchase_order_automation_id" attrs="{'invisible':[('is_auto_purchase_order_automation','=',False)],'required':[('is_auto_purchase_order_automation','=',True)]}"/>
+		           </xpath>	
+	           </field>
+	        </record> 
+       </data>
+</odoo>
