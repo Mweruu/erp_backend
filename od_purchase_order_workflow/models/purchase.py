@@ -133,10 +133,10 @@ class PurchaseOrder(models.Model):
                     self.env['bus.bus']._sendmany(notifications)
 
         elif self.ywt_purchase_order_automation_id:
-            print("got here")
+            print("got here ywt_purchase_order_automation_id")
             self.action_purchase_order_automation_method()
         else:
-            print("and got here")
+            print("and got here else ywt_purchase_order_automation_id")
 
             super(PurchaseOrder, self).button_confirm()
 

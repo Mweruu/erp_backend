@@ -4,33 +4,50 @@ from odoo.tools.misc import clean_context, OrderedSet, groupby
 from odoo.exceptions import UserError
 
 
-class ReserveQuantities(models.Model):
+class StockMove(models.Model):
     _inherit = "stock.move"
 
-    def action_assign(self):
-        self._action_assign()
-
-        # StockMove = self.env['stock.move'].search([('state', '=', 'confirmed')])
-        #
-        # for move in StockMove:
-        #     print(move['state'])
-        #     move.write({
-        #         'state': 'assigned',
-        #         'forecast_availability': move.product_uom_qty
-        #     })
+    # def action_confirm(self):
+    #     res = super().action_confirm()
+    #     # for picking in self:
+    #     for picking in self.picking_ids:
+    #         for stock_move in picking.move_ids_without_package:
+    #             if stock_move.move_line_ids:
+    #                 stock_move.move_line_ids.update({
+    #                     'qty_done': stock_move.product_uom_qty,
+    #                 })
+    #             else:
+    #                 self.env['stock.move.line'].create({
+    #                     'picking_id': picking.id,
+    #                     'move_id': stock_move.id,
+    #                     'date': stock_move.date,
+    #                     'reference': stock_move.reference,
+    #                     'origin': stock_move.origin,
+    #                     'qty_done': stock_move.product_uom_qty,
+    #                     'product_id': stock_move.product_id.id,
+    #                     'product_uom_id': stock_move.product_uom.id,
+    #                     'location_id': stock_move.location_id.id,
+    #                     'location_dest_id': stock_move.location_dest_id.id
+    #                 })
+    #         picking.button_validate()
+    #         if picking.state != 'done':
+    #             sms = self.env['confirm.stock.sms'].create({
+    #                 'pick_ids': [(4, picking.id)],
+    #             })
+    #             sms.send_sms()
+    #             picking.button_validate()
+    #     return res
 
     def _action_assign(self, force_qty=False):
-        print("gothere34","_action_assign")
-
+        res = super(StockMove, self)._action_assign(force_qty=force_qty)
         """ Reserve stock moves by creating their stock move lines. A stock move is
         considered reserved once the sum of `reserved_qty` for all its move lines is
         equal to its `product_qty`. If it is less, the stock move is considered
         partially available.
         """
-        StockMove = self.env['stock.move']
+        StockMoves = self.env['stock.move']
         assigned_moves_ids = OrderedSet()
         partially_available_moves_ids = OrderedSet()
-        unavailable_move_ids = OrderedSet()
         # Read the `reserved_availability` field of the moves out of the loop to prevent unwanted
         # cache invalidation when actually reserving the move.
         reserved_availability = {move: move.reserved_availability for move in self}
@@ -69,7 +86,8 @@ class ReserveQuantities(models.Model):
                         })
                         move_line_vals_list.append(move_line_vals)
                         missing_reserved_quantity -= qty_added
-                        if float_is_zero(missing_reserved_quantity, precision_rounding=move.product_id.uom_id.rounding):
+                        if float_is_zero(missing_reserved_quantity,
+                                         precision_rounding=move.product_id.uom_id.rounding):
                             break
 
                 if missing_reserved_quantity and move.product_id.tracking == 'serial' and (
@@ -104,8 +122,11 @@ class ReserveQuantities(models.Model):
                         continue
                     # Reserve new quants and create move lines accordingly.
                     forced_package_id = move.package_level_id.package_id or None
-                    available_quantity = move._get_available_quantity(move.location_id, package_id=forced_package_id)
+                    available_quantity = move._get_available_quantity(move.location_id,
+                                                                      package_id=forced_package_id)
+                    print("available_quantity", available_quantity)
                     if available_quantity <= 0:
+                        print("aq", available_quantity)
                         to_update = move.move_line_ids.filtered(lambda ml: ml.product_uom_id == move.product_uom and
                                                                            ml.location_id == move.location_id and
                                                                            ml.location_dest_id == move.location_dest_id and
@@ -114,20 +135,19 @@ class ReserveQuantities(models.Model):
                                                                            not ml.package_id and
                                                                            not ml.owner_id)
                         if to_update:
-                            print("ert34", missing_reserved_quantity)
+                            print("toupdate")
                             to_update[0].reserved_uom_qty += move.product_id.uom_id._compute_quantity(
                                 missing_reserved_quantity, move.product_uom, rounding_method='HALF-UP')
                         else:
-                            print("ytyt344", missing_reserved_quantity)
-                            move_line_vals_list.append(move._prepare_move_line_vals(quantity=missing_reserved_quantity))
-                        unavailable_move_ids.add(move.id)
-                        moves_to_redirect.add(move.id)
-                        print("unavailable_move_ids", unavailable_move_ids)
-                        print("unavailable_move_idsmoves_to_redirect", moves_to_redirect)
-                        continue
+                            print("else")
+                            move_line_vals_list.append(
+                                move._prepare_move_line_vals(quantity=missing_reserved_quantity))
+                    assigned_moves_ids.add(move.id)
+                    moves_to_redirect.add(move.id)
+                    # continue
                     taken_quantity = move._update_reserved_quantity(need, available_quantity, move.location_id,
                                                                     package_id=forced_package_id, strict=False)
-                    print("taken_quantity", taken_quantity)
+                    print("tq", taken_quantity)
                     if float_is_zero(taken_quantity, precision_rounding=rounding):
                         continue
                     moves_to_redirect.add(move.id)
@@ -146,11 +166,11 @@ class ReserveQuantities(models.Model):
                     if not available_move_lines:
                         continue
                     for move_line in move.move_line_ids.filtered(lambda m: m.reserved_qty):
-                        if available_move_lines.get(
-                                (move_line.location_id, move_line.lot_id, move_line.result_package_id,
-                                 move_line.owner_id)):
-                            available_move_lines[(move_line.location_id, move_line.lot_id, move_line.result_package_id,
-                                                  move_line.owner_id)] -= move_line.reserved_qty
+                        if available_move_lines.get((move_line.location_id, move_line.lot_id,
+                                                     move_line.result_package_id, move_line.owner_id)):
+                            available_move_lines[(
+                                move_line.location_id, move_line.lot_id, move_line.result_package_id,
+                                move_line.owner_id)] -= move_line.reserved_qty
                     for (location_id, lot_id, package_id, owner_id), quantity in available_move_lines.items():
                         need = move.product_qty - sum(move.move_line_ids.mapped('reserved_qty'))
                         # `quantity` is what is brought by chained done move lines. We double check
@@ -160,8 +180,8 @@ class ReserveQuantities(models.Model):
                         # still available. This situation could not happen on MTS move, because in
                         # this case `quantity` is directly the quantity on the quants themselves.
                         available_quantity = move._get_available_quantity(location_id, lot_id=lot_id,
-                                                                          package_id=package_id,
-                                                                          owner_id=owner_id, strict=True)
+                                                                          package_id=package_id, owner_id=owner_id,
+                                                                          strict=True)
                         if float_is_zero(available_quantity, precision_rounding=rounding):
                             continue
                         taken_quantity = move._update_reserved_quantity(need, min(quantity, available_quantity),
@@ -177,19 +197,20 @@ class ReserveQuantities(models.Model):
                 move.next_serial_count = move.product_uom_qty
 
         self.env['stock.move.line'].create(move_line_vals_list)
-        StockMove.browse(partially_available_moves_ids).write({'state': 'partially_available'})
-        StockMove.browse(assigned_moves_ids | unavailable_move_ids).write({'state': 'assigned'})
+        StockMoves.browse(partially_available_moves_ids).write({'state': 'partially_available'})
+        StockMoves.browse(assigned_moves_ids).write({'state': 'assigned'})
         if not self.env.context.get('bypass_entire_pack'):
             self.picking_id._check_entire_pack()
-        StockMove.browse(moves_to_redirect).move_line_ids._apply_putaway_strategy()
+        StockMoves.browse(moves_to_redirect).move_line_ids._apply_putaway_strategy()
+        return res
 
 
-class AddReservedQuantities(models.Model):
+class StockQuant(models.Model):
     _inherit = "stock.quant"
 
     @api.model
-    def _update_reserved_quantity(self, product_id, location_id, quantity, lot_id=None, package_id=None, owner_id=None,
-                                  strict=False):
+    def _update_reserved_quantity(self, product_id, location_id, quantity, lot_id=None, package_id=None,
+                                  owner_id=None, strict=False):
         """ Increase the reserved quantity, i.e. increase `reserved_quantity` for the set of quants
         sharing the combination of `product_id, location_id` if `strict` is set to False or sharing
         the *exact same characteristics* otherwise. Typically, this method is called when reserving
@@ -217,7 +238,14 @@ class AddReservedQuantities(models.Model):
                                   product_id.display_name))
         elif float_compare(quantity, 0, precision_rounding=rounding) < 0:
             # if we want to unreserve
-            return reserved_quants
+            available_quantity = sum(quants.mapped('reserved_quantity'))
+            print("avq", available_quantity, "quantity", quantity)
+            if quantity <= 0:
+                print("goooot here")
+                return reserved_quants
+            if float_compare(abs(quantity), available_quantity, precision_rounding=rounding) > 0:
+                raise UserError(_('It is not possible to unreserve more products of %s than you have in stock.',
+                                  product_id.display_name))
         else:
             return reserved_quants
 
@@ -241,6 +269,6 @@ class AddReservedQuantities(models.Model):
             if float_is_zero(quantity, precision_rounding=rounding) or float_is_zero(available_quantity,
                                                                                      precision_rounding=rounding):
                 break
-        return reserved_quants
-        #  return (reserved_quants, super(AddReservedQuantities, self)._update_reserved_quantity(product_id, location_id, quantity, lot_id,
-        #                                                             package_id, owner_id, strict))
+        return super(StockQuant, self)._update_reserved_quantity(product_id, location_id, quantity, lot_id,
+                                                                 package_id,
+                                                                 owner_id, strict)

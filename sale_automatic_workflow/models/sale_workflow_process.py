@@ -130,3 +130,6 @@ class SaleWorkflowProcess(models.Model):
     payment_filter_domain = fields.Text(
         related="payment_filter_id.domain",
     )
+
+    force_transfer = fields.Boolean(string="Force Transfer", default=True)
+

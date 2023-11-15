@@ -83,6 +83,12 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
+                            <label for="force_transfer" class="col-lg-7 o_light_label"/>
+                            <field name="force_transfer" attrs="{'invisible':[('validate_order', '=', False)]}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
                                 <label
                                     for="send_order_confirmation_mail"
                                     class="col-lg-7 o_light_label"

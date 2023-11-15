@@ -22,7 +22,7 @@
                     </group>
                     <notebook>
                         <page string="Approval Details" name="approvals_details">
-                            <group>
+<!--                            <group>-->
                                 <field name="purchase_approval_line" nolabel="1" context="{'form_view_ref': 'od_purchase_order_workflow.sh_purchase_approval_line_form'}">
                                     <tree>
                                         <field name="level" />
@@ -31,7 +31,7 @@
                                         <field name="approve_by" />
                                     </tree>
                                 </field>
-                            </group>
+<!--                            </group>-->
                         </page>
                     </notebook>
                 </sheet>
