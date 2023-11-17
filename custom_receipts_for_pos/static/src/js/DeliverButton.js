@@ -16,6 +16,7 @@ odoo.define('custom_receipts_for_pos.DeliverButton', function(require) {
         }
         async onClick() {
             console.log(this.env.pos)
+            console.log("this",this)
 //            console.log(this.env.pos.get_order())
             let { confirmed, payload: pos_reference} = await this.showPopup("TextInputPopup", {
                       title: this.env._t('Enter Receipt Number'),
