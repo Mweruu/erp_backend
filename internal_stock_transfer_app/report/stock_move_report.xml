@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="internal_stock_move_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Internal Stock Transfer Report</h2>
+                    <p>Date from:
+                        <t t-esc='date_from'/>
+                        - Date to:
+                        <t t-esc='date_to'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Datetime</b>
+                                </td>
+                                <td>
+                                    <b>Reference</b>
+                                </td>
+                                <td>
+                                    <b>Product</b>
+                                </td>
+                                <td>
+                                    <b>Quantity</b>
+                                </td>
+                                <td>
+                                    <b>Location From</b>
+                                </td>
+                                <td>
+                                    <b>Location To</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Datetime']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['reference']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['product']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['quantity_done']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['location_id']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['location_dest_id']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="internal_stock_move_report" model="ir.actions.report">
+        <field name="name">internal stock move</field>
+        <field name="model">internal.stock.move.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internal_stock_transfer_app.internal_stock_move_report_template</field>
+        <field name="report_file">internal_stock_transfer_app.internal_stock_move_report_template</field>
+        <field name="print_report_name">'internal stock move'</field>
+        <field name="binding_model_id" ref="model_internal_stock_move_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="report.paperformat" id="paperformat_internal_report3">
+        <field name="name">paperformat.transfer.report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="transfer_report_action3" model="ir.actions.report">
+        <field name="name">Report by Given Period</field>
+        <field name="model">filter.transfer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internal_stock_transfer_app.template_report3</field>
+        <field name="paperformat_id" ref="paperformat_internal_report3"/>
+    </record>
+
+
+</odoo>

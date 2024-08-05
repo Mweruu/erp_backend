@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Group -->
+    <record model="res.groups" id="group_internal_consumption">
+        <field name="name">Manage Internal Consumption</field>
+        <field name="category_id" ref="base.module_category_human_resources_expenses"/>
+    </record>
+</odoo>

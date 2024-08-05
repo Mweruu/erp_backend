@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_product_produce_wizard" model="ir.ui.view">
+        <field name="name">Stock Product Produce</field>
+        <field name="model">stock.product.produce</field>
+        <field name="arch" type="xml">
+            <form string="Stock Transfer">
+                <group>
+                    <group>
+                        <field name="source_warehouse_id" readonly="1"/>
+                        <field name="location_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="dest_warehouse_id" readonly="1"/>
+                        <field name="location_dest_id" readonly="1"/>
+                    </group>
+                </group>
+                <field name="stock_produce_line_ids" attrs="{'invisible': [('stock_produce_line_ids', '=', [])]}"
+                       nolabel="1">
+                    <tree editable="top" delete="0" create="0">
+                        <field name="product_id"/>
+                        <field name="product_id_stock" invisible="1"/>
+                        <field name="product_uom_id" options="{'no_open': True, 'no_create': True}"
+                               string="Unit of Measure" groups="uom.group_uom"/>
+                        <field name="qty_available"/>
+                        <field name="transfer_qty"/>
+                        <field name="transfer_qty_stock" invisible="1"/>
+                        <field name="prev_receive_qty"/>
+                        <field name="prev_receive_qty_stock" invisible="1"/>
+                        <field name="quantity_done" required="1"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="do_produce" type="object" string="Validate" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_stock_product_produce" model="ir.actions.act_window">
+        <field name="name">Stock Transfer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.product.produce</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

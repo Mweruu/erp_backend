@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="transfer_receipt">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <br/>
+                    <br/>
+                    <h3 class="text-center">
+                        <span t-field="o.name" style="font-size:28px"/>
+                    </h3>
+                    <br/>
+                    <h5>Date :
+                        <span t-field="o.date" style="font-size:17px"/>
+                    </h5>
+                    <h5>From Warehouse :
+                        <span t-field="o.source_warehouse_id.name" style="font-size:17px"/>
+                    </h5>
+                    <h5>To Warehouse:
+                        <span t-field="o.dest_warehouse_id.name" style="font-size:17px"/>
+                    </h5>
+
+
+                    <table class="table table-sm o_main_table" style="margin-top:50px">
+                        <tr>
+                            <th class="text-left">Product</th>
+                            <th class="text-right">Transfer Qty</th>
+                            <th class="text-right">Received Qty</th>
+                            <th class="text-right">Unit of Measure</th>
+                        </tr>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr>
+                                    <td class="text-left">
+                                        <span t-field="line.product_id"/>
+                                        <br/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.transfer_qty"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity_done"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.product_uom_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br/>
+
+                    <div>
+                        <span class="text-left">Transfer By :</span>
+                        <span class="text-left" t-esc="user.name"></span>
+
+                        <span style="margin-left:35px" class="text-right">Received By :</span>
+                        <span class="text-right" t-esc="user.name"></span>
+                    </div>
+
+                    <div style="page-break-before:always;"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

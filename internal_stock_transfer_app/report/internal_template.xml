@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="report.paperformat" id="paperformat_transfer_report2">
+        <field name="name">paperformat.internal.transfer</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="internal_template_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <br/>
+                        <br/>
+                        <h5>Date :
+                            <span t-field="doc.date" style="font-size:15px"/>
+                        </h5>
+                        <div class="row">
+                            <h5 style="margin-left:15px">Source Warehouse :
+                                <span t-field="doc.source_warehouse_id.name" style="font-size:15px"/>
+                            </h5>
+
+                            <h5 style="margin-left:45px">Destination Warehouse :
+                                <span t-field="doc.dest_warehouse_id.name" style="font-size:15px"/>
+                            </h5>
+                        </div>
+
+                        <br/>
+                        <br/>
+                        <h4 class="text-center">
+                            <span t-esc="doc.name"/>
+                        </h4>
+                        <br/>
+                        <div class="border border-top-0 border-right-0 border-left-0 border-info"></div>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Transfer Qty</th>
+                                    <th>Receive Qty</th>
+                                    <th>Unit of Measure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr class="text-left">
+
+                                        <td>
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.transfer_qty"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.quantity_done"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.product_uom_id.name"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div>
+                            <span class="text-left">Transfer By :</span>
+                            <span class="text-left" t-esc="user.name"></span>
+                            <span style="margin-left:220px" class="text-right">Received By :</span>
+                            <span class="text-right" t-esc="user.name"></span>
+                        </div>
+
+                    </div>
+                    <div style="page-break-before:always;"/>
+                </t>
+            </t>
+        </t>
+
+    </template>
+</odoo>

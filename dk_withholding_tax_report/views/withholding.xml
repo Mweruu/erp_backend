@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="withholding_tax_report_wizard" model="ir.ui.view">
+        <field name="name">withholding_tax_report_wizard</field>
+        <field name="model">withholding.tax.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='partner_type'/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_withholding_tax_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_withholding_tax_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="withholding_tax_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Withholding Tax Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">withholding.tax.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='withholding_tax_report_wizard'/>
+    </record>
+    <menuitem id="menu_action_withholding_tax" name="Withholding Tax Report"
+              action="withholding_tax_report_wizard_action" sequence="1" parent="account.menu_finance_reports"/>
+</odoo>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="internal_expense_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Internal Expense Report</h2>
+                    <p>Date from:
+                        <t t-esc='date_from'/>
+                        - Date to:
+                        <t t-esc='date_to'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Datetime</b>
+                                </td>
+                                <td>
+                                    <b>Account</b>
+                                </td>
+                                <td>
+                                    <b>Product</b>
+                                </td>
+                                <td>
+                                    <b>Quantity</b>
+                                </td>
+                                <td>
+                                    <b>List Price</b>
+                                </td>
+                                <td>
+                                    <b>Standard Price</b>
+                                </td>
+                                <td>
+                                    <b>Total Price</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Datetime']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['account']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['product']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['quantity']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['list_price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['standard_price']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['price_unit']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-right">
+                                        <b>Total</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b t-esc='round(Total,2)'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <br/>
+                    </table>
+                    <h5>Total for Accounts:
+                        <t t-foreach="acc_records" t-as="d">
+                            <p>
+                                <t t-esc="d['account']"/>
+                                :
+                                <t t-esc="d['total_amount']"
+                                   t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                            </p>
+                        </t>
+                    </h5>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="internal_expense_report" model="ir.actions.report">
+        <field name="name">Internal Expense report</field>
+        <field name="model">internal.expense.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">internal_consumption.internal_expense_report_template</field>
+        <field name="report_file">internal_consumption.internal_expense_report_template</field>
+        <field name="print_report_name">'Internal Consumption Report'</field>
+        <field name="binding_model_id" ref="model_internal_expense_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

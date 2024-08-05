@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_internal_consumption" model="ir.actions.act_window">
+        <field name="name">Internal Consumption</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">internal.consumption</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <record id="internal_consumption_tree_view" model="ir.ui.view">
+        <field name="name">internal.consumption.tree</field>
+        <field name="model">internal.consumption</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state in ('done','cancel')">
+                <field name="consumption_name" string="Name"/>
+                <field name="create_uid" string="Created By"/>
+                <field name="create_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="internal_consumption_form_view" model="ir.ui.view">
+        <field name="name">internal.consumption.form</field>
+        <field name="model">internal.consumption</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,ready,done"/>
+                    <button name="validate" type="object" string="Validate" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'not in', 'ready')]}"
+                            groups="hr_expense.group_hr_expense_manager"/>
+                    <button name="check_availability" type="object" class="oe_highlight" string="Check Availability"
+                            attrs="{'invisible': [('state', 'in', ['ready','done','cancel'])]}"/>
+                    <button name="unreserve" type="object" string="Unreserve"
+                            attrs="{'invisible': [('state', 'not in', ['waiting', 'ready'])]}"/>
+                    <button name="cancel" type="object" string="Cancel"
+                            attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="consumption_name" placeholder="e.g. Internal Usage of 3 Nov 2022"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="location_source"/>
+                        </group>
+
+                        <group>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="List Product">
+                            <field name="product_lines">
+                                <tree editable="bottom">
+                                    <field name="line_id" invisible="1"/>
+                                    <field name="product_id"/>
+                                    <field name="employee"/>
+                                    <field name="account"/>
+                                    <field name="list_price"/>
+                                    <field name="standard_price"/>
+                                    <field name="unit_price"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="available_qty" readonly="1" force_save="1"/>
+                                    <field name="reserved_qty" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+
+        </field>
+    </record>
+</odoo>

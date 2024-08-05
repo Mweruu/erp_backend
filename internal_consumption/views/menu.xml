@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_internal_consumption"
+              groups="group_internal_consumption"
+              sequence="2"
+              name="Internal Consumption"
+              action="action_internal_consumption"
+              parent="hr_expense.menu_hr_expense_root">
+    </menuitem>
+</odoo>
