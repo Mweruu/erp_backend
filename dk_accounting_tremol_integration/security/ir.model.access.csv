@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+dk_accounting_tremol_integration.access_tremol_queue,access_tremol_queue,dk_accounting_tremol_integration.model_tremol_queue,base.group_user,1,1,1,0

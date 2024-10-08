@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_internal_consumption,internal consumption,model_internal_consumption,group_internal_consumption,1,1,1,1
+access_internal_consumption_lines,internal consumption lines,model_internal_consumption_lines,group_internal_consumption,1,1,1,1
+access_internal_consumption_account_account_tag,internal consumption account tag,account.model_account_account_tag,group_internal_consumption,1,1,1,1
+access_internal_consumption_account_move_line,internal consumption account move line,account.model_account_move_line,group_internal_consumption,1,1,1,1
+access_internal_consumption_stock_move,internal consumption stock move,stock.model_stock_move,group_internal_consumption,1,1,1,1
+access_internal_consumption_stock_move_line,internal consumption stock move line,stock.model_stock_move_line,group_internal_consumption,1,1,1,1
+
+access_internal_expense_report,access_internal_expense_report,internal_consumption.model_internal_expense_report,group_internal_consumption,1,1,1,1

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="summary_tax_report_wizard" model="ir.ui.view">
+        <field name="name">summary_tax_report_wizard</field>
+        <field name="model">summary.tax.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Download PDF" name="action_print_summary_tax_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="summary_tax_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Summary Tax report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">summary.tax.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='summary_tax_report_wizard'/>
+    </record>
+    <menuitem id="summary_tax_menu_item" name="Summary Tax Report" parent="point_of_sale.menu_point_rep" sequence="100"
+              action="summary_tax_report_wizard_action" groups="point_of_sale.group_pos_manager"/>
+</odoo>

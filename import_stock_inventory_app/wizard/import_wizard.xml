@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="import_stock_inventory" model="ir.ui.view">
+        <field name="name">Import Stock</field>
+        <field name="model">import.stock</field>
+        <field name="arch" type="xml">
+            <form string="Timesheet Report">
+                <p class="oe_grey" style="color:blue;">
+                    <b>
+                        Example files are available in "import_stock_inventory_app",
+                        File Name : create_product_example.xls/csv, example xls/csv.
+                    </b>
+                </p>
+                <p class="oe_grey" style="color:blue;">
+                    <b>
+                        Inventory Adjustments will be based on current company.
+                    </b>
+                </p>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="location_id"/>
+                    </group>
+                    <group>
+                        <field name="inventory_option" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="account_date"/>
+                        <field name="valuation_state" widget="radio"/>
+                        <field name="create_product"/>
+                    </group>
+                    <group>
+                        <field name="import_prod_option" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="skip_validation" widget="radio"/>
+                        <field name="file_type" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="location_option" widget="radio"/>
+                        <field name="file_name" invisible="1"/>
+                        <field name="import_file" filename="file_name"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="import_file_button" string="Import" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_stock" model="ir.actions.act_window">
+        <field name="name">Import Stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.stock</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_import_wizard" name="Import Stock" parent="stock.menu_stock_root" sequence="12"/>
+    <menuitem id="menu_import_stock" name="Import Stock" action="action_import_stock"
+              parent="menu_stock_import_wizard"/>
+</odoo>

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Sub Categories  -->
+    <record id="pos_receipt_design1" model="pos.receipt">
+        <field name="name">Design 1</field>
+        <field name="design_receipt"><![CDATA[
+        <div class="pos-receipt">
+            <div class="pos-receipt-contact">
+                <t t-if="receipt.company.contact_address">
+                    <div><t t-esc="receipt.company.contact_address" /></div>
+                </t>
+                <t t-if="receipt.company.phone">
+                    <div>Tel:<t t-esc="receipt.company.phone" /></div>
+                </t>
+                <t t-if="receipt.company.vat">
+                    <div><t t-esc="receipt.company.vat_label"/>:<t t-esc="receipt.company.vat" /></div>
+                </t>
+                <t t-if="receipt.company.email">
+                    <div><t t-esc="receipt.company.email" /></div>
+                </t>
+                <t t-if="receipt.company.website">
+                    <div><t t-esc="receipt.company.website" /></div>
+                </t>
+                <t t-if="receipt.header_html">
+                    <t t-out="receipt.header_html" />
+                </t>
+                <t t-if="!receipt.header_html and receipt.header">
+                    <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
+                </t>
+                <p t-if="receipt.customer_number" style="font-size: 11px;text-align: center;margin-top: 5px;">Customer Contact: <b t-esc="receipt.customer_number" /></p>
+                <t t-if="receipt.delay_picking">
+                    <h3 style="text-align: center">*** TO COLLECT ***</h3>
+                </t>
+                <t t-if="receipt.reprinted">
+                    <h1 style="text-align: center">*** REPRINTED ***</h1>
+                    <h1 style="text-align: center">******</h1>
+                    <h1 style="text-align: center">*** REPRINTED ***</h1>
+                </t>
+                <t t-if="receipt.cashier">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc="receipt.cashier" /></div>
+                    </div>
+                </t>
+            </div>
+            <br/>
+            <t t-if="receipt.header">
+                <div style='text-align:center; font-size:13px'>
+                    <t t-esc="receipt.header" />
+                </div>
+                <br />
+            </t>
+            <div>
+                <table class='receipt-orderlines' style="font-size:15px; border-style: double;
+            border-left: none;border-right: none;border-bottom: none;width: 100%;">
+                <colgroup>
+                    <col width='40%' />
+                    <col width='30%' />
+                    <col width='30%' />
+                </colgroup>
+                <tr style="border-bottom: 1px dashed black;">
+                    <th style="text-align:left;">Product</th>
+                    <th style="text-align:center;">Qty</th>
+                    <th style="text-align:center;">Amount</th>
+                </tr>
+                <tr t-foreach="orderlines" t-as="orderline" t-key="orderline">
+                    <td style="padding-top: 1%;padding-bottom: 1%;">
+                        <t t-esc="orderline.get_product().display_name"/>
+                        <t t-if="orderline.get_discount() > 0">
+                            <div style="font-size: 12px;font-style: italic;color: #808080;">
+                                <t t-esc="orderline.get_discount()"/>% discount
+                            </div>
+                        </t>
+                        <t t-if="orderline.customerNote">
+                            <div style="font-size: 14px;" t-esc="orderline.customerNote"/>
+                        </t>
+                    </td>
+                    <td class="pos-center-align">
+                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                    </td>
+                    <td class="pos-center-align">
+                        <t t-esc="widget.pos.format_currency(orderline.get_display_price())"/>
+                    </td>
+                </tr>
+                </table>
+            </div>
+            <br />
+            <div style="padding-top: 6px;">
+                <!-- Subtotal -->
+                <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001' />
+                <t t-if='!taxincluded'>
+                    <br/>
+                    <div style="font-weight: 700; font-size: 14px; border-top:1px dashed;"><span style="margin-left: 40%;">Subtotal : </span><span t-esc='widget.pos.format_currency(receipt.subtotal)' class="pos-receipt-right-align"/></div>
+                    <t t-foreach='receipt.tax_details' t-as='tax' t-key="tax">
+                        <div style="font-weight: 700; font-size: 14px;">
+                            <span style="margin-left: 40%;"><t t-esc='tax.name' /></span>
+                            <span t-esc='widget.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                        </div>
+                    </t>
+                </t>
+                <!-- Total -->
+                <br/>
+                <div style="font-weight: 700; font-size: 14px;">
+                    <span style="margin-left: 40%;">TOTAL : </span>
+                    <span t-esc='widget.pos.format_currency(receipt.total_with_tax)' class="pos-receipt-right-align"/>
+                </div>
+
+            </div>
+            <br/>
+              <div class="before-footer" />
+
+            <div t-if="receipt.pos_qr_code">
+                <br /><br />
+                <div class="pos-receipt-order-data">
+                    Scan me to request an invoice for your purchase.
+                </div>
+                <img id="posqrcode" t-att-src="receipt.pos_qr_code" class="pos-receipt-logo"/>
+            </div>
+            <br/>
+            <br/>
+            <!-- Footer -->
+                        <div class="pos-receipt-order-data">
+                <div><t t-esc="receipt.name" /></div>
+                <t t-if="receipt.date.localestring">
+                    <div><t t-esc="receipt.date.localestring" /></div>
+                </t>
+                <t t-else="">
+                    <div><t t-esc="receipt.date.validation_date" /></div>
+                </t>
+            </div>
+
+            <br/><br/>
+            <div style="font-size: 14px; text-align: center;">
+                Thank You... Please Visit Again ...
+            </div>
+        </div>
+]]></field>
+    </record>
+    <record id="pos_receipt_design2_demo" model="pos.receipt">
+        <field name="name">Design 2</field>
+        <field name="design_receipt"><![CDATA[<div class="pos-receipt">
+            <div style="font-size:13px; text-align: center;">
+                <t t-esc="widget.pos.company.name"/><br />
+                Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
+            </div>
+
+            <br/>
+            <div style="font-size:13px; text-align: center;">
+                Date :
+                <t t-if="order.formatted_validation_date">
+                    <t t-esc="order.formatted_validation_date"/>
+                </t>
+                <t t-else="">
+                    <t t-esc="order.validation_date"/>
+                </t>
+                <br />
+                Order : <t t-esc="order.name"/><br />
+            </div>
+            <br />
+            <p t-if="receipt.customer_number" style="font-size: 11px;text-align: center;margin-top: 5px;">Customer Contact: <b t-esc="receipt.customer_number" /></p>
+            <t t-if="receipt.delay_picking">
+                <h3 style="text-align: center">*** TO COLLECT ***</h3>
+            </t>
+            <t t-if="receipt.reprinted">
+                <h1 style="text-align: center">*** REPRINTED ***</h1>
+            </t>
+            <div style="font-size:13px; text-align: center;">
+                Cashier :  <t t-esc='receipt.cashier' /><br />
+                <t t-if="receipt.partner.name">
+                Customer :  <t t-esc='receipt.partner.name' style="font-style: bold" />
+                </t>
+                <br />
+            </div>
+            <br/>
+            <t t-if="receipt.header">
+                <div style='text-align:center; font-size:13px'>
+                    <t t-esc="receipt.header" />
+                </div>
+                <br />
+            </t>
+            <div>
+                <table class='receipt-orderlines' style="font-size:15px; border-style: double;
+            border-left: none;border-right: none;border-bottom: none;width: 100%;">
+                <colgroup>
+                    <col width='40%' />
+                    <col width='30%' />
+                    <col width='30%' />
+                </colgroup>
+                <tr style="border-bottom: 1px dashed black;">
+                    <th style="text-align:left;">Product</th>
+                    <th style="text-align:center;">Qty</th>
+                    <th style="text-align:center;">Amount</th>
+                </tr>
+                <tr t-foreach="orderlines" t-as="orderline" t-key="orderline">
+                    <td style="padding-top: 1%;padding-bottom: 1%;">
+                        <t t-esc="orderline.get_product().display_name"/>
+                        <t t-if="orderline.get_discount() > 0">
+                            <div style="font-size: 12px;font-style: italic;color: #808080;">
+                                <t t-esc="orderline.get_discount()"/>% discount
+                            </div>
+                        </t>
+                        <t t-if="orderline.customerNote">
+                            <div style="font-size: 14px;" t-esc="orderline.customerNote"/>
+                        </t>
+                    </td>
+                    <td class="pos-center-align">
+                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                    </td>
+                    <td class="pos-center-align">
+                        <t t-esc="widget.pos.format_currency(orderline.get_display_price())"/>
+                    </td>
+                </tr>
+                </table>
+            </div>
+            <br />
+            <div style="padding-top: 6px;">
+                <!-- Subtotal -->
+                <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001' />
+                <t t-if='!taxincluded'>
+                    <br/>
+                    <div style="font-weight: 700; font-size: 14px; border-top:1px dashed;"><span style="margin-left: 40%;">Subtotal : </span><span t-esc='widget.pos.format_currency(receipt.subtotal)' class="pos-receipt-right-align"/></div>
+                    <t t-foreach='receipt.tax_details' t-as='tax' t-key="tax">
+                        <div style="font-weight: 700; font-size: 14px;">
+                            <span style="margin-left: 40%;"><t t-esc='tax.name' /></span>
+                            <span t-esc='widget.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                        </div>
+                    </t>
+                </t>
+                <!-- Total -->
+                <br/>
+                <div style="font-weight: 700; font-size: 14px;">
+                    <span style="margin-left: 40%;">TOTAL : </span>
+                    <span t-esc='widget.pos.format_currency(receipt.total_with_tax)' class="pos-receipt-right-align"/>
+                </div>
+                <br/><br/>
+            </div>
+            <!-- Payment Lines -->
+            <t t-foreach='paymentlines' t-as='line' t-key="line">
+                <div style="font-size: 14px;border-top:1px dashed;padding-top: 5px;">
+                    <span style="margin-left: 40%;"><t t-esc='line.name' /></span>
+                    <span t-esc='widget.pos.format_currency_no_symbol(line.get_amount())' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <br/>
+            <div class="receipt-change" style="font-size: 14px;">
+            <span style="margin-left: 40%;">CHANGE : </span>
+                <span t-esc='widget.pos.format_currency(receipt.change)' class="pos-receipt-right-align"/>
+            </div>
+            <br/>
+            <!-- Extra Payment Info -->
+            <t t-if='receipt.total_discount'>
+                <div style="font-size: 14px; border-top:1px dashed;padding-top: 5px;">
+                    <span style="margin-left: 40%;">Discounts : </span>
+                    <span t-esc='widget.pos.format_currency(receipt.total_discount)' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <t t-if='taxincluded'>
+                <t t-foreach='receipt.tax_details' t-as='tax' t-key="tax">
+                    <div style="font-size: 14px;">
+                        <span style="margin-left: 40%;"><t t-esc='tax.name' /></span>
+                        <span t-esc='widget.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+                <div style="font-size: 14px;">
+                    <span style="margin-left: 40%;">Total Taxes : </span>
+                    <span t-esc='widget.pos.format_currency(receipt.total_tax)' class="pos-receipt-right-align"/>
+                </div>
+            </t>
+            <div class='before-footer' />
+            <!-- Footer -->
+            <div t-if='receipt.footer_html' style="text-align: center; font-size: 14px;">
+                <t t-esc='receipt.footer_html'/>
+            </div>
+            <div t-if='!receipt.footer_html and receipt.footer' style="text-align: center;font-size: 14px;">
+                <br/>
+                <t t-esc='receipt.footer'/>
+                <br/><br/>
+            </div>
+            <div class='after-footer' style="font-size: 14px;">
+                <t t-foreach='paymentlines' t-as='line' t-key="line">
+                    <t t-if='line.ticket'>
+                        <br />
+                        <div class="pos-payment-terminal-receipt">
+                            <t t-esc='line.ticket'/>
+                        </div>
+                    </t>
+                </t>
+            </div>
+            <br/><br/>
+            <div style="font-size: 14px; text-align: center;">
+                Thank You... Please Visit Again ...
+            </div>
+        </div>]]></field>
+    </record>
+    <record id="pos_receipt_design3" model="pos.receipt">
+        <field name="name">Design 3</field>
+        <field name="design_receipt"><![CDATA[
+        <div class="pos-receipt" style="width: 552px">
+            <t t-if='widget.pos.company_logo_base64'>
+                <img style="width: 80%; display: block;margin: auto;" t-att-src="widget.pos.company_logo_base64" alt="Logo"/>
+                <br/>
+            </t>
+            <div style="text-align:center; font-size: 85%; font-weight: bold; padding-bottom: 5px;">
+                <t t-if='receipt.company.contact_address'>
+                    <div><t t-esc='receipt.company.contact_address' /></div>
+                </t>
+                <t t-if='receipt.company.phone'>
+                    <div>Tel:<t t-esc='receipt.company.phone' /></div>
+                </t>
+
+                <t t-if='receipt.header_html'>
+                    <t t-esc='receipt.header_html' />
+                </t>
+                <t t-if='!receipt.header_html and receipt.header'>
+                    <div><t t-esc='receipt.header' /></div>
+                </t>
+            </div>
+            <br />
+            <!-- Orderlines -->
+            <div class='orderlines'>
+                <div style="text-align:center; font-size: 85%; font-weight: bold; padding-bottom: 5px;">
+                    <div><span t-esc='receipt.name' /></div>
+                    <div>Date :
+                        <t t-if="order.formatted_validation_date">
+                          <span t-esc='order.formatted_validation_date' />
+                        </t>
+                        <t t-else="">
+                            <span t-esc='order.validation_date' />
+                        </t>
+                    </div>
+                    <t t-if='receipt.partner'>
+                        <div>Customer: : <t t-esc='receipt.partner.name' /></div>
+                    </t>
+                    <t t-if='receipt.customer_number'>
+                        <div>Customer Contact: : <t t-esc='receipt.customer_number' /></div>
+                    </t>
+                    <t t-if='receipt.vat_number'>
+                        <div>PIN Number: : <t t-esc='receipt.vat_number' /></div>
+                    </t>
+                    <t t-if='receipt.cashier'>
+                    <div class='cashier'>
+                        <div>Served by <t t-esc='receipt.cashier' /></div>
+                    </div>
+                    </t>
+                   <t t-if="receipt.delay_picking">
+                        <h1 style="text-align: center font-size: 130%;">*** TO COLLECT ***</h1>
+                   </t>
+                   <t t-if="receipt.reprinted">
+                       <h1 style="text-align: center">*** REPRINTED ***</h1>
+                       <h1 style="text-align: center">******</h1>
+                        <h1 style="text-align: center">*** REPRINTED ***</h1>
+                   </t>
+                    <t t-if="order.getHasRefundLines() and !order.reprinted">
+                        <h1 style="text-align: center">*** REFUNDED ***</h1>
+                    </t>
+                </div>
+                <t t-if="!receipt.delay_picking">
+                <br/>
+                </t>
+
+                <table style="width: 100%;">
+                    <tr style="border-bottom: 2px solid black;font-size: 100%; font-weight: 800;">
+                    <th align="left">Description</th>
+                    <th align="right">Amount</th>
+                    </tr>
+                    <tr t-foreach="receipt.orderlines" t-as="line" t-key="line" style="font-size: 100%;">
+                        <td>
+                            <div style="padding-top: 2px;padding-bottom: 2px; font-size: 100%; text-align: left; font-weight: 800;">
+                                <t><span style="font-size: 100%;" t-esc='line.product_name'/>
+                                </t>
+                                <t>
+                                <div style="font-size: 95%; text-align: left; font-weight: 700; margin-left: 10%;">
+                                    <span t-esc="line.quantity"/> <span t-esc='line.unit_name'/> @ <span t-esc="widget.pos.format_currency_no_symbol(line.price)"/>
+                                </div>
+
+                                </t>
+                                <t t-if='line.discount !== 0'>
+                                    <h5 style="margin-top: 0%;margin-bottom: 0%;font-size: 90%;font-weight: 700; margin-left: 10%;">  Discount:
+                                        <t t-esc='line.discount' />
+                                    </h5>
+                                </t>
+                                <t t-if="line.customer_note">
+                                    <h5 style="margin-top: 0%;margin-bottom: 0%;font-size: 90%;font-weight: 700; margin-left: 10%;"> Customer Note:
+                                        <t t-esc="line.customer_note"/>
+                                    </h5>
+                                </t>
+                            </div>
+                        </td>
+
+                        <td style="text-align: right; font-weight: 600;"><span t-esc='widget.pos.format_currency_no_symbol(line.price_display)'/></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+            <!-- Subtotal -->
+            <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001' />
+            <t t-if='!taxincluded'>
+                <br/>
+                <div style="font-weight: 700;text-align: right; font-size: 20px;border-top: 2px solid;margin-left: 30%; padding-top: 2%;">Subtotal : <span t-esc='widget.pos.format_currency(receipt.subtotal)' class="pos-receipt-right-align"/></div>
+                <t t-foreach='receipt.tax_details' t-as='tax' t-key="tax">
+                    <div style="font-weight: 700;text-align: right;">
+                        <t t-esc='tax.name' />
+                        <span t-esc='widget.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+            </t>
+            <!-- Total -->
+            <br/>
+            <div style="font-size: 150%;text-align: right;font-weight: 700; border-top: 3px solid;margin-left: 1%;padding-top: 2%;">
+                TOTAL :
+                <span t-esc='widget.pos.format_currency(receipt.total_with_tax)'/>
+            </div>
+            <br/>
+            <!-- Extra Payment Info -->
+            <t t-if='receipt.total_discount'>
+                <div style="font-size: 80%;text-align: right;border-top: 1px dashed;margin-left: 30%;padding-top: 1%; padding-bottom: 2%; ">
+                    Discounts
+                    <span t-esc='widget.pos.format_currency(order.get_total_discount())'/>
+                </div>
+            </t>
+            <t t-if='taxincluded'>
+                <t t-foreach='receipt.tax_details' t-as='tax' t-key="tax">
+                    <div style="font-size: 75%; text-align: right; font-weight: 700; border-top: 1px dashed;margin-left: 30%;padding-top: 1%; padding-bottom: 1%;">
+                        <t t-esc='tax.name' />
+                        <span t-esc='widget.pos.format_currency_no_symbol(tax.amount)'/>
+                    </div>
+                </t>
+                <div style="font-size: 75%; text-align: right; font-weight: 700; padding-bottom: 1%;">
+                    Total Taxes :
+                    <span t-esc='widget.pos.format_currency(receipt.total_tax)'/>
+                </div>
+            </t>
+            </div>
+            <div style="border-top: 1px dashed black;padding-top: 1%;">
+                <!-- Payment Lines -->
+                <t t-foreach='paymentlines' t-as='line' t-key="line">
+                    <div style="font-size: 90%;">
+                        <t t-esc='line.name' />
+                        <span t-esc='widget.pos.format_currency_no_symbol(line.get_amount())' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+                <div class="receipt-change" style="font-size: 90%;">
+                    CHANGE
+                    <span t-esc='widget.pos.format_currency(receipt.change)' class="pos-receipt-right-align"/>
+                </div>
+                    <div style="border-top: 1px dashed black;padding-top: 1%;">
+                <!-- Payment Lines -->
+                <!--<t t-foreach='cards' t-as='card' t-key="card">-->
+                <!--    <div style="font-size: 90%;">-->
+                <!--        <t t-esc='card.code' />-->
+                <!--    </div>-->
+                <!--</t>-->
+            </div>
+            </div>
+
+            <div class='before-footer' />
+            <div t-if="receipt.pos_qr_code">
+                <br /><br />
+                <div class="pos-receipt-order-data">
+                    Scan me to request an invoice for your purchase.
+                </div>
+                <img id="posqrcode" t-att-src="receipt.pos_qr_code" class="pos-receipt-logo"/>
+            </div>
+            <div class='after-footer' style="font-size: 14px;">
+                <t t-foreach='paymentlines' t-as='line' t-key="line">
+                    <t t-if='line.ticket'>
+                        <br />
+                        <div class="pos-payment-terminal-receipt">
+                            <t t-esc='line.ticket'/>
+                        </div>
+                    </t>
+                </t>
+            </div>
+            <br/>
+            <t t-if='receipt.loyaltyStats'>
+                <t t-foreach="receipt.loyaltyStats" t-as="_loyaltyStat" t-key="_loyaltyStat.couponId">
+                    <!-- Show only if portal_visible. -->
+                    <div t-if="_loyaltyStat.program.portal_visible and (_loyaltyStat.points.won || _loyaltyStat.points.spent)" class='loyalty'>
+                        <span class="pos-receipt-center-align">
+                            <hr/>
+                            <br/>
+                            <div t-esc='_loyaltyStat.program.name' class="pos-receipt-title" />
+
+                            <br />
+                        </span>
+                        <t t-if='_loyaltyStat.points.won'>
+                            <div><t t-esc="_loyaltyStat.points.name"/> Won: <span t-esc='_loyaltyStat.points.won' class="pos-receipt-right-align"/></div>
+                        </t>
+                        <t t-if='_loyaltyStat.points.spent'>
+                            <div><t t-esc="_loyaltyStat.points.name"/> Spent: <span t-esc='_loyaltyStat.points.spent' class="pos-receipt-right-align"/></div>
+                        </t>
+                        <!-- Don't use points.total, it's wrong in this context (after the order synced). -->
+                        <!-- Show balance as it's updated during _postPushOrderResolve. -->
+                        <t t-if='_loyaltyStat.points.balance'>
+                            <div>Balance <t t-esc="_loyaltyStat.points.name"/>: <span t-esc='_loyaltyStat.points.balance' class="pos-receipt-right-align"/></div>
+                        </t>
+                        <br />
+                    </div>
+                </t>
+            </t>
+
+            <t t-if="receipt.new_coupon_info and receipt.new_coupon_info.length !== 0">
+                <div class="pos-coupon-rewards">
+                    <t t-foreach="receipt.new_coupon_info" t-as="coupon_info" t-key="coupon_info.code">
+                        <t t-if="!coupon_info['giftcard_info']">
+                            <hr/>
+                            <br/>
+                            <div style="font-size: 130%;">
+                                Coupon Codes
+                            </div>
+                            <div style="font-size: 110%;">
+                                <t t-esc="coupon_info['program_name']"/>
+                            </div>
+                            <div>
+                                <span>Valid until: </span>
+                                <t t-if="coupon_info['expiration_date']">
+                                    <t t-esc="coupon_info['expiration_date']"/>
+                                </t>
+                                <t t-else="">
+                                    no expiration
+                                </t>
+                            </div>
+                            <div>
+                                <img t-att-src="'/report/barcode/Code128/'+coupon_info['code']" style="width:400px;height:100px" alt="Barcode"/>
+                            </div>
+                            <div style="font-size: 110%;">
+                                <t t-esc="coupon_info['code']"/>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+
+            <t t-if="receipt.new_coupon_info">
+            <hr/>
+                <t t-foreach="receipt.new_coupon_info" t-as="giftcode" t-key="giftcode">
+                    <div style="padding:0; margin:0px; padding-top:10px; padding-bottom:6px; text-align:center;" t-if="giftcode['giftcard_info'] and giftcode['giftcard_info'].length">
+                        <div class="pos-receipt-center-align">
+                            Gift Barcodes
+                            <br/>
+                        </div>
+                        <t t-foreach="giftcode['giftcard_info']" t-as="giftcard" t-key="giftcard">
+                            <img t-att-src="'/report/barcode/Code128/'+giftcard.code" style="width:400px;height:100px" alt="Barcode"/>
+                            <span t-esc="giftcard.code" style="display: block;"/>
+                            <div><b>price : <span t-esc="widget.pos.format_currency(giftcard.points)"/></b></div>
+                            <br/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+            <div>
+<!--                <span style="display:block; width:100%;height:4rem" t-esc="receiptBarcode"/>-->
+<!--                <div style="margin:auto;margin-top:3px;" id="barcode_print"></div>-->
+
+<!--                <div style="padding:0; margin:0px; padding-top:2px; padding-bottom:10px; text-align:center;">-->
+<!--                    <img t-att-src="'/report/barcode/Code128/'+receipt.barcode" style="width:400px;height:100px" alt="Barcode"/>-->
+<!--                    <span t-esc="receipt.barcode" style="font-size: 16px;display: block;"/>-->
+<!--                </div>-->
+            <hr/>
+            <div t-if='pos.config.is_send_to_TIMS'>
+                <div t-if='!order.to_invoice'>
+                    <div t-if='!receipt.manual_etr'>
+                        <div class="receipt-cu-qrcode" style="font-size: 90%;">
+                            <t t-if='receipt.l10n_ke_cu_qrcode'>
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <img t-att-src="'/report/barcode/QR/'+ receipt.l10n_ke_cu_qrcode"  style="display:block; height:200px; width:200px;" alt="QR Code"/>
+                                </div>
+                            </t>
+                        </div>
+                        <br/>
+                        <div class="receipt-cu-date" style="font-size: 90%;">
+                            <t t-if='receipt.l10n_ke_cu_datetime'>
+                                Cu Date :
+                                <span t-esc="receipt.l10n_ke_cu_datetime" class="pos-receipt-right-align"/>
+                            </t>
+                        </div>
+                        <div class="receipt-cu-serial-no" style="font-size: 90%;">
+                            <t t-if='receipt.l10n_ke_cu_serial_number'>
+                                Cu Serial No :
+                                <span t-esc="receipt.l10n_ke_cu_serial_number" class="pos-receipt-right-align"/>
+                            </t>
+                        </div>
+                        <div class="receipt-cu-invoice-no" style="font-size: 90%;">
+                            <t t-if='receipt.l10n_ke_cu_invoice_number'>
+                                Cu Invoice No :
+                                <span t-esc="receipt.l10n_ke_cu_invoice_number" class="pos-receipt-right-align"/>
+                            </t>
+                        </div>
+                        <br/>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+            </div>
+             <!-- Footer -->
+            <div t-if='receipt.footer_html'  class="pos-receipt-center-align" style="font-size: 100%; font-family: Courier New;">
+                <t t-esc='receipt.footer_html'/>
+            </div>
+            <div t-if='!receipt.footer_html and receipt.footer'  class="pos-receipt-center-align">
+                <br/>
+                <t t-esc='receipt.footer'/>
+                <br/>
+            </div>
+            <br/>
+            <br/>
+</div>]]></field>
+    </record>
+</odoo>

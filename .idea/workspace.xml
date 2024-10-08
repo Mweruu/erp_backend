@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0a87991d-da85-448a-be27-e9582b7927d8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/rma_ept/README.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/__manifest__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/data/crm_claim_ept_sequence.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/data/mail_template_data.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/data/rma_reason_ept.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/account_move.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/crm_claim_ept.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/crm_claim_line_ept.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/crm_res_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/repair_order.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/res_company.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/sale_order.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/stock_picking.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/stock_production_lot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/models/stock_warehouse.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/report/rma_report.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/report/rma_report_template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/security/ir.model.access.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/security/res_groups.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Amazon-Odoo-Connector.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Consignment-Management.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Dropshipping-EDI-Integration-in-Odoo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Generic-Process-of-RMA_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Inter-Company-Transaction.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Odoo-WooCommerce-Connector.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Odoo-bol.com-connector.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/README.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/RMA-v15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Redirect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Refund-Scenario-in-RMA_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Repair-Scenario-in-RMA_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Replacement-Scenario-in-RMA_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/ShipStation.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/Shopify-Odoo-Connector.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/eBay-Odoo-Connector.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/etpl_support_desk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/etpl_support_policy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/etpl_user_guide.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/etpl_video_tutorial.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/horizontal_line.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/key_feature.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/logo_main.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screen_shot.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/screens/RMA-Email Template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/support.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/static/description/vertical_line.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/claim_reject_message.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/crm_claim_ept_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/repair_order_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/rma_reason_ept.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/sale_order_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/view_account_invoice.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/view_stock_picking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/views/view_stock_warehouse.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/claim_process_wizard.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/create_partner_delivery_address_ept.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/create_partner_delivery_address_view.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/res_config_settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/res_config_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rma_ept/wizard/view_claim_process_wizard.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2efd9w1xAHcZq7XyZT95G70Ca4K" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0a87991d-da85-448a-be27-e9582b7927d8" name="Changes" comment="" />
+      <created>1712299418662</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712299418662</updated>
+    </task>
+    <servers />
+  </component>
+</project>

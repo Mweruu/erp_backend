@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="NumpadWidget" t-inherit="point_of_sale.NumpadWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('numpad-minus')]" position="replace">
+            <button class="input-button numpad-minus"
+                    t-att-class="{ 'disabled-mode': !hasToggleSign }"
+                    t-att-disabled="!hasToggleSign" t-on-click="() => this.sendInput('-')">+/-</button>
+        </xpath>
+    </t>
+</templates>

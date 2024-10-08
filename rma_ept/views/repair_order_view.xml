@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="repair_order_from" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="name">repair order form view</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"></field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="claim_id" readonly="1" attrs="{'invisible':[('claim_id', '=', False)]}"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('claim_id', '!=', False)]}</attribute>
+            </field>
+            <field name="product_qty" position="attributes">
+                <attribute name="attrs">{'readonly': [('claim_id', '!=', False)]}</attribute>
+            </field>
+            <field name="lot_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('lot_id', '!=', False)]}</attribute>
+            </field>
+            <button name="action_created_invoice" position="after">
+                <field name="picking_ids" invisible="1"/>
+                <button class="oe_stat_button" name="show_delivery_picking"
+                        type="object" attrs="{'invisible':[('picking_ids', '=',[])]}" icon="fa-truck">
+                    <span class="o_stat_text">Deliveries</span>
+                </button>
+            </button>
+        </field>
+    </record>
+
+</odoo>

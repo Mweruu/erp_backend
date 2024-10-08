@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_view_form" model="ir.ui.view">
+        <field name="name">ir.cron.view.form</field>
+        <field name="model">ir.cron</field>
+        <field name="inherit_id" ref="base.ir_cron_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='action_content']" position="after">
+                <group>
+                    <label for="email_to" class="mt-1"/>
+                    <div>
+                        <field name="email_to" placeholder='e.g. "mycompany@example.com"'/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

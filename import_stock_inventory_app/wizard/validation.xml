@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rec_validation_wizard" model="ir.ui.view">
+        <field name="name">Import Stock</field>
+        <field name="model">import.validation</field>
+        <field name="arch" type="xml">
+            <form string="Validation">
+                <p class="oe_grey">
+                    Import Validations
+                </p>
+                <field name="validation_ids" options="{'no_create': True,'no_create_edit' : True}">
+                    <tree delete="false" create="false">
+                        <field name="element"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

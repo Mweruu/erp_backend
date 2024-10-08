@@ -1,0 +1,34 @@
+15.0.0.1 ==>1.fixed issue of monthly and weekly statement for Payments/Debit.
+         ==>fixed spelling mistake and template of custom payemnt.
+
+15.0.0.2 ==>1.fixed issue of opt statement boolean for send overdue button.
+            2.fixed issue of balance in supplier statement report.
+
+
+15.0.0.3 ==>fixed issue of multi company in all reports.
+15.0.0.4 ==>fixed issue of send overdue statement button in customer.
+15.0.0.5 ==>added journal entry in statement domain.
+15.0.0.6 ==>fixed issue of journal entry in Statements Filter By Date.
+
+
+Version: 15.0.0.7 | 04/03/2022 :-
+    - Traceback occurred when open the partner view, solved that issue.
+
+
+Version: 15.0.0.8 | 10/03/2022 :-
+    - There is wrong value showing in the customer statement tab for total balance and due amount, solved that issue.
+    - Wrong value showing in filter statement and in customer statement lines, corrected it.
+    - Corrected customer and vendor reports of statements.
+
+15.0.0.9 ==>fixed issue of loading issue of customers.
+15.0.1.0 ==>fixed issue of company value was not passing when we get the statement.
+15.0.1.1 ==>fixed issue of Inventory valuation disappear in statement, Balance column in Customer statement report, also invoice date issue.
+
+15.0.1.2 ==> Update when opening balance avilable in report at that time update balance calculation and alos update overdue amount calculation.
+
+=> 15.0.1.3 : Improved an index as per latest improvement points and In customer statement shows Inventory Valuation realted entry,also show in customer report fixed it. .
+=> 15.0.1.4 : Improvments are added for supplier due and overdue functionality and counting is added in website also.
+
+=> 15.0.1.5 : Improved an index as per latest improvements.
+
+15.0.1.6 ==> When large number of customer available in database and open any customer at that time takes too much time for open any customer form view and also fixed issue of when first time when print report from list view at that time in report value can't be show in report.

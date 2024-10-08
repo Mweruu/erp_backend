@@ -1,0 +1,20 @@
+{
+    'name': 'Point of Sale - Picking Creation Delayed',
+    "summary": "Delay the creation of the picking when PoS order is created",
+    'version': '16.0.1.0.0',
+    'summary': """Option to select the customised Receipts for each POS""",
+    'description': "Option to select the customised Receipts for each POS",
+    'category': 'Point of Sale',
+    'depends': ['base', 'point_of_sale', 'queue_job'],
+    'data': [
+        'data/queue_job_channel.xml',
+        'data/queue_job_function.xml',
+        'views/res_config_settings_views.xml',
+        'views/pos_order_views.xml',
+    ],
+    'assets': {},
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}

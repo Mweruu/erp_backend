@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_groups_phone_payment" model="res.groups">
+        <field name="name">Phone Payment</field>
+    </record>
+
+    <record id="res_groups_confirm_phone_payment" model="res.groups">
+        <field name="name">Confirm Phone Payment</field>
+        <field name="implied_ids" eval="[(6, 0, [ref('dk_phone_payment.res_groups_phone_payment')])]"/>
+    </record>
+
+    <record id="res_groups_validate_phone_payment" model="res.groups">
+        <field name="name">Validate Phone Payment</field>
+        <field name="implied_ids" eval="[(6, 0, [ref('dk_phone_payment.res_groups_phone_payment')])]"/>
+    </record>
+
+</odoo>

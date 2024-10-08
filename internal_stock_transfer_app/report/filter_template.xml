@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="template_report3">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <br/>
+                <br/>
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <h4 class="text-center">Received Products
+                            <span></span>
+                        </h4>
+                        <h5>Report of Period</h5>
+                        <span t-esc="from_date" style="font-size:15px"/>&#160; To &#160;<span t-esc="to_date"
+                                                                                              style="font-size:15px"/>
+                        <br/>
+                        <table class="table table-condensed table-bordered" style="width: 100%">
+                            <thead>
+                                <th class="text-center" style="width: 11%,color:gray">Product</th>
+                                <th class="text-center" style="width: 11%,color:gray">Quantity</th>
+                                <th class="text-center" style="width: 11%">UOM</th>
+                                <th class="text-center" style="width: 11%">Warehouse</th>
+
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="doc['product_id']"/>
+                                        </td>
+
+                                        <td>
+                                            <span t-esc="doc['quantity']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="doc['product_uom_id']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="doc['warehouse']"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="page-break-before:always;"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

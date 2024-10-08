@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- res.config.settings -->
+        <record model="ir.ui.view" id="view_account_res_config_settings_inherited">
+            <field name="name">view.account.res.config.settings.inherited</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath
+                        expr="//div[hasclass('settings')]/div[@data-key='account']/div[1]"
+                        position="after">
+                    <h2>Statement in Portal Configuration</h2>
+                    <div class="row mt16 o_settings_container" id="sale_order_setting">
+                        <div class="col-12 col-lg-6 o_setting_box" id="customer_statement_portal">
+                            <div class="o_setting_left_pane">
+                                <field name="customer_statement_portal"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="customer_statement_portal"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="supplier_statement_portal">
+                            <div class="o_setting_left_pane">
+                                <field name="supplier_statement_portal"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="supplier_statement_portal"/>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Customer Statement and Overdue Payments</h2>
+                    <div class="row mt16 o_settings_container" id="cstm_statement">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="send_statement"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="send_statement"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="send_overdue_statement"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="send_overdue_statement"/>
+                                <div class="content-group" attrs="{'invisible':[('send_overdue_statement','!=',True)]}">
+                                    <div class="row mt16 " style="margin-left:10px;    min-width: 125%;">
+                                        <label for="overdue_days"/>
+                                        <field style="margin-left:22%;" name="overdue_days" class="col-lg-3"/>
+                                        <div style="margin-left:10px;" class="text-muted">select between 1 to 30</div>
+                                    </div>
+                                    <div class="row mt16 " style="margin-left:10px;">
+                                        <label for="overdue_statement_template_id"/>
+                                        <field name="overdue_statement_template_id" class=" col-lg-4"
+                                               domain="[('model_id.model','=','res.partner')]"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12  o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_weekly_statement"
+                                       attrs="{'invisible':[('send_statement','!=',True)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_weekly_statement"
+                                       attrs="{'invisible':[('send_statement','!=',True)]}"/>
+                                <div class="content-group"
+                                     attrs="{'invisible':['|',('send_statement','!=',True),('auto_weekly_statement','!=',True)]}">
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="weekly_days" class="col-lg-3"/>
+                                        <field style="margin-left:15px;" name="weekly_days" class="col-lg-2"/>
+                                    </div>
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="weekly_template_id" class="col-lg-3"/>
+                                        <field name="weekly_template_id" class="col-lg-3"
+                                               domain="[('model_id.model','=','res.partner')]"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12  o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_monthly_statement"
+                                       attrs="{'invisible':[('send_statement','!=',True)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_monthly_statement"
+                                       attrs="{'invisible':[('send_statement','!=',True)]}"/>
+                                <div class="content-group"
+                                     attrs="{'invisible':['|',('send_statement','!=',True),('auto_monthly_statement','!=',True)]}">
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="statement_days" class="col-lg-3"/>
+                                        <field style="margin-left:15px;" name="statement_days" class="col-lg-2"/>
+                                        <div style="margin-left:10px;" class="text-muted">select between 1 to 30</div>
+                                    </div>
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="monthly_template_id" class="col-lg-3"/>
+                                        <field name="monthly_template_id" class="col-lg-3"
+                                               domain="[('model_id.model','=','res.partner')]"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Supplier Statement and Overdue Payments</h2>
+                    <div class="row mt16 o_settings_container" id="cstm_statement">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="supplier_statement"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="supplier_statement"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="supplier_overdue_statement"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="supplier_overdue_statement"/>
+                                <div class="content-group"
+                                     attrs="{'invisible':[('supplier_overdue_statement','!=',True)]}">
+                                    <div class="row mt16 " style="margin-left:10px;    min-width: 125%;">
+                                        <label for="supplier_overdue_days"/>
+                                        <field style="margin-left:22%;" name="supplier_overdue_days" class="col-lg-3"
+                                               attrs="{'required':[('supplier_overdue_statement','!=',False)]}"/>
+                                        <div style="margin-left:10px;" class="text-muted">select between 1 to 30</div>
+                                    </div>
+                                    <div class="row mt16 " style="margin-left:10px;">
+                                        <label for="sup_overdue_statement_temp_id"/>
+                                        <field name="sup_overdue_statement_temp_id" class=" col-lg-4"
+                                               domain="[('model_id.model','=','res.partner')]"
+                                               attrs="{'required':[('supplier_overdue_statement','!=',False)]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12  o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="sup_auto_weekly_statement"
+                                       attrs="{'invisible':[('supplier_statement','!=',True)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="sup_auto_weekly_statement"
+                                       attrs="{'invisible':[('supplier_statement','!=',True)]}"/>
+                                <div class="content-group"
+                                     attrs="{'invisible':['|',('supplier_statement','!=',True),('sup_auto_weekly_statement','!=',True)]}">
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="sup_weekly_days" class="col-lg-3"/>
+                                        <field style="margin-left:15px;" name="sup_weekly_days"
+                                               attrs="{'required':[('sup_auto_weekly_statement','!=',False)]}"
+                                               class="col-lg-2"/>
+                                    </div>
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="sup_weekly_template_id" class="col-lg-3"/>
+                                        <field name="sup_weekly_template_id" class="col-lg-3"
+                                               domain="[('model_id.model','=','res.partner')]"
+                                               attrs="{'required':[('sup_auto_weekly_statement','!=',False)]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12  o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="sup_auto_monthly_statement"
+                                       attrs="{'invisible':[('supplier_statement','!=',True)]}"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="sup_auto_monthly_statement"
+                                       attrs="{'invisible':[('supplier_statement','!=',True)]}"/>
+                                <div class="content-group"
+                                     attrs="{'invisible':['|',('supplier_statement','!=',True),('sup_auto_monthly_statement','!=',True)]}">
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="sup_statement_days" class="col-lg-3"/>
+                                        <field style="margin-left:15px;" name="sup_statement_days" class="col-lg-2"
+                                               attrs="{'required':[('sup_auto_monthly_statement','!=',False)]}"/>
+                                        <div style="margin-left:10px;" class="text-muted">select between 1 to 30</div>
+                                    </div>
+                                    <div class="row mt16 col-lg-12">
+                                        <label for="sup_monthly_template_id" class="col-lg-3"/>
+                                        <field name="sup_monthly_template_id" class="col-lg-3"
+                                               domain="[('model_id.model','=','res.partner')]"
+                                               attrs="{'required':[('sup_auto_monthly_statement','!=',False)]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Send Due And OverDue Statement Separately</h2>
+                    <div class="row mt16 o_settings_container" id="cstm_statement">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <p>
+                                    <b>Display Overdue Statements</b>
+                                </p>
+                                <field name="statments"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

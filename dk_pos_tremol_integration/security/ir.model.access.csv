@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+dk_pos_tremol_integration.access_tax_report,access_tax_report,dk_pos_tremol_integration.model_tax_report,base.group_user,1,1,1,0
+dk_pos_tremol_integration.access_summary_tax_report,access_summary_tax_report,dk_pos_tremol_integration.model_summary_tax_report,base.group_user,1,1,1,0
+dk_pos_tremol_integration.access_tremol_data,access_tremol_data,dk_pos_tremol_integration.model_tremol_data,base.group_user,1,1,1,0

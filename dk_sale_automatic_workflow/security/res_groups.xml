@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="sale_order_approval" model="res.groups">
+        <field name="name">Sale Order Approval</field>
+    </record>
+
+    <record id="sales_price_modify" model="res.groups">
+        <field name="name">Allow Sales Price modification</field>
+    </record>
+
+    <record id="sale_order_buttons_views_form_id" model="res.groups">
+        <field name="name">Sale Order Management</field>
+    </record>
+
+</odoo>

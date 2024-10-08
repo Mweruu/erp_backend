@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_dk_phone_payment" model="ir.actions.act_window">
+        <field name="name">Phone Payment</field>
+        <field name="res_model">dk.phone.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+            <p>
+                Click create to create phone payment transaction.
+            </p>
+        </field>
+    </record>
+
+    <record id="dk_phone_payment_form" model="ir.ui.view">
+        <field name="name">dk.phone.payment.form</field>
+        <field name="model">dk.phone.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" states="draft"
+                            groups="dk_phone_payment.res_groups_confirm_phone_payment"/>
+                    <button name="action_validate" type="object" string="Validate" class="oe_highlight" states="confirm"
+                            groups="dk_phone_payment.res_groups_validate_phone_payment"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="confirm"
+                            groups="dk_phone_payment.res_groups_validate_phone_payment"/>
+                    <button name="action_reset_draft" type="object" string="Reset" states="cancel"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h2>
+                            <field name="name" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="session_start_time" attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                            <field name="session_end_time" attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                            <field name="last_transaction_id" attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                            <field name="last_transaction_amount" attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                        </group>
+                        <group>
+                            <field name="opening_balance" readonly="1" force_save="1"/>
+                            <field name="closing_balance" attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                            <field name="volume_amount" readonly="1" force_save="1"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                            <field name="currency_id" groups="base.group_multi_currency"
+                                   attrs="{'readonly': [('state', '=', 'validate')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Withdrawals">
+                            <field name="line_ids" attrs="{'readonly': [('state', '=', 'validate')]}">
+                                <tree editable="bottom">
+                                    <field name="phone_payment_id" invisible="1"/>
+                                    <field name="date"/>
+                                    <field name="amount" sum="Total Withdrawals"/>
+                                    <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+                                    <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="dk_phone_payment_tree" model="ir.ui.view">
+        <field name="name">dk.phone.payment.tree</field>
+        <field name="model">dk.phone.payment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="session_start_time"/>
+                <field name="session_end_time"/>
+                <field name="last_transaction_id"/>
+                <field name="last_transaction_amount"/>
+                <field name="opening_balance"/>
+                <field name="closing_balance"/>
+                <field name="total_withdrawal"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_dk_phone_payment"
+            name="Phone Payments"
+            parent="point_of_sale.menu_point_root"
+            action="action_dk_phone_payment"
+            sequence="50"/>
+
+</odoo>

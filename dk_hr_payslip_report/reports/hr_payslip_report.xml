@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hr_payslip_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Payroll Report</h2>
+                    <p>For:
+                        <t t-esc="payslip_batches"/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Employee</b>
+                                </td>
+                                <td>
+                                    <b>Bank Account</b>
+                                </td>
+                                <td>
+                                    <b>Slip Number</b>
+                                </td>
+                                <td>
+                                    <b>Amount</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['user']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['bank_account']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['slip_number']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['amount']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="hr_payslip_report" model="ir.actions.report">
+        <field name="name">Payslip report</field>
+        <field name="model">hr.payslip.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dk_hr_payslip_report.hr_payslip_report_template</field>
+        <field name="report_file">dk_hr_payslip_report.hr_payslip_report_template</field>
+        <field name="print_report_name">'payslip report'</field>
+        <field name="binding_model_id" ref="model_hr_payslip_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

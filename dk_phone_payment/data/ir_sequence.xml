@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record forcecreate="1" id="phone_payment_sequence" model="ir.sequence">
+            <field name="name">Phone Payment Sequence</field>
+            <field name="code">phone.payment.sequence</field>
+            <field name="padding">5</field>
+            <field name="prefix">PP</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

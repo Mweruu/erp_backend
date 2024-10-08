@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_internal_transfer_user,stock.internal.transfer.user,model_stock_internal_transfer,stock.group_stock_user,1,1,1,0
+access_stock_internal_transfer_manager,stock.internal.transfer.manager,model_stock_internal_transfer,stock.group_stock_manager,1,1,1,1
+access_stock_internal_transfer_line_user,stock.internal.transfer.line user,model_stock_internal_transfer_line,stock.group_stock_user,1,1,1,0
+access_stock_internal_transfer_line_manager,stock.internal.transfer.line manager,model_stock_internal_transfer_line,stock.group_stock_manager,1,1,1,1
+
+access_stock_product_produce,access_stock_product_produce,model_stock_product_produce,base.group_user,1,1,1,1
+
+access_stock_product_producee,access_stock_product_produce,model_stock_product_produce,base.group_user,1,1,1,1
+
+access_stock_product_produce_line,access_stock_product_produce_line,model_stock_product_produce_line,base.group_user,1,1,1,1
+access_internal_stock_move_report,access_internal_stock_move_report,model_internal_stock_move_report,base.group_user,1,1,1,1
+internal_stock_transfer_app.access_filter_transfer,access_filter_transfer,internal_stock_transfer_app.model_filter_transfer,base.group_user,1,0,0,0
+

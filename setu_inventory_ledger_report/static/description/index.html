@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>Inventory Ledger Report | Setu Consulting Services Pvt. Ltd. | Odoo</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="https://www.setuconsulting.com/css/fonts.css" rel="stylesheet">
+    <link href="https://www.setuconsulting.com/css/plugins.css" rel="stylesheet">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+</head>
+<!-- odoo description page css -->
+<style>
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 {
+        font-weight: 400;
+        line-height: 1.1;
+        color: #21272b;
+    }
+    
+    ul {
+        color: #222020;
+    }
+</style>
+
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="row justify-content-md-between justify-content-center border-bottom align-items-center py-2 mx-0">
+        <div id="logo">
+            <img alt="Setu Consulting Services Pvt. Ltd." class="logo-default" data-placement="right" data-toggle="tooltip"
+                 src="images/odoo_images/setu.png" title="Setu Consulting Services Pvt. Ltd."
+                 width="150px">
+        </div>
+        <div class="text-center">
+            <a class="btn btn-primary mx-2 pr-sm-4 mb-2 mb-lg-0"
+               href="mailto:apps@setuconsulting.com?subject=Inventory Ledger Report Version 15.0 - Demo Request" style="text-transform: uppercase; font-size: 14px;"
+               target="_blank"><i class="fa fa-envelope-square mr-sm-2"
+                                                                      style="font-size: 20px;vertical-align: middle;"></i>
+                <span class="d-none d-sm-inline">Request a demo</span></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="text-center mb-4 mt-3">
+                <img src="images/inventory-ledger-report.png">
+            </div>
+            <!-- <h1 class="text-center">Advance Inventory Reports</h1> -->
+            <p class="text-justify text-muted" data-animate="fadeIn" data-animate-delay="400">
+                <!-- <span class="dropcap dropcap-colored"> B </span> -->
+                <font size="4">In any industry today inventory optimization is such a vital function. It’s hard to track
+                    inventory movements, especially when you have a large products catalog, multiple warehouses or multi
+                    company environment.<br><br>
+                    It’s necessary to know inventory movements each day with all possible movements for each product for
+                    each warehouse or company and it’s very difficult to manage. So we introduced a solution for that
+                    and built an Inventory Ledger Report where users can track each day's transactions or summary of all
+                    dates together with real calculated opening and closing. This app helps you to track the inventory
+                    for specific periods or up to a certain date.</font>
+            </p><br>
+            <h2 class="text-left">Key Features</h2><br>
+            <div class="row">
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Detailed and
+                                Summary reports available
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Report can
+                                be downloaded by company or warehouse, for both summary report and detailed reports are
+                                available
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Date wise
+                                calculated opening stock and closing stock
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Date wise
+                                detailed data for each movement.
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 95px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Capture all
+                                possible inventory movements and separately visible all IN transactions and OUT
+                                transactions in report. (Date wise / Summary).
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Report can
+                                be visible in Odoo list view, where user can perform grouping, advance searching and
+                                filtration easily.
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Quick
+                                filters for company, warehouse, product category and products to generate reports for
+                                specific dataset.
+                            </div>
+                        </li>
+                    </font>
+                </div>
+                <div class="col-md-12 text-muted" style="height: 70px">
+                    <font size="4">
+                        <li class="list-group-item list-group-item-primary">
+                            <div class="icon-class m-l-10" data-animate="bounceIn" data-animate-delay="600">
+                                <img alt="arrow" src="images/next.svg" style="width:15px;margin-right:10px">Users can
+                                perform inventory comparison to compare calculated inventory v/s theoretical inventory
+                                available in the system.
+                            </div>
+                        </li>
+                    </font>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <br>
+        <!-- tab view START -->
+        <h2 class="w-100 text-center my-3">Screenshots</h2>
+        <div class="text-center w-100 mb-2">
+            <img alt="Setu Consulting" height="100%" src="images/line.png" width="30%">
+        </div>
+        <div class="row pt-4 px-3">
+            <div class="w-100">
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- RMA Start -->
+                    <div class="tab-pane fade show active">
+                        <div class="card border-0"
+                             style="border-radius: .25rem;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); color: #002966;">
+                            <div class="row">
+                                <div class="col-12 col-lg-12">
+                                    <ul class="list-unstyled pl-0  bg-white" style="font-size:15px;">
+                                        <li class="d-flex align-items-baseline mb-2 p-3 font-weight-bold"
+                                            style="border-radius: 10px;font-size: 16px;">
+                                            <span class="text-center "
+                                                  style="font-size: 40px;font-weight: 400;color: #8482b2;">
+                                            <!-- Screenshots start -->
+                                                <div class="row">
+                                                    <div class="carousel slide col-12 col-lg-12 mx-auto" data-ride="carousel"
+                                                         id="ilr_slide">
+                                                        <div class="carousel-inner pt-4 pt-lg-5">
+                                                            <div class="carousel-item px-4 active">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report"
+                                                                         height="560px" src="images/InventoryLedgerReport/InventoryLedgerReportStart.png"
+                                                                         width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Company Warehouse Wise"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportCompanyWarehouseWise.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Company Warehouse Product"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportCompanyWarehouseProduct.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Start List View"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportStartListView.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Groupby"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportGroupby.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Field Selection"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/FieldSelection.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Movements"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportMovement.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                            <div class="carousel-item px-4">
+                                                                <div class="row pb-sm-4 no-lg-gutters">
+                                                                    <img alt="Inventory Ledger Report Movements Filter"
+                                                                         height="560px"
+                                                                         src="images/InventoryLedgerReport/InventoryLedgerReportMovementFilter.png" width="1050px">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a class="carousel-control-prev" data-slide="prev"
+                                                           href="#ilr_slide" style="left: -5%; width: 60px;">
+                                                            <i class="fa fa-chevron-circle-left"
+                                                               style="font-size: 2vw;color: #875a7b;"></i>
+                                                        </a>
+                                                        <a class="carousel-control-next" data-slide="next"
+                                                           href="#ilr_slide" style="right: -5%; width: 60px;">
+                                                            <i class="fa fa-chevron-circle-right"
+                                                               style="font-size: 2vw;color: #875a7b;"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RMA over -->
+                </div>
+            </div>
+        </div>
+        <!-- tab view END -->
+
+        <div class="container" style="width: 100%;">
+            <div class="row">
+                <div class="col-sm-6 col-md-12 px-2">
+                    <h2 class="w-100 text-center my-3">Suggested Apps</h2>
+                    <div class="text-center w-100 mb-4">
+                        <img alt="Setu Consulting Services Pvt. Ltd." height="100%" src="images/line.png" width="30%">
+                    </div>
+                </div>
+                <div class="card border-0"
+                     style="border-radius: .25rem;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); color: #002966; width: 100%;">
+                    <div class="carousel slide col-12 col-lg-12 mx-auto" data-ride="carousel" id="demo11">
+                        <div class="row">
+                            <div class="carousel slide col-12 col-lg-12 mx-auto" data-ride="carousel" id="apps">
+                                <div class="carousel-inner pt-lg-5">
+                                    <div class="carousel-item px-4 active">
+                                        <div class="row pb-sm-4 no-lg-gutters">
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_advance_reordering/"
+                                               target="_blank">
+                                                <img alt="Advance Reordering"
+                                                     src="images/odoo_images/advance-reordering.png" style="margin-left: 100px; margin-right:10px"
+                                                     width="450px"></a>
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_advance_inventory_reports/"
+                                               target="_blank">
+                                                <img alt="Advance Inventory Reports"
+                                                     class="ml-4" src="images/odoo_images/advance-inventory-reports.png" width="450px"></a>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item px-4">
+                                        <div class="row pb-sm-4 no-lg-gutters">
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_intercompany_transaction/"
+                                               target="_blank">
+                                                <img alt="Inter Company Transfer"
+                                                     src="https://www.setuconsulting.com/solutions_banner/ICTbannerV14.gif" style="margin-left: 100px; margin-right:10px"
+                                                     width="450px"></a>
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_sales_purchase_price_tracker/"
+                                               target="_blank">
+                                                <img alt="Sale - Purchase Price Tracker"
+                                                     class="ml-4" src="images/odoo_images/price-tracker.png" width="450px"></a>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item px-4">
+                                        <div class="row pb-sm-4 no-lg-gutters">
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_abc_analysis_reports/"
+                                               target="_blank">
+                                                <img alt="ABC Analysis Reports"
+                                                     src="images/odoo_images/abc-analysis.png" style="margin-left: 100px; margin-right:10px"
+                                                     width="450px"></a>
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_rfm_analysis/"
+                                               target="_blank">
+                                                <img alt="RFM Analysis" class="ml-4"
+                                                     src="images/odoo_images/rfm-analysis.png" width="450px"></a>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item px-4">
+                                        <div class="row pb-sm-4 no-lg-gutters">
+                                            <a href="https://apps.odoo.com/apps/modules/14.0/setu_inventory_card_report/"
+                                               target="_blank">
+                                                <img alt="Inventory Card Report" src="images/odoo_images/ledgerCard.png"
+                                                     style="margin-left: 100px; margin-right:10px" width="450px"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" data-slide="prev" href="#apps"
+                                   style="left: -5%; width: 60px;">
+                                    <i class="fa fa-chevron-circle-left" style="font-size: 2vw;color: #875a7b;"></i>
+                                </a>
+                                <a class="carousel-control-next" data-slide="next" href="#apps"
+                                   style="right: -5%; width: 60px;">
+                                    <i class="fa fa-chevron-circle-right" style="font-size: 2vw;color: #875a7b;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FREE SUPPORT -->
+    </div>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 mt-3 px-2 text-center">
+                <div style="border-radius:10px; padding:5px; border-left:4px solid #5A63A6; box-shadow: 0px 2px 9px 4px #d0cecb;">
+                    <h5 class="font-weight-bold">FREE SUPPORT</h5>
+                    <a class="btn btn-info mx-2 pr-sm-4 mb-2 mb-lg-0"
+                       href="mailto:support@setuconsulting.com?subject=Inventory Ledger Report Version 15.0 - Support Request" style="text-transform: uppercase; font-size: 14px;"
+                       target="_blank"><i class="fa fa-envelope-square mr-sm-2"
+                                                                              style="font-size: 20px;vertical-align: middle;"></i>
+                        <span class="d-none d-sm-inline">Request free support</span></a>
+                    <p class="m-auto w-75" style="line-height: 1.5;font-weight: 100;">We will provide free support for
+                        any issues, queries, and bug fixing upto 90 days from the date of purchase of this application.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 mt-3 px-2 text-center">
+                <div style="border-radius:10px; padding:5px; border-left:4px solid #5A63A6; height: 150px; box-shadow: 0px 2px 9px 4px #d0cecb;">
+                    <h3 class="font-weight-bold">NOTE</h3>
+                    <p class="m-auto w-75" style="line-height: 1.5;font-weight: 100;">
+                        Get notified about latest update. Please drop an email when you make purchase at
+                        <a class="btn btn-info mx-2 pr-sm-4 mb-2 mb-lg-0"
+                           href="mailto:sales@setuconsulting.com?subject=Inventory Ledger Report Version 15.0 - New Purchase"
+                           style="text-transform: uppercase; font-size: 14px;"><i class="fa fa-envelope-square mr-sm-2"
+                                                                                  style="font-size: 20px;vertical-align: middle;"></i>
+                            <span class="d-none d-sm-inline">Setu Consulting</span></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-12 mt-6 px-2 text-center">
+        <img src="images/odoo_images/odoo-services-1.png">
+    </div>
+</div>
+
+
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="tax_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <h2>Type C Tax Report</h2>
+                    <p>Date from:
+                        <t t-esc='date_from'/>
+                        - Date to:
+                        <t t-esc='date_to'/>
+                    </p>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Datetime</b>
+                                </td>
+                                <td>
+                                    <b>Receipt Number</b>
+                                </td>
+                                <td>
+                                    <b>Partner</b>
+                                </td>
+                                <td>
+                                    <b>Total</b>
+                                </td>
+                                <td>
+                                    <b>Amount Tax</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="d">
+                                <tr>
+                                    <td>
+                                        <t t-esc="d['Datetime']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Receipt Number']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Partner']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Total Amount']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Amount Tax']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="text-right">
+                                        <b>Total</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b t-esc='round(total, 2)'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+        </t>
+    </template>
+    <record id="tax_report" model="ir.actions.report">
+        <field name="name">Tax Report for POS</field>
+        <field name="model">tax.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dk_pos_tremol_integration.tax_report_template</field>
+        <field name="report_file">dk_pos_tremol_integration.tax_report_template</field>
+        <field name="print_report_name">'Tax Cards'</field>
+        <field name="binding_model_id" ref="model_tax_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

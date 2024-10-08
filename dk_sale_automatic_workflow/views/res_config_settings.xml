@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_approval" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.approval</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='catalog_setting_container']" position="after">
+                <h2 class="mt32">Double Validation</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="so_double_validation"/>
+                            <div class="text-muted">
+                                <field name="so_double_validation"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="so_double_validation_amount"/>
+                            <div class="text-muted">
+                                <field name="so_double_validation_amount"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_set_percentage_range_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pricing_setting_container']" position="after">
+                <div class="row mt16 o_settings_container" id="pricing_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box"
+                         id="sale_set_percentage_range_container">
+                        <div class="o_setting_left_pane">
+                            <field name="sale_set_percentage_range_bool"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="sale_set_percentage_range_bool" string="Percentage Range"/>
+                            <div class="text-muted">
+                                Set the percentage range allowed between selling and list price
+                            </div>
+                            <div class="content-group">
+                                <field name="sale_set_percentage_range" class="o_light_label" style="width: 50px;"/>
+                                <span>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+Product Name,UOM,Location,LOT,Real Qty,Internal Reference,category,price,cost,Product External ID,Location External ID
+Desk Stand with Screen,Units,Stock,LOT/22,100,scr22,Digital,1000,500,product.product_product_22,stock.stock_location_stock
+Acoustic Bloc Screens,Units,Stock,LOT/25,200,scr25,Digital,2000,700,product.product_product_25,stock.stock_location_components

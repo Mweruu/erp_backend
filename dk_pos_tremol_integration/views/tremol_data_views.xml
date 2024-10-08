@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="tremol_data_wizard" model="ir.ui.view">
+        <field name="name">tremol_data_wizard</field>
+        <field name="model">tremol.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_tremol_data_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_tremol_data_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="tremol_data_wizard_action" model="ir.actions.act_window">
+        <field name="name">Tremol Data report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tremol.data</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='tremol_data_wizard'/>
+    </record>
+    <menuitem id="tremol_data_menu_item" name="Tremol Data Report" parent="point_of_sale.menu_point_rep" sequence="100"
+              action="tremol_data_wizard_action" groups="point_of_sale.group_pos_manager"/>
+</odoo>

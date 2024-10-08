@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_groups_pos_management" model="res.groups">
+        <field name="name">POS Management</field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for stock.internal.transfer -->
+        <record id="seq_stock_internal_transfer" model="ir.sequence">
+            <field name="name">Stock Internal Transfer</field>
+            <field name="code">stock.internal.transfer</field>
+            <field name="prefix">INT/STOCK/TRAN/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

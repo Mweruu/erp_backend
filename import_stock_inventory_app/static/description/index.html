@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Import Stock Inventory</title>
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div>
+    <section class="oe_container lead title_box"
+             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);text-align: center;">
+        <div>
+            <div>
+                <h2 class="oe_slogan title"
+                    style="margin-bottom: 10px;padding-top: 10px;    background: -webkit-linear-gradient(#4c59a8, #21bec2);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
+                    <b> Import/Update Stock Inventory Adjustment</b>
+                </h2>
+                <hr style="width: 80%;background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, #1c2792));"></hr>
+                <p class="oe_slogan" style="padding: 5px 10px;"> This odoo app is used to import picking/stock inventory
+                    adjustments with many options like file type, product, location and auto validation can be really
+                    helpful data for warehouse module in odoo erp. using this app user can import opening stock balance
+                    of product with lot number which also has the option to create product automatically. we also
+                    provide option to import and update inventory adjsutment while importing stock also have option to
+                    auto validate inventory adjustment.</p>
+            </div>
+        </div>
+        <hr style="width: 80%;"></hr>
+        <div>
+            <div style="margin: 0px 20px;">
+                <div class="row">
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/import_xls.jpeg"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Import Inventory from XLS/CSV
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> Import stock inventory
+                                    adjustments from XLS/CSV File. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/add_inventory.jpeg"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Add/Update Inventory
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;">User can easily add or update
+                                    inventory adjustments. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/inventory_location.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Import Inventory Location
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> Options like location name,
+                                    barcode and external id is provided to choose location for inventory
+                                    adjustments.</font>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr style="width: 80%;"></hr>
+        <div>
+            <div style="margin: 0px 20px;">
+                <div class="row">
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/import_product.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Import Product from XLS/CSV File
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> Import product for inventory
+                                    adjustments from xls/csv file with product name, internal reference, barcode and
+                                    external id options. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/box_edit.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Create New Product
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;">User can create a new product
+                                    from xls/csv file. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/calander.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Select Accounting Date
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> Select an accounting date for
+                                    inventory adjustment.</font>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr style="width: 80%;"></hr>
+        <div>
+            <div style="margin: 0px 20px;">
+                <div class="row">
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/box_preferences.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Validate Stock Inventory
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> User can validate inventory
+                                    adjustments imported from csv/xls file. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/validation.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Skip Validation with Log
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;">User Can skip inventory
+                                    validation and can get a log of incorrect data of file. </font>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="col-sm border feature-div" style="margin: 0px 10px;box-shadow: 10px 10px 10px #c7c7c7;">
+                        <section style="max-height: 85%;margin: auto;display: contents;">
+                            <div style="margin-top: 15px;">
+                                <img class="img img-responsive" src="features/warning.png"
+                                     style="border-radius: 10%; max-width: 100px;max-height: 100px;    min-height: 100px;margin: auto;"/>
+                            </div>
+                            <h3>
+                                <font style="vertical-align: inherit;">
+                                    Raised Validation Warnings
+                                </font>
+                            </h3>
+                            <p style="margin-bottom: 10px;">
+                                <font style="vertical-align: inherit;font-size: 15px;"> If selected xls/csv file
+                                    contains any wrong data then validation warnings are provided.</font>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="oe_slogan oe_spaced text-center">
+                <a class="btn mt8 ml8 button"
+                   href="mailto:edgetechnologies.odoo@gmail.com?subject=Request%20Demo%20for%20Import%20Stock%20Inventory"
+                   style="background-color: #13b9af;color: #FFFFFF !important;font-size: 20px;font-weight: bold;border-radius: 7px;min-height: 45px;box-shadow: 5px 8px 10px #0d4a45;    min-width: 300px;margin: 10px 0px;"
+                   target="_top"> Request a Demo</a>
+                <a class="btn mt8 ml8 button"
+                   href="https://youtu.be/pCHq3VHv7ds"
+                   style="background-color: #13b9af;color: #FFFFFF !important;font-size: 20px;font-weight: bold;border-radius: 7px;min-height: 45px;box-shadow: 5px 8px 10px #0d4a45;min-width: 300px;margin: 10px 0px;" target="_blank"> Video Tutorial</a>
+            </div>
+        </div>
+        <hr style="width: 80%;"></hr>
+        <div style="min-height: 20px;"></div>
+    </section>
+
+    <section class="oe_container lead title_box"
+             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);text-align: center;">
+        <div style="margin-bottom: 40px;">
+            <div>
+                <h2 class="oe_slogan title"
+                    style="margin-bottom: 10px;    background: -webkit-linear-gradient(#0e99ac, #4c4ca8);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
+                    <b> Description</b>
+                </h2>
+                <hr style="width: 80%;height: 1px;background: -webkit-gradient(linear, 0 0, 100% 0, from(#d58383), to(#5d4da6), color-stop(50%, #0b1255));"></hr>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <h3 class="oe_slogan" style="color: #091383;font-weight: initial ;margin: auto;">Import Stock Inventory
+                    Adjustments from CSV and XLS
+                </h3>
+                <p style="padding: 5px 10px;"> Import stock inventory adjustments from csv and xls file, provided many
+                    options like: location option, product option, file type option to import stock inventory
+                    adjustments. </p>
+                <br/>
+                <img class="img-responsive"
+                     src="1_wizard.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <h3 class="oe_slogan" style="color: #091383;font-weight: initial ;margin: auto;">Example of XLS and CSV
+                    Format </h3>
+
+                <p style="padding: 5px 10px;"> Make your xls and csv files as per given example to import inventory
+                    adjustments.</p>
+
+                <ol type="1">
+                    <li>If you want to search product or location by name then in product and location column add
+                        product name and location name.
+                    </li>
+                    <li>If you want to search product or location by barcode then in product and location column add
+                        product barcode and location barcode.
+                    </li>
+                    <li>If you want to search product by internal reference then in product column add product internal
+                        reference.
+                    </li>
+                    <li>If you want to search product or location by external id then in product and location column add
+                        product external id and location external id.
+                    </li>
+                </ol>
+                <br/>
+
+                <img class="img-responsive"
+                     src="2_create.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+
+                <p style="padding: 5px 10px;"> Make your xls and csv files as per given example if you have enable
+                    create product with import stock option. </p>
+
+                <p style="padding: 5px 10px;"> If you select search product by name then follow given format of example
+                    file. </p>
+
+                <p style="padding: 5px 10px;"> If you select search product by barcode or internal reference or external
+                    id then provide product name on internal reference column.</p>
+
+                <br/>
+
+                <img class="img-responsive"
+                     src="3_update.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+
+                <br/>
+
+                <div class="oe_span12 text-center">
+                    <table align="center" border="2" style="width: 750px; height: 113px;">
+                        <tbody>
+                        <tr>
+                            <td style="width: 107px; background: #ccd9e6;"><strong>Field</strong></td>
+                            <td style="background: #ccd9e6;"><strong>Description</strong></td>
+                        </tr>
+
+                        <tr>
+                            <td>Product Name</td>
+                            <td>Product Name for Inventory Adjustment.</td>
+                        </tr>
+                        <tr>
+                            <td>UOM</td>
+                            <td>Unit of Measure of Product.</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Inventory Location.</td>
+                        </tr>
+                        <tr>
+                            <td>LOT</td>
+                            <td>LOT no of Product.</td>
+                        </tr>
+                        <tr>
+                            <td>Real Qty</td>
+                            <td>Quantity of Product.</td>
+                        </tr>
+                        <tr>
+                            <td>Internal Reference</td>
+                            <td>Product Internal Reference.</td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>Product category</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>Price for Product.</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td>Cost of Product.</td>
+                        </tr>
+                        <tr>
+                            <td>UOM</td>
+                            <td>Unit of Measure of Product.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <h3 class="oe_slogan" style="color: #091383;font-weight: initial ;margin: auto;"> Imported Inventory
+                    Adjustment
+                </h3>
+                <p style="padding: 5px 10px;"> This is the inventory adjustment which is imported by given example
+                    file. </p>
+                <br/>
+                <img class="img-responsive"
+                     src="4_imported.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <img class="img-responsive"
+                     src="4_imported_1.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <h3 class="oe_slogan" style="color: #091383;font-weight: initial ;margin: auto;">Import Stock Inventory
+                    Adjustments from CSV and XLS
+                </h3>
+                <p style="padding: 5px 10px;"> Use many options for product, location and validate inventory adjustment
+                    to import stock inventory adjustments from csv and xls. </p>
+                <br/>
+                <img class="img-responsive"
+                     src="import_inventory_adjustment.gif"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin-bottom: 40px;">
+                <h3 class="oe_slogan" style="color: #091383;font-weight: initial ;margin: auto;"> Skip Validation Or
+                    Restrict Validation
+                </h3>
+                <p style="padding: 5px 10px;"> If user select skip validation option and import file contains wrong data
+                    then wrong data will be skipped and remains correct data will imported from file, user can see
+                    validation logs for incorrect data. </p>
+
+                <p style="padding: 5px 10px;"> If user select restrict with validation then if there is any wrong data
+                    on file then user can see the warnings for wrong data and it will be restricted to add or update
+                    inventory adjustment. </p>
+                <br/>
+                <img class="img-responsive"
+                     src="log.png"
+                     style="display: block;width: 95%;margin: auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+
+            </div>
+        </div>
+
+        <hr style="width: 80%;"></hr>
+        <div style="min-height: 20px;"></div>
+    </section>
+
+    <section class="oe_container lead title_box"
+             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);text-align: center;">
+        <div>
+            <div>
+                <h2 class="oe_slogan title"
+                    style="margin-bottom: 10px;    background: -webkit-linear-gradient(#0e99ac, #4c4ca8);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
+                    <b> Our Services</b>
+                </h2>
+                <hr style="width: 80%;height: 1px;background: -webkit-gradient(linear, 0 0, 100% 0, from(#d58383), to(#5d4da6), color-stop(50%, #0b1255));"></hr>
+            </div>
+        </div>
+        <div class="row">
+            <a class="col-sm" style="display: inline-grid;margin: 10px;">
+                <img class="img img-responsive" src="services/customization.png"
+                     style="max-height: 100px;max-width: 100px;   margin: auto;"/>
+                <span>Customization</span>
+            </a>
+            <a class="col-sm" style="display: inline-grid; margin: 10px;">
+                <img class="img img-responsive" src="services/integration.png"
+                     style="max-height: 100px;max-width: 100px;margin: auto;"/>
+                <span>Integration</span>
+            </a>
+            <a class="col-sm" style="display: inline-grid;margin: 10px;">
+                <img class="img img-responsive" src="services/installation.png"
+                     style="max-height: 100px;max-width: 100px;margin: auto;"/>
+                <span>Installation</span>
+            </a>
+        </div>
+        <div class="row">
+            <a class="col-sm" style="display: inline-grid;margin: 10px;">
+                <img class="img img-responsive" src="services/create.gif"
+                     style="max-height: 100px;max-width: 100px;margin: auto;"/>
+                <span>Create & Update</span>
+            </a>
+            <a class="col-sm" style="display: inline-grid;margin: 10px;">
+                <img class="img img-responsive" src="services/migration.png"
+                     style="max-height: 100px;max-width: 100px;margin: auto;"/>
+                <span>Migration</span>
+            </a>
+            <a class="col-sm" style="display: inline-grid;margin: 10px;">
+                <img class="img img-responsive" src="services/support.png"
+                     style="max-height: 100px;max-width: 100px;margin: auto;"/>
+                <span>Support</span>
+            </a>
+        </div>
+        <div>
+            <div>
+                <h2 class="oe_slogan title"
+                    style="margin-bottom: 10px;    background: -webkit-linear-gradient(#0e99ac, #4c4ca8);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
+                    <b> Get In Touch</b>
+                </h2>
+                <hr style="width: 80%;height: 1px;background: -webkit-gradient(linear, 0 0, 100% 0, from(#d58383), to(#5d4da6), color-stop(50%, #0b1255));"></hr>
+                <p class="oe_slogan" style="margin-bottom: 0px;margin-top: 15px;"> You will get 60 Days free support in
+                    case any bugs or issue. </p>
+                <div>
+                    <p class="oe_slogan" style="margin: 0px;margin-right: 5px;"> For any query or support contact us
+                        without hesitation
+                        on</p><a
+                        href="mailto:edgetechnologies.odoo@gmail.com?subject=Support%20Request%20for%20Import%20Stock%20Inventory"
+                        target="_top"> edgetechnologies.odoo@gmail.com</a>
+                </div>
+            </div>
+            <div>
+                <a href="mailto:edgetechnologies.odoo@gmail.com?subject=Support%20Request%20for%20Import%20Stock%20Inventory"
+                   target="_top"> <i class='fa fa-envelope'
+                                     style="min-width: 50px;background: #12b9af;padding: 10px;font-size: 30px;color: #ffffff;border-radius: 10px;min-height: 50px;box-shadow: 5px 8px 10px #0d4a45;"></i></a>
+                <a href="#" target="_blank"> <i class='fa fa-facebook'
+                                                style="min-width: 50px;background: #12b9af;padding: 10px;font-size: 30px;color: #ffffff;border-radius: 10px;min-height: 50px;box-shadow: 5px 8px 10px #0d4a45;"></i></a>
+                <a href="#" target="_blank"> <i class='fa fa-linkedin'
+                                                style="min-width: 50px;background: #12b9af;padding: 10px;font-size: 30px;color: #ffffff;border-radius: 10px;min-height: 50px;box-shadow: 5px 8px 10px #0d4a45;"></i></a>
+                <a href="https://www.youtube.com/channel/UCrljky1245I7MhRNq_Tp46g" target="_blank"> <i
+                        class='fa fa-youtube'
+                        style="min-width: 50px;background: #12b9af;padding: 10px;font-size: 30px;color: #ffffff;border-radius: 10px;min-height: 50px;box-shadow: 5px 8px 10px #0d4a45;"></i></a>
+            </div>
+        </div>
+        <hr style="width: 80%;"></hr>
+        <div style="min-height: 20px;"></div>
+    </section>
+</div>
+
+</body>
+</html>

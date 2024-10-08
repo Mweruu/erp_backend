@@ -1,0 +1,43 @@
+<odoo>
+    <record id="sale_order_buttons_view_form" model="ir.ui.view">
+        <field name="name">account.move.line.buttons</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@id='account_invoice_payment_btn']" position="replace">
+                <button name="action_register_payment" id="account_invoice_payment_btn"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ('not_paid', 'partial')), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"
+                        context="{'dont_redirect_to_payments': True}"
+                        string="Register Payment" data-hotkey="g"
+                        groups="dk_sale_automatic_workflow.sale_order_buttons_views_form_id"/>
+            </xpath>
+            <xpath expr="//button[@name='button_draft']" position="replace">
+                <button name="button_draft" string="Reset to Draft" type="object"
+                        groups="dk_sale_automatic_workflow.sale_order_buttons_views_form_id"
+                        attrs="{'invisible' : [('show_reset_to_draft_button', '=', False)]}" data-hotkey="q"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_order_buttons_view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.buttons</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="replace">
+                <button name="%(stock.act_stock_return_picking)d" string="Return"
+                        attrs="{'invisible': 	[('state', '!=', 'done')]}" type="action"
+                        groups="dk_sale_automatic_workflow.sale_order_buttons_views_form_id" data-hotkey="k"/>
+            </xpath>
+            <xpath expr="//button[@name='action_toggle_is_locked']" position="replace">
+                <button name="action_toggle_is_locked"
+                        attrs="{'invisible': ['|', ('state', 'in', ('draft','cancel')), ('is_locked', '=', False)]}"
+                        string="Unlock" groups="dk_sale_automatic_workflow.sale_order_buttons_views_form_id"
+                        type="object"
+                        help="If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking)."
+                        data-hotkey="l"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

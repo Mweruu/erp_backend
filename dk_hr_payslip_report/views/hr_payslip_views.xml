@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_payslip_report_wizard" model="ir.ui.view">
+        <field name="name">hr_payslip_report_wizard</field>
+        <field name="model">hr.payslip.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='payslip_batches'/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_hr_payslip_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_hr_payslip_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_payslip_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Payroll Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='hr_payslip_report_wizard'/>
+    </record>
+    <menuitem id="menu_action_hr_payslip_report" name="Payroll Report"
+              action="hr_payslip_report_wizard_action" sequence="1" parent="account.menu_finance_reports"/>
+</odoo>

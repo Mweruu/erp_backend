@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="l10n_ke_inherit_pos_order_form" model="ir.ui.view">
+            <field name="name">l10n.ke.inherit.pos.order.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="priority" eval="40"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='order_fields']" position="after">
+                    <group>
+                        <group>
+                            <field name="l10n_ke_cu_invoice_number" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="manual_etr" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="reversed_entry_id" string="Reversed CU Invoice Number" readonly="1"
+                                   attrs="{'invisible': [('reversed_entry_id' ,'=', False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Tremol GO3 Fiscal Device">
+                        <group>
+                            <group>
+                                <field name="l10n_ke_cu_qrcode" widget="url" readonly="1"/>
+                                <field name="l10n_ke_cu_serial_number" readonly="1"/>
+                                <field name="l10n_ke_cu_datetime" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

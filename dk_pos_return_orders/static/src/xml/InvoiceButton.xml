@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+ <t t-inherit="point_of_sale.InvoiceButton" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('control-button')]" position="replace">
+            <div class="control-button" t-att-class="{ oe_hidden: !env.pos.config.is_enabled_invoice }">
+                <i class="fa fa-file-pdf-o"></i>
+                <span> </span>
+                <span><t t-esc="commandName"></t></span>
+            </div>
+        </xpath>
+</t>
+    <t t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('js_invoice')]" position="replace">
+            <div class="button js_invoice"
+                 t-att-class="{ highlight: currentOrder.is_to_invoice(), oe_hidden: !currentOrder.pos.config.is_enabled_invoice }"
+                 t-on-click="toggleIsToInvoice">
+                <i class="fa fa-file-text-o"/>
+                Invoice
+            </div>
+        </xpath>
+</t>
+</templates>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="summary_tax_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center">
+                    <h2>VAT Summary Report</h2>
+                    <t t-if="date_from and date_to">
+                        <p>
+                            <t t-esc="date_from"/>
+                            -
+                            <t t-esc="date_to"/>
+                        </p>
+                    </t>
+                </div>
+                <div>
+                    <h3>Pos Sales
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Serial Number</td>
+                                    <td>Total</td>
+                                </tr>
+                            </thead>
+                            <tr t-foreach="records" t-as="d">
+                                <td>
+                                    <t t-esc="d['serial_number']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d['total_pos_for_serial']"
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="text-right">
+                                        <b>Total</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b t-esc='round(total_pos, 2)'
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </h3>
+                    <br/>
+                    <h3>Invoices
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Serial Number</td>
+                                    <td>Total Credit Notes</td>
+                                    <td>Total Invoices</td>
+                                    <td>Total</td>
+                                </tr>
+                            </thead>
+                            <tr t-foreach="inv_records" t-as="d">
+                                <td>
+                                    <t t-esc="d['serial_number']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d['sales_credit']"
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d['sales_debit']"
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                                <td>
+                                    <t t-esc="d['total_invoice_for_serial']"
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="text-right">
+                                        <b>Total</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <b t-esc='round(total_invoices, 2)'
+                                       t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </h3>
+                    <br/>
+                    <br/>
+                    <h5>Total for:
+                        <t t-foreach="serial_data" t-as="d">
+                            <p>
+                                <t t-esc="d['serial_number']"/>
+                                :
+                                <t t-esc="d['total_tax']"
+                                   t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                            </p>
+                        </t>
+                    </h5>
+                    <br/>
+                    <h3>Total :
+                        <t t-esc='total' t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                    </h3>
+
+                </div>
+            </t>
+        </t>
+    </template>
+    <record id="summary_tax_report" model="ir.actions.report">
+        <field name="name">Summary Tax Report</field>
+        <field name="model">summary.tax.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dk_pos_tremol_integration.summary_tax_report_template</field>
+        <field name="report_file">dk_pos_tremol_integration.summary_tax_report_template</field>
+        <field name="print_report_name">'All taxes Summary Report'</field>
+        <field name="binding_model_id" ref="model_summary_tax_report"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

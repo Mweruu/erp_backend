@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="portal_my_home_invoice" name="Show Customer Invoice &amp; Bills" inherit_id="portal.portal_my_home"
+              customize_show="True" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="request.env.user.company_id.customer_statement_portal" t-call="portal.portal_docs_entry">
+                <t t-set="title">Customer Statements</t>
+                <t t-set="url" t-value="'/my/statements'"/>
+                <t t-set="placeholder_count" t-value="'supplier_rfq_count'"/>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="request.env.user.company_id.supplier_statement_portal" t-call="portal.portal_docs_entry">
+                <t t-set="title">Supplier Statements</t>
+                <t t-set="url" t-value="'/my/supplier'"/>
+                <t t-set="placeholder_count" t-value="'supplier_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="send_mail_success_page" name="send_mail">
+        <t t-call="portal.portal_layout">
+            <div id="wrap">
+                <div class="container pt128 pb128">
+                    <div class="col-md-12">
+                        <div class="alert alert-success text-center">
+                            <b>
+                                <span style="font-size:21px;">Sent successfully! Thank you.</span>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_customer_statement" name="Customer Statements">
+
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Invoices</t>
+            </t>
+            <t t-if="partners_data" t-call="portal.portal_table">
+                <thead>
+                    <div class="o_download_pdf btn-toolbar flex-sm-nowrap" style="width:50%; float:right;">
+                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                            <a role="button" type="submit" class="btn btn-secondary btn-block o_download_btn"
+                               t-attf-href="/customer_portal/download_pdf" title="Download">
+                                <i class="fa fa-envelope"/>
+                                Download Customer Statement
+                            </a>
+                        </div>
+                        <p>&#160;</p>
+                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                            <a role="button" type="submit" class="btn btn-secondary btn-block o_download_btn"
+                               t-attf-href="/customer_portal/send_report" title="sendreport">
+                                <i class="fa fa-envelope"/>
+                                Send Customer Statement
+                            </a>
+                        </div>
+                    </div>
+                    <tr>
+                        <th width="600">Number #</th>
+                        <th>Invoice/Bill Date</th>
+                        <th>Due Date</th>
+                        <th>Invoices/Debits</th>
+                        <th>Payments/Credits</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <t t-foreach="partners_data" t-as="line">
+                    <tr>
+                        <td>
+                            <span t-field="line.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.invoice_date"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.invoice_date_due"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.amount_total_signed"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.credit_amount"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.result"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_my_supplier_statement" name="Supplier Statements">
+
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Supplier Statements</t>
+            </t>
+            <t t-if="partners_data" t-call="portal.portal_table">
+                <thead>
+                    <div class="o_download_pdf btn-toolbar flex-sm-nowrap" style="width:50%; float:right;">
+                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                            <a role="button" type="submit" class="btn btn-secondary btn-block o_download_btn"
+                               t-attf-href="/supplier_portal/download_pdf" title="Download">
+                                <i class="fa fa-envelope"/>
+                                Download Supplier Statement
+                            </a>
+                        </div>
+                        <p>&#160;</p>
+                        <div class="btn-group flex-grow-1 mr-1 mb-1">
+                            <a role="button" type="submit" class="btn btn-secondary btn-block o_download_btn"
+                               t-attf-href="/supplier_portal/send_report" title="send"><i class="fa fa-envelope"/>Send
+                                Supplier Statement
+                            </a>
+                        </div>
+                    </div>
+                    <tr>
+                        <th width="600">Number #</th>
+                        <th>Invoice/Bill Date</th>
+                        <th>Due Date</th>
+                        <th>Invoices/Debits</th>
+                        <th>Payments/Credits</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <t t-foreach="partners_data" t-as="line">
+                    <tr>
+                        <td>
+                            <span t-field="line.name"/>
+                        </td>
+                        <td>
+                            <span t-field="line.invoice_date"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.invoice_date_due"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.amount_total_signed"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.credit_amount"/>
+                        </td>
+                        <td class='d-none d-md-table-cell'>
+                            <span t-field="line.result"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="portal_send_mail_success_page" name="send_mail">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container text-center mt-4">
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Report Send Thank You!</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+    </template>
+</odoo>
