@@ -76,16 +76,4 @@
         <field name="binding_model_id" ref="model_internal_stock_move_report"/>
         <field name="binding_type">report</field>
     </record>
-
-
-    <record id="action_report_delivery" model="ir.actions.report">
-        <field name="name">Internal Stock Transfer Delivery Slip</field>
-        <field name="model">stock.internal.transfer</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">internal_stock_transfer_app.report_deliveryslip</field>
-        <field name="report_file">internal_stock_transfer_app.report_deliveryslip</field>
-        <field name="print_report_name">'Delivery Slip - %s' % (object.name or '')</field>
-        <field name="binding_model_id" ref="model_stock_internal_transfer"/>
-        <field name="binding_type">report</field>
-    </record>
 </odoo>

@@ -21,6 +21,7 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'wizard/internal_expense.xml',
         'views/internal_consumption.xml',
         'views/internal_expense_views.xml',
         'views/menu.xml',

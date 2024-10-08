@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
         'wizard/stock_product_produce_views.xml',
+        'wizard/stock_transfer.xml',
         'views/stock_transfer_views.xml',
         'views/stock_move_views.xml',
         'report/internal_template.xml',
