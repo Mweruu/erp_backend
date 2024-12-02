@@ -20,7 +20,7 @@ const CustomerNo = (Order) => class CustomerNo extends Order {
         this.customer_number = customer_number
     }
     get_customer_number(){
-        return this.customer_number;
+        return this.customer_number || this.partner?.phone;
     }
     set_order_vat_number(vat_number){
         this.vat_number = vat_number
@@ -58,7 +58,7 @@ const CustomerNo = (Order) => class CustomerNo extends Order {
     }
     export_for_printing() {
         var json = super.export_for_printing(...arguments);
-        json.customer_number = this.customer_number;
+        json.customer_number = this.customer_number || this.partner?.phone;
         json.delay_picking = this.delay_picking;
         json.color = this.color;
         json.reprinted = this.reprinted;

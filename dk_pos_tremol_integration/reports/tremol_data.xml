@@ -18,7 +18,10 @@
                         <thead>
                             <tr>
                                 <td>
-                                    <b>Datetime</b>
+                                    <b>Total Invoice Amount</b>
+                                </td>
+                                <td>
+                                    <b>Total Tax Amount</b>
                                 </td>
                             </tr>
                         </thead>
@@ -26,14 +29,17 @@
                             <t t-foreach="records" t-as="d">
                                 <tr>
                                     <td>
-                                        <t t-esc="d['Datetime']"/>
+                                        <t t-esc="d['Total Invoice Amount']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="d['Total Tax Amount']"/>
                                     </td>
                                 </tr>
                             </t>
 <!--                            <tr>-->
 <!--                                <td colspan="4">-->
 <!--                                    <div class="text-right">-->
-<!--                                        <b>Total</b>-->
+<!--                                        <b>Total Tax Amount</b>-->
 <!--                                    </div>-->
 <!--                                </td>-->
 <!--                                <td>-->

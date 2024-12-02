@@ -12,9 +12,15 @@ odoo.define('dk_pos_return_orders.TicketScreen', function(require) {
     const models = require('point_of_sale.models');
     const { Order } = require('point_of_sale.models');
     const NumberBuffer = require('point_of_sale.NumberBuffer');
+    const { useListener } = require("@web/core/utils/hooks");
 
     const RefundTicketScreen = (TicketScreen) =>
     class extends TicketScreen {
+
+        setup() {
+            super.setup();
+            useListener('do-refund-all', this._onRefundAllButtonClick);
+        }
 
         async _fetchSyncedOrders() {
             if(this.env.pos.config.is_show_all_orders){
@@ -75,6 +81,9 @@ odoo.define('dk_pos_return_orders.TicketScreen', function(require) {
             const order = this.getSelectedSyncedOrder();
             const selectedOrderlineId = this.getSelectedOrderlineId();
             const orderline = order.orderlines.find((line) => line.id == selectedOrderlineId);
+            const currentOrder = this.env.pos.get_order();
+            currentOrder.vat_number = order.partner?.vat ?? order.vat_number;
+            currentOrder.customer_number = order.partner?.phone ?? order.customer_number;
             if (!this.env.pos.config.is_enabled_refund || orderline.is_reward_line){
                 this._showNotAllowedRefundProductNotification();
                 return NumberBuffer.reset();
@@ -114,6 +123,72 @@ odoo.define('dk_pos_return_orders.TicketScreen', function(require) {
                 return true;
             });
             return res;
+        }
+
+        _onRefundAllButtonClick() {
+            var self = this;
+            const order = this.getSelectedSyncedOrder();
+            if (!order) return NumberBuffer.reset();
+
+            const selectedOrderlineId = this.getSelectedOrderlineId();
+            const orderline = order.orderlines.find((line) => line.id == selectedOrderlineId);
+            if (!orderline) return NumberBuffer.reset();
+
+            const currentOrder = this.env.pos.get_order();
+            currentOrder.vat_number = order.partner?.vat ?? order.vat_number;
+            currentOrder.customer_number = order.partner?.phone ?? order.customer_number;
+
+            rpc.query({
+                model: 'pos.order',
+                method: 'search_read',
+                args: [[['id', '=', order.backendId]]],
+            }).then(function(refunds) {
+                if (!refunds[0].delivered) {
+                    Gui.showPopup('ErrorPopup', {
+                        'title': _t('Undelivered Order'),
+                        'body': _t('The selected Order has not been delivered.'),
+                    });
+                    NumberBuffer.reset();
+                    return false;
+                }
+
+                const date1 = new Date(refunds[0].pos_order_date);
+                const date2 = new Date();
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays > self.env.pos.config.max_day_refund) {
+                    Gui.showPopup('ErrorPopup', {
+                        title: _t('Not Refund/Return Order'),
+                        body: _t('Refund/Return order Time limit over...'),
+                    });
+                    NumberBuffer.reset();
+                    return false;
+                }
+
+                order.orderlines.forEach((orderline) => {
+                    if (orderline && self._isEWalletGiftCard(orderline)) {
+                        self._showNotAllowedRefundNotification();
+                        return NumberBuffer.reset();
+                    }
+
+                    if (!self.env.pos.config.is_enabled_refund || !self.env.pos.config.is_enabled_refund_all || orderline.is_reward_line) {
+                        self._showNotAllowedRefundProductNotification();
+                        return NumberBuffer.reset();
+                    }
+
+                    const toRefundDetail = self._getToRefundDetail(orderline);
+
+                    if (toRefundDetail.destinationOrderUid) return;
+
+                    const refundableQty = toRefundDetail.orderline.qty - toRefundDetail.orderline.refundedQty;
+                    if (refundableQty > 0) {
+                        toRefundDetail.qty = refundableQty;
+                    } else {
+                        NumberBuffer.reset();
+                    }
+                });
+            });
         }
 
         _showNotAllowedRefundProductNotification() {

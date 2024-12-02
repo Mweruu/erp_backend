@@ -9,6 +9,7 @@
         'views/res_config_settings_views.xml',
         'views/pos_order_tremol_integration.xml',
         'views/tax_report_views.xml',
+        'views/summary_tax_report_views.xml',
         'views/tremol_data_views.xml',
         'reports/summary_tax_report.xml',
         'reports/tax_report.xml',

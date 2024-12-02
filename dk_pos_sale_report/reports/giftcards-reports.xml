@@ -6,7 +6,10 @@
                 <div class="text-center">
                 </div>
                 <div class="text-center">
-                    <h2>Gift Cards Report</h2>
+                    <h2>
+                        <t t-esc='gift_card_state'/>
+                        Gift Cards Report
+                    </h2>
                     <p>Date from:
                         <t t-esc='date_from'/>
                         - Date to:

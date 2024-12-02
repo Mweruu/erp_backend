@@ -64,6 +64,15 @@ odoo.define('dk_custom_receipts_for_pos.CustomButtonPaymentScreen', function (re
             else {
                 this.currentOrder.set_delivered();
             }
+            if(this.currentOrder.orderlines.some(orderline => orderline.quantity == 0)){
+                this.showPopup('ErrorPopup', {
+                    title: this.env._t('Zero Quantity'),
+                    body: this.env._t(
+                        'Quantity on an orderline cannot be zero'
+                    ),
+                });
+                return;
+            }
             if(this.env.pos.config.set_percentage_range_bool){
                 for (const orderLine of this.currentOrder.orderlines){
                     if (!orderLine.eWalletGiftCardProgram && !this.isPriceAllowed(orderLine.product.lst_price, orderLine.price )){

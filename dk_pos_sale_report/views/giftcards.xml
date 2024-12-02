@@ -8,6 +8,11 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name='gift_card_state'/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
                             <field name='date_from'/>
                         </group>
                         <group>

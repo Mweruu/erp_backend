@@ -12,12 +12,13 @@
                     </group>
                     <group>
                         <group>
-                            <field name="date_from"/>
+                            <field name='date_from'/>
                         </group>
                         <group>
-                            <field name="date_to"/>
+                            <field name='date_to'/>
                         </group>
                     </group>
+
                     <footer>
                         <button type="object" string="Print CSV" name="action_print_tax_report_csv"/>
                         <button type="object" string="Download PDF" name="action_print_tax_report"/>
@@ -32,7 +33,7 @@
         <field name="res_model">tax.report</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="view_id" ref="tax_report_wizard"/>
+        <field name="view_id" ref='tax_report_wizard'/>
     </record>
     <menuitem id="tax_menu_item" name="Tax Report" parent="point_of_sale.menu_point_rep" sequence="100"
               action="tax_report_wizard_action" groups="point_of_sale.group_pos_manager"/>

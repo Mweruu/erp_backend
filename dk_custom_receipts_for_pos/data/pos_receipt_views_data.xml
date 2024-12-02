@@ -369,9 +369,17 @@
                                 <t><span style="font-size: 100%;" t-esc='line.product_name'/>
                                 </t>
                                 <t>
-                                <div style="font-size: 95%; text-align: left; font-weight: 700; margin-left: 10%;">
-                                    <span t-esc="line.quantity"/> <span t-esc='line.unit_name'/> @ <span t-esc="widget.pos.format_currency_no_symbol(line.price)"/>
-                                </div>
+                                <t t-foreach="order.orderlines" t-as="order_line" t-if="order_line.id == line.id">
+                                    <div style="font-size: 95%; text-align: left; font-weight: 700; margin-left: 10%;">
+                                         <t t-set="line_display" t-value="order_line.refunded_qty == line.quantity"/>
+                                            <t t-if="line_display">
+                                                <s><span t-esc="line.quantity"/> <span t-esc="line.unit_name"/> @ <span t-esc="widget.pos.format_currency_no_symbol(line.price)"/></s>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="line.quantity"/> <span t-esc="line.unit_name"/> @ <span t-esc="widget.pos.format_currency_no_symbol(line.price)"/>
+                                            </t>
+                                    </div>
+                                </t>
 
                                 </t>
                                 <t t-if='line.discount !== 0'>
@@ -384,6 +392,18 @@
                                         <t t-esc="line.customer_note"/>
                                     </h5>
                                 </t>
+                                <t t-foreach="order.orderlines" t-as="order_line" t-if="order_line.id == line.id">
+                                <t t-if="receipt.reprinted and order_line.refunded_qty">
+                                    <div style="font-size: 95%; text-align: left; font-weight: 700; margin-left: 10%;">
+                                    <li class="info refund-note">
+                                        <strong>
+                                            <span t-esc="order_line.refunded_qty" />
+                                        </strong>
+                                        <span> Refunded</span>
+                                    </li>
+                                    </div>
+                                </t>
+                            </t>
                             </div>
                         </td>
 

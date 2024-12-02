@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
- <t t-inherit="point_of_sale.InvoiceButton" t-inherit-mode="extension" owl="1">
+    <t t-inherit="point_of_sale.InvoiceButton" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('control-button')]" position="replace">
             <div class="control-button" t-att-class="{ oe_hidden: !env.pos.config.is_enabled_invoice }">
                 <i class="fa fa-file-pdf-o"></i>
@@ -8,7 +8,7 @@
                 <span><t t-esc="commandName"></t></span>
             </div>
         </xpath>
-</t>
+    </t>
     <t t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('js_invoice')]" position="replace">
             <div class="button js_invoice"
@@ -18,5 +18,16 @@
                 Invoice
             </div>
         </xpath>
-</t>
+    </t>
+
+    <t t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('control-buttons')]" position="inside">
+             <span class="control-button" t-att-class="{ oe_hidden: !env.pos.config.is_enabled_refund_all }" t-on-click="() => this.trigger('do-refund-all')" >
+                <i class="fa fa-undo"></i>
+                <span> </span>
+                <span>Refund all</span>
+            </span>
+        </xpath>
+    </t>
+
 </templates>

@@ -34,6 +34,9 @@
                     <t t-if='receipt.customer_number'>
                         <div>Customer Contact: : <t t-esc='receipt.customer_number'/></div>
                     </t>
+                    <t t-if='receipt.vat_number'>
+                        <div>PIN Number: : <t t-esc='receipt.vat_number' /></div>
+                    </t>
                     <t t-if='receipt.cashier'>
                     <div class='cashier'>
                         <div>Served by <t t-esc='receipt.cashier'/></div>

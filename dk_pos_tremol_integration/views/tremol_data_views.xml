@@ -8,6 +8,11 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name='folder_path'/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
                             <field name='date_from'/>
                         </group>
                         <group>

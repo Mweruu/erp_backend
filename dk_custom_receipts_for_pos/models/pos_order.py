@@ -23,8 +23,18 @@ class PosOrder(models.Model):
         result = super(PosOrder, self)._order_fields(ui_order)
         for field in fields:
             result[field] = ui_order[field] if field in ui_order else False
-            result["vat_number"] = ui_order['vat_number'] if not ui_order['partner_id'] else False
+            partner = self.env['res.partner'].browse(ui_order['partner_id']) if ui_order['partner_id'] else None
+            result["vat_number"] = partner.vat if partner else ui_order.get('vat_number', False)
+            result["customer_number"] = partner.phone if partner else ui_order.get('customer_number', False)
+
         return result
+
+    def _export_for_ui(self, order):
+        result = super(PosOrder, self)._export_for_ui(order)
+        result['customer_number'] = order.customer_number
+        result['vat_number'] = order.vat_number
+        return result
+
 
     def confirm_coupon_programs(self, coupon_data):
         res = super(PosOrder, self).confirm_coupon_programs(coupon_data)
@@ -169,6 +179,7 @@ class PosOrder(models.Model):
             "total": order.amount_total,
             "amount_tax": order.amount_tax,
             "customer_number": order.customer_number,
+            "vat_number": order.partner_id.vat,
             "delay_picking": order.delay_picking,
             "total_discount": sum_discount,
             "change": order.amount_return,

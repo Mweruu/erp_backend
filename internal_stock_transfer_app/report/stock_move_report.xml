@@ -76,4 +76,5 @@
         <field name="binding_model_id" ref="model_internal_stock_move_report"/>
         <field name="binding_type">report</field>
     </record>
+
 </odoo>

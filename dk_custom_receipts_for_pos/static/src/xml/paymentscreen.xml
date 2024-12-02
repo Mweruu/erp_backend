@@ -18,7 +18,8 @@
                     border: solid 1px rgb(209, 209, 209);"
                        type="number"
                        t-on-input="_updateInputValue"
-                       t-att-value="currentOrder.customer_number"
+                       t-att-disabled="currentOrder.partner || currentOrder.orderlines.some(orderline => orderline.refunded_orderline_id) ? 'disabled' : undefined"
+                       t-att-value="currentOrder.partner?.phone ?? currentOrder.customer_number"
                        placeholder="Enter Customer Number"/>
             </div>
             <div class="input" id="vat_number">
@@ -26,7 +27,7 @@
                     padding-left: 40px;
                     border: solid 1px rgb(209, 209, 209);"
                        t-on-input="_updateVATInputValue"
-                       t-att-disabled="currentOrder.partner ? 'disabled' : undefined"
+                       t-att-disabled="currentOrder.partner || currentOrder.orderlines.some(orderline => orderline.refunded_orderline_id) ? 'disabled' : undefined"
                        t-att-value="currentOrder.partner?.vat ?? currentOrder.vat_number"
                        t-att-readonly="currentOrder.partner !== null ? true : undefined"
                        placeholder="Enter PIN Number"/>

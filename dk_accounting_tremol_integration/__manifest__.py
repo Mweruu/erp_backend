@@ -15,6 +15,7 @@
         "security/res_groups.xml",
         "views/account_move_view.xml",
         "views/res_config_settings_view.xml",
+        "views/report_invoice.xml",
     ],
 
     'assets': {

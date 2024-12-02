@@ -7,6 +7,7 @@ class ResConfig(models.TransientModel):
     pos_is_show_all_orders = fields.Boolean(related='pos_config_id.is_show_all_orders', readonly=False, store=True)
     pos_max_day_refund = fields.Integer(related='pos_config_id.max_day_refund', readonly=False, store=True)
     pos_is_enabled_refund = fields.Boolean(related='pos_config_id.is_enabled_refund', readonly=False, store=True)
+    pos_is_enabled_refund_all = fields.Boolean(related='pos_config_id.is_enabled_refund_all', readonly=False, store=True)
     pos_is_enabled_invoice = fields.Boolean(related='pos_config_id.is_enabled_invoice', readonly=False, store=True)
     pos_is_enabled_print_on_refund = fields.Boolean(related='pos_config_id.is_enabled_print_on_refund', readonly=False,
                                                     store=True)
@@ -19,6 +20,7 @@ class POSConfig(models.Model):
     all_config_id = fields.Char(compute="_get_all_configs")
     max_day_refund = fields.Integer(string="Set Max Days Of Return/Refund Qty")
     is_enabled_refund = fields.Boolean(string="Is Enabled Refund Qty")
+    is_enabled_refund_all = fields.Boolean(string="Is Enabled Refund All Products")
     is_enabled_invoice = fields.Boolean(string="Is Enabled Invoice")
     is_enabled_print_on_refund = fields.Boolean(string="Is Enabled Print Receipt onRefund")
 

@@ -22,19 +22,30 @@ class GiftCards(models.Model):
     user_id = fields.Many2one('res.users', default=_default_user)
     date_from = fields.Date(default=datetime.now())
     date_to = fields.Date(default=datetime.now())
+    gift_card_state = fields.Selection([('used', 'Used'), ('unused', 'Unused')], 'Gift Card State', default='used')
 
     def get_gift_cards_report_data(self):
         data = []
 
         query = """
-            select lc.create_date as create_date, lc.code as code, rp."name" as partner,rc."name" as company_name , lc.points as points from loyalty_card as lc
-                left JOIN res_partner as rp ON rp.id = lc.partner_id 
-                JOIN loyalty_program as lp ON lp.id = lc.program_id
-                JOIN res_company as rc ON rc.id = lc.company_id  
-                where date(lc.create_date) >= %s and date(lc.create_date) <= %s  
-                and lp.program_type = 'gift_card'
+            SELECT lc.create_date AS create_date, 
+                   lc.code AS code, 
+                   rp."name" AS partner, 
+                   rc."name" AS company_name, 
+                   lc.points AS points 
+            FROM loyalty_card AS lc
+            LEFT JOIN res_partner AS rp ON rp.id = lc.partner_id 
+            JOIN loyalty_program AS lp ON lp.id = lc.program_id
+            JOIN res_company AS rc ON rc.id = lc.company_id  
+            WHERE date(lc.create_date) >= %s 
+              AND date(lc.create_date) <= %s  
+              AND lp.program_type = 'gift_card'
+              AND (%s IS NULL OR (lc.points > 0 AND %s = 'unused'))
         """
-        self.env.cr.execute(query, (self.date_from, self.date_to,))
+
+        state_filter = self.gift_card_state if self.gift_card_state == 'unused' else None
+        self.env.cr.execute(query, (self.date_from, self.date_to, state_filter, self.gift_card_state))
+
         cards = self.env.cr.fetchall()
         for card in cards:
             points = '{:,.2f}'.format(card[4])
@@ -48,13 +59,13 @@ class GiftCards(models.Model):
 
         sorted_data = sorted(data, key=lambda time: time['Datetime'], reverse=True)
 
-        data = {
+        return {
             'records': sorted_data,
             'self': self.read()[0],
             'date_to': self.date_to,
-            'date_from': self.date_from
+            'date_from': self.date_from,
+            'gift_card_state': self.gift_card_state,
         }
-        return data
 
     def action_print_gift_cards_report(self):
         report_data = self.get_gift_cards_report_data()
