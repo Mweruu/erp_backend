@@ -36,6 +36,12 @@ odoo.define('dk_custom_receipts_for_pos.receipt',function(require){
                         paymentlines:order.get_paymentlines(),
                         moment:moment,
                     };
+                    if(data.receipt.l10n_ke_cu_qrcode){
+                        const codeWriter = new window.ZXing.BrowserQRCodeSvgWriter();
+                        let qr_code_svg = new XMLSerializer().serializeToString(codeWriter.write(data.receipt.l10n_ke_cu_qrcode, 150, 150));
+                        const _qr = 'data:image/svg+xml;base64,' + window.btoa(qr_code_svg);
+                        data.receipt.l10n_ke_cu_qrcode_encoded = _qr
+                    }
                     var parser=new DOMParser();
                     var xmlDoc=parser.parseFromString(receipt_design,"text/xml");
                     var s=new XMLSerializer();

@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 dk_all_sales.access_sales_report,access_sales_report,dk_all_sales.model_sales_report,base.group_user,1,1,1,0
+dk_all_sales.access_diff_source_location_report,access_diff_source_location_report,dk_all_sales.model_diff_source_location_report,base.group_user,1,1,1,0
 

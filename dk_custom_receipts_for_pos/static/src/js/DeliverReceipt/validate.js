@@ -65,6 +65,10 @@ class PosValidateShipLaterOrder extends Order{
                         if (result.response == 'success')
                         {
                             var cmp_logo = 'data:image/png;base64,' + result.delayed_picking_order.company_details.logo;
+                            const codeWriter = new window.ZXing.BrowserQRCodeSvgWriter();
+                            let qr_code_svg = new XMLSerializer().serializeToString(codeWriter.write(result.delayed_picking_order.l10n_ke_cu_qrcode, 150, 150));
+                            const _qr = 'data:image/svg+xml;base64,' + window.btoa(qr_code_svg);
+                            result.delayed_picking_order.l10n_ke_cu_qrcode_encoded = _qr
                             Gui.showScreen('RTDelReprintReceiptScreen',{
                                 delayed_picking_order: result.delayed_picking_order,
                                 logo: cmp_logo,
@@ -128,7 +132,7 @@ class PosValidateShipLaterOrder extends Order{
         return this.state.inputValue;
     }
 
-    async validateOrder(pos_reference) {
+    async validateOrderFromPOS(pos_reference) {
         await this._validateOrder(pos_reference);
     }
 }

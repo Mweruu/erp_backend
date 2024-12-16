@@ -24,7 +24,7 @@ odoo.define('dk_custom_receipts_for_pos.DeliverButton', function(require) {
                 pos_reference = pos_reference.trim();
                 const validFormatPattern = /^\d{5}-\d{3}-\d{4}$/;
                 if (validFormatPattern.test(pos_reference) ) {
-                    await this.env.pos.get_order().validateOrder(pos_reference);
+                    await this.env.pos.get_order().validateOrderFromPOS(pos_reference);
                 }
                 else
                 {

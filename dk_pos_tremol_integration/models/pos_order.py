@@ -39,6 +39,15 @@ class PosOrder(models.Model):
             result[field] = ui_order[field] if field in ui_order else False
         return result
 
+    def _export_for_ui(self, order):
+        result = super(PosOrder, self)._export_for_ui(order)
+        result['manual_etr'] = order.manual_etr
+        result['l10n_ke_cu_datetime'] = order.l10n_ke_cu_datetime
+        result['l10n_ke_cu_invoice_number'] = order.l10n_ke_cu_invoice_number
+        result['l10n_ke_cu_serial_number'] = order.l10n_ke_cu_serial_number
+        result['l10n_ke_cu_qrcode'] = order.l10n_ke_cu_qrcode
+        return result
+
     def _prepare_refund_values(self, current_session):
         result = super(PosOrder, self)._prepare_refund_values(current_session)
         result['reversed_entry_id'] = self.id

@@ -211,10 +211,10 @@
             </div>
             <div>
             <div t-if='!receipt.manual_etr'>
+                <h3 style="text-align: center"> Tax Invoice</h3>
                 <div class="receipt-qrcode" style="font-size: 90%;">
                     <div style="display: flex; justify-content: center; align-items: center;">
-                        <img t-att-src="'/report/barcode/QR/'+receipt.l10n_ke_cu_qrcode"
-                             style="display:block; height:200px; width:200px;" alt="QR Code"/>
+                        <img style="width:200px;height:200px" t-att-src="receipt.l10n_ke_cu_qrcode_encoded" alt="QR Code"/>
                     </div>
                 </div>
                 <br/>

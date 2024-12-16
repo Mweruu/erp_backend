@@ -7,7 +7,9 @@
     "data": [
         "security/ir.model.access.csv",
         "views/sales.xml",
+        "views/diff_source_location_views.xml",
         "reports/sales_report.xml",
+        "reports/diff_source_location.xml",
     ],
     'license': 'LGPL-3',
     'installable': True,
