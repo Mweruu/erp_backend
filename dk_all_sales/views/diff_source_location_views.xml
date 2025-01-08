@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="diff_source_location_report_wizard" model="ir.ui.view">
+        <field name="name">diff_source_location_report_wizard</field>
+        <field name="model">diff.source.location.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='date_from'/>
+                        </group>
+                        <group>
+                            <field name='date_to'/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button type="object" string="Print CSV" name="action_print_diff_source_location_report_csv"/>
+                        <button type="object" string="Download PDF" name="action_print_diff_source_location_report"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="diff_source_location_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Changes in Expected Source Location Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">diff.source.location.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref='diff_source_location_report_wizard'/>
+    </record>
+    <menuitem id="diff_source_location_menu_item" name="Changes in Expected Source Location Report"
+              action="diff_source_location_report_wizard_action" sequence="13" parent="stock.menu_warehouse_report"/>
+</odoo>
