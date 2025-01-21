@@ -28,6 +28,10 @@ odoo.define('dk_pos_tremol_integration.postSend', function (require) {
                     this.currentOrder.l10n_ke_cu_datetime = replies[replies.length - 1];
                     this.currentOrder.manual_etr = false
                 } else {
+//                    this.currentOrder.l10n_ke_cu_serial_number = 'KRAMW011202207061142';
+//                    this.currentOrder.l10n_ke_cu_invoice_number = '0110611420000018390';
+//                    this.currentOrder.l10n_ke_cu_qrcode = 'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0110611420000018390';
+//                    this.currentOrder.manual_etr = false;
                     this.currentOrder.manual_etr = true;
                     console.log("status: ", JSON.stringify(res_obj), res_obj.status)
                     throw new Error(_t("Posting an invoice has failed, with the message: \n") + res_obj.message + "::::" + res_obj.status + "\n\n\n Issue a manual ETR!! ")
