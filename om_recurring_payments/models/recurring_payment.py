@@ -27,7 +27,7 @@ class RecurringPayment(models.Model):
     date_begin = fields.Date(string='Start Date', required=True)
     date_end = fields.Date(string='End Date', required=True)
     template_id = fields.Many2one('account.recurring.template', 'Recurring Template',
-                                  domain=[('state', '=', 'done')], required=True)
+                                  domain=[('state', '=', 'done')],required=True)
     recurring_period = fields.Selection(related='template_id.recurring_period')
     recurring_interval = fields.Integer('Recurring Interval', required=True,
                                         related='template_id.recurring_interval', readonly=True)
@@ -81,7 +81,7 @@ class RecurringPayment(models.Model):
 
     def action_generate_payment(self):
         line_ids = self.env['recurring.payment.line'].search([('date', '<=', date.today()),
-                                                              ('state', '!=', 'done')])
+                                                                       ('state', '!=', 'done')])
         for line in line_ids:
             line.action_create_payment()
 
@@ -138,3 +138,4 @@ class RecurringPaymentLine(models.Model):
             if self.recurring_payment_id.journal_state == 'posted':
                 payment.action_post()
             self.write({'state': 'done', 'payment_id': payment.id})
+

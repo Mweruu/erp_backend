@@ -34,15 +34,14 @@
         </record>
 
         <record id="account_asset_asset_cab_test0" model="account.asset.asset">
-            <field name="method_end"
-                   eval="(DateTime.now().replace(month=8, day=11) + timedelta(days=3*365)).strftime('%Y-%m-%d')"/>
+            <field name="method_end" eval="(DateTime.now().replace(month=8, day=11) + timedelta(days=3*365)).strftime('%Y-%m-%d')"/>
             <field eval="0.0" name="salvage_value"/>
             <field name="method_time">end</field>
             <field name="name">V6 Engine and 10 inches tires</field>
             <field eval="2800.0" name="value"/>
             <field name="category_id" ref="account_asset_category_fixedassets_test0"/>
         </record>
-
+        
         <record id="account_asset_asset_office_test0" model="account.asset.asset">
             <field eval="1" name="prorata"/>
             <field eval="100000.0" name="salvage_value"/>

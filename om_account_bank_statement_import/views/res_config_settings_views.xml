@@ -21,12 +21,12 @@
                         <div class="o_setting_left_pane">
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Sample formats for importing statements</span>
-                                <div class="o_setting_right_pane">
-                                    <div class="text-muted">
-                                        <button type="object" name="get_sample_import_excel"
-                                                class="oe_highlight" string="Download Excel"/>
-                                    </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    <button type="object" name="get_sample_import_excel"
+                                    class="oe_highlight" string="Download Excel"/>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>

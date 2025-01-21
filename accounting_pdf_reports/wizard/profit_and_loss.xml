@@ -8,8 +8,7 @@
         <field name="view_mode">form</field>
         <field name="view_id" ref="accounting_report_view"/>
         <field name="target">new</field>
-        <field name="context"
-               eval="{'default_account_report_id':ref('accounting_pdf_reports.account_financial_report_profitandloss0')}"/>
+        <field name="context" eval="{'default_account_report_id':ref('accounting_pdf_reports.account_financial_report_profitandloss0')}"/>
     </record>
 
     <menuitem id="menu_account_report_pl"

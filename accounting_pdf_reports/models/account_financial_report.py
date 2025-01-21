@@ -36,7 +36,7 @@ class AccountFinancialReport(models.Model):
         ('accounts', 'Accounts'),
         ('account_type', 'Account Type'),
         ('account_report', 'Report Value'),
-    ], 'Type', default='sum')
+        ], 'Type', default='sum')
     account_ids = fields.Many2many('account.account', 'account_account_financial_report',
                                    'report_line_id', 'account_id', 'Accounts')
     account_report_id = fields.Many2one('account.financial.report', 'Report Value')
@@ -54,7 +54,7 @@ class AccountFinancialReport(models.Model):
         ('no_detail', 'No detail'),
         ('detail_flat', 'Display children flat'),
         ('detail_with_hierarchy', 'Display children with hierarchy')
-    ], 'Display details', default='detail_flat')
+        ], 'Display details', default='detail_flat')
     style_overwrite = fields.Selection([
         ('0', 'Automatic formatting'),
         ('1', 'Main Title 1 (bold, underlined)'),
@@ -63,8 +63,9 @@ class AccountFinancialReport(models.Model):
         ('4', 'Normal Text'),
         ('5', 'Italic Text (smaller)'),
         ('6', 'Smallest Text'),
-    ], 'Financial Report Style', default='0',
+        ], 'Financial Report Style', default='0',
         help="You can set up here the format you want this record to be displayed. "
              "If you leave the automatic formatting, it will be computed based on the "
              "financial reports hierarchy (auto-computed field 'level').")
     children_ids = fields.One2many('account.financial.report', 'parent_id', string='Children')
+

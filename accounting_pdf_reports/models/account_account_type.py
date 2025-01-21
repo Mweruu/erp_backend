@@ -33,3 +33,4 @@ class AccountAccountType(models.Model):
         help="These types are defined according to your country. The type contains more information " \
              "about the account and its specificities."
     )
+

@@ -8,11 +8,10 @@
             <form string="Compute Asset">
                 <div>
                     <p>
-                        This wizard will post installment/depreciation lines for the selected month.
-                        <br/>
+                        This wizard will post installment/depreciation lines for the selected month.<br/>
                         This will generate journal entries for all related installment lines on this period
                         of asset/revenue recognition as well.
-                    </p>
+                    </p> 
                 </div>
                 <group>
                     <field name="date"/>
@@ -22,7 +21,7 @@
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
-        </field>
+         </field>
     </record>
 
     <record id="action_asset_depreciation_confirmation_wizard" model="ir.actions.act_window">

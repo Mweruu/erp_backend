@@ -27,14 +27,13 @@ class FollowupLine(models.Model):
         delays.sort()
         for line in self.followup_id.followup_line:
             sequence = delays.index(line.delay)
-            line.sequence = sequence + 1
+            line.sequence = sequence+1
 
     @api.model
     def default_get(self, default_fields):
         values = super(FollowupLine, self).default_get(default_fields)
         if self.env.ref('om_account_followup.email_template_om_account_followup_default'):
-            values['email_template_id'] = self.env.ref(
-                'om_account_followup.email_template_om_account_followup_default').id
+            values['email_template_id'] = self.env.ref('om_account_followup.email_template_om_account_followup_default').id
         return values
 
     name = fields.Char('Follow-Up Action', required=True)

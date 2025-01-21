@@ -33,8 +33,7 @@
             'om_account_asset/static/src/js/account_asset.js',
         ],
         'web.qunit_suite_tests': [
-            ('after', 'web/static/tests/legacy/views/kanban_tests.js',
-             '/om_account_asset/static/tests/account_asset_tests.js'),
+            ('after', 'web/static/tests/legacy/views/kanban_tests.js', '/om_account_asset/static/tests/account_asset_tests.js'),
         ],
     },
 }

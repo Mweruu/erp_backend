@@ -8,8 +8,7 @@
             <t t-set="data_report_dpi" t-value="110"/>
             <t t-call="web.internal_layout">
                 <div class="page">
-                    <h2><span t-esc="res_company.name"/>: Trial Balance
-                    </h2>
+                    <h2><span t-esc="res_company.name"/>: Trial Balance</h2>
 
                     <div class="row mt32">
                         <div class="col-4">
@@ -22,15 +21,8 @@
                         </div>
                         <div class="col-4">
                             <p>
-                                <t t-if="data['date_from']">
-                                    <strong>Date from :</strong>
-                                    <span t-esc="data['date_from']"/>
-                                    <br/>
-                                </t>
-                                <t t-if="data['date_to']">
-                                    <strong>Date to :</strong>
-                                    <span t-esc="data['date_to']"/>
-                                </t>
+                                <t t-if="data['date_from']"><strong>Date from :</strong> <span t-esc="data['date_from']"/><br/></t>
+                                <t t-if="data['date_to']"><strong>Date to :</strong> <span t-esc="data['date_to']"/></t>
                             </p>
                         </div>
                         <div class="col-4">
@@ -42,7 +34,7 @@
                         </div>
                     </div>
                     <div class="row mt32">
-                        <div class="col-6">
+                         <div class="col-6">
                             <strong>Journals:</strong>
                             <p t-esc="', '.join([ lt or '' for lt in print_journal ])"/>
                         </div>
@@ -75,20 +67,16 @@
                                     <span t-att-style="style" t-esc="account['name']"/>
                                 </td>
                                 <td class="text-end">
-                                    <span t-att-style="style" t-esc="account['initial_balance']"
-                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                     <span t-att-style="style" t-esc="account['initial_balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                                 <td class="text-end">
-                                    <span t-att-style="style" t-esc="account['debit']"
-                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                     <span t-att-style="style" t-esc="account['debit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                                 <td class="text-end">
-                                    <span t-att-style="style" t-esc="account['credit']"
-                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    <span t-att-style="style" t-esc="account['credit']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                                 <td class="text-end">
-                                    <span t-att-style="style" t-esc="account['balance']"
-                                          t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    <span t-att-style="style" t-esc="account['balance']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                                 </td>
                             </tr>
                         </tbody>

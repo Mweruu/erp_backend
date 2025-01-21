@@ -54,8 +54,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="account_aged_balance_view"/>
         <field name="context">{'default_result_selection': 'customer',
-            'hide_result_selection': 1}
-        </field>
+            'hide_result_selection': 1}</field>
         <field name="target">new</field>
     </record>
 
@@ -73,8 +72,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="account_aged_balance_view"/>
         <field name="context">{'default_result_selection': 'supplier',
-            'hide_result_selection': 1}
-        </field>
+            'hide_result_selection': 1}</field>
         <field name="target">new</field>
     </record>
 

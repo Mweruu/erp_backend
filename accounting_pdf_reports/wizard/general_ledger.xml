@@ -34,7 +34,7 @@
         <field name="view_mode">form</field>
         <field name="view_id" ref="account_report_general_ledger_view"/>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_account"/>
+        <field name="binding_model_id" ref="account.model_account_account" />
         <field name="binding_type">report</field>
     </record>
 

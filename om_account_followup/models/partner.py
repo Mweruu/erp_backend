@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from functools import reduce
+from datetime import datetime
 from lxml import etree
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import formatLang
+from markupsafe import Markup
 
 
 class ResPartner(models.Model):
@@ -24,7 +26,7 @@ class ResPartner(models.Model):
         return res
 
     def _get_latest(self):
-        company = self.env.user.company_id
+        company = self.env.company
         for partner in self:
             amls = partner.unreconciled_aml_ids
             latest_date = False
@@ -43,7 +45,7 @@ class ResPartner(models.Model):
                     latest_date = aml.followup_date
                 if (aml.company_id == company) and not aml.blocked and \
                         (aml_followup and (not latest_days_without_lit or
-                                           latest_days_without_lit < aml_followup.delay)):
+                         latest_days_without_lit < aml_followup.delay)):
                     latest_days_without_lit = aml_followup.delay
                     latest_level_without_lit = aml_followup.id
             partner.latest_followup_date = latest_date
@@ -54,7 +56,7 @@ class ResPartner(models.Model):
         action_text = followup_line.manual_action_note or ''
 
         action_date = self.payment_next_action_date or \
-                      fields.Date.today()
+            fields.Date.today()
         if self.payment_responsible_id:
             responsible_id = self.payment_responsible_id.id
         else:
@@ -75,7 +77,7 @@ class ResPartner(models.Model):
                 action_text = followup_without_lit.manual_action_note or ''
 
             action_date = partner.payment_next_action_date or \
-                          fields.Date.today()
+                fields.Date.today()
 
             if partner.payment_responsible_id:
                 responsible_id = partner.payment_responsible_id.id
@@ -151,7 +153,7 @@ class ResPartner(models.Model):
         partner = self.commercial_partner_id
         followup_table = ''
         if partner.unreconciled_aml_ids:
-            company = self.env.user.company_id
+            company = self.env.company
             current_date = fields.Date.today()
             report = self.env['report.om_account_followup.report_followup']
             final_res = report._lines_get_with_partner(partner, company.id)
@@ -178,6 +180,7 @@ class ResPartner(models.Model):
                     strbegin = "<TD>"
                     strend = "</TD>"
                     date = aml['date_maturity'] or aml['date']
+                    date = datetime.strptime(date, "%d/%m/%Y").date()
                     if date <= current_date and aml['balance'] > 0:
                         strbegin = "<TD><B>"
                         strend = "</B></TD>"
@@ -197,7 +200,7 @@ class ResPartner(models.Model):
                                 </table>
                                 <center>''' + _(
                     "Amount due") + ''' : %s </center>''' % (total)
-        return followup_table
+        return Markup(followup_table)
 
     def write(self, vals):
         if vals.get("payment_responsible_id", False):
@@ -210,9 +213,9 @@ class ResPartner(models.Model):
                     part.message_post(
                         body=_("You became responsible to do the next action "
                                "for the payment follow-up of") +
-                             " <b><a href='#id=" + str(part.id) +
-                             "&view_type=form&model=res.partner'> " + part.name +
-                             " </a></b>",
+                        " <b><a href='#id=" + str(part.id) +
+                        "&view_type=form&model=res.partner'> " + part.name +
+                        " </a></b>",
                         type='comment',
                         context=self.env.context,
                         partner_ids=[responsible_partner_id])
@@ -225,7 +228,7 @@ class ResPartner(models.Model):
 
     def do_button_print(self):
         self.ensure_one()
-        company_id = self.env.user.company_id.id
+        company_id = self.env.company.id
         if not self.env['account.move.line'].search(
                 [('partner_id', '=', self.id),
                  ('account_id.account_type', '=', 'asset_receivable'),
@@ -252,7 +255,7 @@ class ResPartner(models.Model):
         return self.do_partner_print(wizard_partner_ids, data)
 
     def _get_amounts_and_date(self):
-        company = self.env.user.company_id
+        company = self.env.company
         current_date = fields.Date.today()
         for partner in self:
             worst_due_date = False
@@ -270,7 +273,7 @@ class ResPartner(models.Model):
             partner.payment_earliest_due_date = worst_due_date
 
     def _get_followup_overdue_query(self, args, overdue_only=False):
-        company_id = self.env.user.company_id.id
+        company_id = self.env.company.id
         having_clauses = []
         having_values = []
 
@@ -318,7 +321,7 @@ class ResPartner(models.Model):
 
     def _payment_earliest_date_search(self, operator, operand):
         args = [('payment_earliest_due_date', operator, operand)]
-        company_id = self.env.user.company_id.id
+        company_id = self.env.company.id
         having_where_clause = ' AND '.join(
             map(lambda x: "(MIN(l.date_maturity) %s '%%s')" % (x[1]), args))
         having_values = [x[2] for x in args]
@@ -376,9 +379,7 @@ class ResPartner(models.Model):
     latest_followup_level_id = fields.Many2one('followup.line', compute='_get_latest', compute_sudo=True,
                                                string="Latest Follow-up Level", help="The maximum follow-up level")
 
-    latest_followup_sequence = fields.Integer('Sequence',
-                                              help="Gives the sequence order when displaying a list of follow-up lines.",
-                                              default=0)
+    latest_followup_sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of follow-up lines.", default=0)
 
     latest_followup_level_id_without_lit = fields.Many2one('followup.line',
                                                            compute='_get_latest', store=True, compute_sudo=True,

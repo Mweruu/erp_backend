@@ -51,7 +51,7 @@ class ReportTrialBalance(models.AbstractModel):
         account_result = {}
         # Prepare sql query base on selected parameters from wizard
         tables, where_clause, where_params = self.env['account.move.line']._query_get()
-        tables = tables.replace('"', '')
+        tables = tables.replace('"','')
         if not tables:
             tables = 'account_move_line'
         wheres = [""]
@@ -60,7 +60,7 @@ class ReportTrialBalance(models.AbstractModel):
         filters = " AND ".join(wheres)
         # compute the balance, debit and credit for the provided accounts
         request = ("SELECT account_id AS id, SUM(debit) AS debit, SUM(credit) AS credit, "
-                   "(SUM(debit) - SUM(credit)) AS balance" + \
+                   "(SUM(debit) - SUM(credit)) AS balance" +\
                    " FROM " + tables + " WHERE account_id IN %s " + filters + " GROUP BY account_id")
         params = (tuple(accounts.ids),) + tuple(where_params)
         self.env.cr.execute(request, params)
@@ -88,8 +88,7 @@ class ReportTrialBalance(models.AbstractModel):
                 account_res.append(res)
             if display_account == 'not_zero' and not currency.is_zero(res['balance']):
                 account_res.append(res)
-            if display_account == 'movement' and (
-                    not currency.is_zero(res['debit']) or not currency.is_zero(res['credit'])):
+            if display_account == 'movement' and (not currency.is_zero(res['debit']) or not currency.is_zero(res['credit'])):
                 account_res.append(res)
         return account_res
 

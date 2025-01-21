@@ -49,3 +49,4 @@ class ResConfigSettings(models.TransientModel):
                                    "filename=Import_Sample.xlsx"),
             'target': 'self',
         }
+

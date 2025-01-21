@@ -48,15 +48,15 @@
     </record>
 
     <record id="action_account_payment_method" model="ir.actions.act_window">
-        <field name="name">Payment Methods</field>
-        <field name="res_model">account.payment.method</field>
-        <field name="view_mode">tree,form</field>
-    </record>
+		<field name="name">Payment Methods</field>
+		<field name="res_model">account.payment.method</field>
+		<field name="view_mode">tree,form</field>
+	</record>
 
     <menuitem id="menu_account_payment_method"
               action="action_account_payment_method"
               parent="account.root_payment_menu"
               sequence="30"
-              groups="base.group_no_one"/>
+              groups="base.group_no_one" />
 
 </odoo>

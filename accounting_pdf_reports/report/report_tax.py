@@ -32,7 +32,7 @@ class ReportTax(models.AbstractModel):
         return sql
 
     def _compute_from_amls(self, options, taxes):
-        # compute the tax amount
+        #compute the tax amount
         sql = self._sql_from_amls_one()
         tables, where_clause, where_params = self.env['account.move.line']._query_get()
         query = sql % (tables, where_clause)
@@ -42,7 +42,7 @@ class ReportTax(models.AbstractModel):
             if result[0] in taxes:
                 taxes[result[0]]['tax'] = abs(result[1])
 
-        # compute the net amount
+        #compute the net amount
         sql2 = self._sql_from_amls_two()
         query = sql2 % (tables, where_clause)
         self.env.cr.execute(query, where_params)

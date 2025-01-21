@@ -30,14 +30,14 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         date_from = datetime.strptime(str(date_from), "%Y-%m-%d").date()
         for i in range(5)[::-1]:
             stop = start - relativedelta(days=period_length)
-            period_name = str((5 - (i + 1)) * period_length + 1) + '-' + str((5 - i) * period_length)
+            period_name = str((5-(i+1)) * period_length + 1) + '-' + str((5-i) * period_length)
             period_stop = (start - relativedelta(days=1)).strftime('%Y-%m-%d')
             if i == 0:
                 period_name = '+' + str(4 * period_length)
             periods[str(i)] = {
                 'name': period_name,
                 'stop': period_stop,
-                'start': (i != 0 and stop.strftime('%Y-%m-%d') or False),
+                'start': (i!=0 and stop.strftime('%Y-%m-%d') or False),
             }
             start = stop
 
@@ -56,8 +56,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
         arg_list = (tuple(move_state), tuple(account_type))
 
         reconciliation_clause = '(l.reconciled IS FALSE)'
-        cr.execute('SELECT debit_move_id, credit_move_id FROM account_partial_reconcile where max_date > %s',
-                   (date_from,))
+        cr.execute('SELECT debit_move_id, credit_move_id FROM account_partial_reconcile where max_date > %s', (date_from,))
         reconciled_after_date = []
         for row in cr.fetchall():
             reconciled_after_date += [row[0], row[1]]
@@ -188,7 +187,7 @@ class ReportAgedPartnerBalance(models.AbstractModel):
                         'line': line,
                         'amount': line_amount,
                         'period': i + 1,
-                    })
+                        })
             history.append(partners_amount)
 
         for partner in partners:

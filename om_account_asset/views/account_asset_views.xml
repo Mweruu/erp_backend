@@ -56,8 +56,8 @@
                                    context="{'res_partner_search_mode': 'supplier'}"/>
                             <field name="invoice_id" string="Invoice" options="{'no_create': True}"/>
                             <field name="analytic_distribution" widget="analytic_distribution"/>
-                            <!--                            <field name="analytic_tag_ids"-->
-                            <!--                                   groups="analytic.group_analytic_accounting" widget="many2many_tags"/>-->
+<!--                            <field name="analytic_tag_ids"-->
+<!--                                   groups="analytic.group_analytic_accounting" widget="many2many_tags"/>-->
                         </group>
                     </group>
                     <notebook>

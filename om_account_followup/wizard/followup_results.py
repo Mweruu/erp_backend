@@ -19,5 +19,5 @@ class FollowupSendingResults(models.TransientModel):
     def _get_need_printing(self):
         return self.env.context.get('needprinting')
 
-    description = fields.Text("Description", readonly=True, default=_get_description)
+    description = fields.Text("Description", readonly=True,default=_get_description)
     needprinting = fields.Boolean("Needs Printing", default=_get_need_printing)

@@ -24,7 +24,7 @@
             </graph>
         </field>
     </record>
-
+ 
     <record id="view_asset_asset_report_search" model="ir.ui.view">
         <field name="name">asset.asset.report.search</field>
         <field name="model">asset.asset.report</field>
@@ -53,9 +53,9 @@
                             groups="base.group_multi_company"/>
                     <separator/>
                     <filter string="Purchase Month" name="purchase_month" help="Date of asset purchase"
-                            context="{'group_by':'date:month'}"/>
+                        context="{'group_by':'date:month'}"/>
                     <filter string="Depreciation Month" name="deprecation_month" help="Date of depreciation"
-                            context="{'group_by':'depreciation_date:month'}"/>
+                        context="{'group_by':'depreciation_date:month'}"/>
                 </group>
             </search>
         </field>
@@ -69,16 +69,15 @@
         <field name="domain">[('asset_category_id.type', '=', 'purchase')]</field>
         <field name="context">{}</field>
         <field name="help" type="html">
-            <p class="o_view_nocontent_empty_folder">
-                No content
-            </p>
-            <p>
-                From this report, you can have an overview on all depreciations. The
-                search bar can also be used to personalize your assets depreciation reporting.
-            </p>
+          <p class="o_view_nocontent_empty_folder">
+            No content
+          </p><p>
+            From this report, you can have an overview on all depreciations. The
+            search bar can also be used to personalize your assets depreciation reporting.
+          </p>
         </field>
     </record>
-
+    
     <menuitem id="menu_action_asset_asset_report"
               name="Assets"
               action="action_asset_asset_report"

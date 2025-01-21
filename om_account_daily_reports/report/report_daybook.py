@@ -15,7 +15,7 @@ class ReportDayBook(models.AbstractModel):
         MoveLine = self.env['account.move.line']
         init_wheres = [""]
 
-        init_tables, init_where_clause, init_where_params = MoveLine._query_get()
+        init_tables, init_where_clause, init_where_params =MoveLine._query_get()
         if init_where_clause.strip():
             init_wheres.append(init_where_clause.strip())
         if form_data['target_move'] == 'posted':
@@ -81,7 +81,7 @@ class ReportDayBook(models.AbstractModel):
         form_data = data['form']
 
         date_from = datetime.strptime(form_data['date_from'],
-                                      '%Y-%m-%d').date()
+                                       '%Y-%m-%d').date()
         date_to = datetime.strptime(form_data['date_to'], '%Y-%m-%d').date()
         codes = []
 
@@ -96,8 +96,7 @@ class ReportDayBook(models.AbstractModel):
             dates.append(date_from + timedelta(days=day))
         for date in dates:
             date_data = str(date)
-            accounts_res = self.with_context(data['form'].get('comparison_context', {}))._get_account_move_entry(
-                accounts, form_data, date_data)
+            accounts_res = self.with_context(data['form'].get('comparison_context', {}))._get_account_move_entry(accounts, form_data, date_data)
             if accounts_res['lines']:
                 record.append({
                     'date': date,

@@ -26,7 +26,6 @@ class AccountRecurringTemplate(models.Model):
                                      required=True, default='draft', string='Generate Journal As')
     recurring_interval = fields.Integer('Recurring Interval', default=1, required=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company.id)
-
     # next_call = fields.Date(string="Next Call", compute="_compute_next_call")
 
     @api.depends('date_begin', 'date_end')
@@ -45,3 +44,5 @@ class AccountRecurringTemplate(models.Model):
     def action_done(self):
         for rec in self:
             rec.state = 'done'
+
+

@@ -29,10 +29,10 @@ class ReportFinancial(models.AbstractModel):
                 wheres.append(where_clause.strip())
             filters = " AND ".join(wheres)
             request = "SELECT account_id as id, " + ', '.join(mapping.values()) + \
-                      " FROM " + tables + \
-                      " WHERE account_id IN %s " \
-                      + filters + \
-                      " GROUP BY account_id"
+                       " FROM " + tables + \
+                       " WHERE account_id IN %s " \
+                            + filters + \
+                       " GROUP BY account_id"
             params = (tuple(accounts._ids),) + tuple(where_params)
             self.env.cr.execute(request, params)
             for row in self.env.cr.dictfetchall():
@@ -103,7 +103,7 @@ class ReportFinancial(models.AbstractModel):
                 'balance': res[report.id]['balance'] * float(report.sign),
                 'type': 'report',
                 'level': bool(report.style_overwrite) and report.style_overwrite or report.level,
-                'account_type': report.type or False,  # used to underline the financial report balances
+                'account_type': report.type or False, #used to underline the financial report balances
             }
             if data['debit_credit']:
                 vals['debit'] = res[report.id]['debit']
@@ -114,14 +114,14 @@ class ReportFinancial(models.AbstractModel):
 
             lines.append(vals)
             if report.display_detail == 'no_detail':
-                # the rest of the loop is used to display the details of the financial report, so it's not needed here.
+                #the rest of the loop is used to display the details of the financial report, so it's not needed here.
                 continue
             if res[report.id].get('account'):
                 sub_lines = []
                 for account_id, value in res[report.id]['account'].items():
-                    # if there are accounts to display, we add them to the lines with a level equals to their level in
-                    # the COA + 1 (to avoid having them with a too low level that would conflicts with the level of data
-                    # financial reports for Assets, liabilities...)
+                    #if there are accounts to display, we add them to the lines with a level equals to their level in
+                    #the COA + 1 (to avoid having them with a too low level that would conflicts with the level of data
+                    #financial reports for Assets, liabilities...)
                     flag = False
                     account = self.env['account.account'].browse(account_id)
                     vals = {
@@ -134,8 +134,7 @@ class ReportFinancial(models.AbstractModel):
                     if data['debit_credit']:
                         vals['debit'] = value['debit']
                         vals['credit'] = value['credit']
-                        if not account.company_id.currency_id.is_zero(
-                                vals['debit']) or not account.company_id.currency_id.is_zero(vals['credit']):
+                        if not account.company_id.currency_id.is_zero(vals['debit']) or not account.company_id.currency_id.is_zero(vals['credit']):
                             flag = True
                     if not account.company_id.currency_id.is_zero(vals['balance']):
                         flag = True

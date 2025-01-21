@@ -29,7 +29,7 @@ class AccountAgedTrialBalance(models.TransientModel):
             stop = start - relativedelta(days=period_length - 1)
             res[str(i)] = {
                 'name': (i != 0 and (str((5 - (i + 1)) * period_length) + '-' + str((5 - i) * period_length)) or (
-                        '+' + str(4 * period_length))),
+                            '+' + str(4 * period_length))),
                 'stop': start.strftime('%Y-%m-%d'),
                 'start': (i != 0 and stop.strftime('%Y-%m-%d') or False),
             }
@@ -39,5 +39,5 @@ class AccountAgedTrialBalance(models.TransientModel):
 
     def _print_report(self, data):
         data = self._get_report_data(data)
-        return self.env.ref('accounting_pdf_reports.action_report_aged_partner_balance'). \
+        return self.env.ref('accounting_pdf_reports.action_report_aged_partner_balance').\
             with_context(landscape=True).report_action(self, data=data)

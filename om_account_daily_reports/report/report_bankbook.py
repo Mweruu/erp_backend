@@ -33,8 +33,7 @@ class ReportBankBook(models.AbstractModel):
 
         # Prepare initial sql query and Get the initial move lines
         if init_balance:
-            init_tables, init_where_clause, init_where_params = MoveLine.with_context(
-                date_from=self.env.context.get('date_from'), date_to=False, initial_bal=True)._query_get()
+            init_tables, init_where_clause, init_where_params = MoveLine.with_context(date_from=self.env.context.get('date_from'), date_to=False,initial_bal=True)._query_get()
             init_wheres = [""]
             if init_where_clause.strip():
                 init_wheres.append(init_where_clause.strip())
@@ -150,10 +149,7 @@ class ReportBankBook(models.AbstractModel):
                     if acc_in.payment_account_id:
                         accounts.append(acc_in.payment_account_id.id)
             accounts = self.env['account.account'].search([('id', 'in', accounts)])
-        record = self.with_context(data['form'].get('comparison_context', {}))._get_account_move_entry(accounts,
-                                                                                                       init_balance,
-                                                                                                       sortby,
-                                                                                                       display_account)
+        record = self.with_context(data['form'].get('comparison_context', {}))._get_account_move_entry(accounts, init_balance, sortby, display_account)
         return {
             'doc_ids': docids,
             'doc_model': model,

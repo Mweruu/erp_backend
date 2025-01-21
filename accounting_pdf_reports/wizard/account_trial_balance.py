@@ -9,7 +9,7 @@ class AccountBalanceReport(models.TransientModel):
     _description = 'Trial Balance Report'
 
     journal_ids = fields.Many2many('account.journal', 'account_balance_report_journal_rel',
-                                   'account_id', 'journal_id',
+                                   'account_id', 'journal_id', 
                                    string='Journals', required=True, default=[])
     analytic_account_ids = fields.Many2many('account.analytic.account',
                                             'account_trial_balance_analytic_rel',

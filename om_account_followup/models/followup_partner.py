@@ -48,3 +48,5 @@ class FollowupStatByPartner(models.Model):
                     GROUP BY
                     l.partner_id, l.company_id
             )""")
+
+
