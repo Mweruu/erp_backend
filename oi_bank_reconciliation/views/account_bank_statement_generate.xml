@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_account_bank_statement_generate_form" model="ir.ui.view">
+		<field name="name">account.bank.statement.generate.form</field>
+		<field name="model">account.bank.statement.generate</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="journal_id" invisible="1" />
+						<field name="statement_id" invisible="1" />						
+					</group>
+					<group string="Payments">
+						<field name="payment_ids" colspan="2" context="{'tree_view_ref' : 'oi_bank_reconciliation.view_account_payment_tree_statement_generate'}" nolabel="1" domain="[('journal_id','=', journal_id), ('is_matched','=', False), ('state','=', 'posted'), ('match_statement_line_ids','=', False)]" />
+					</group>
+					<group string="Other Entries">
+						<field name="move_line_ids" colspan="2" nolabel="1" domain="[('parent_state','=', 'posted'),('payment_id','=', False), ('reconciled','=', False), ('account_id.reconcile','=', True)]" >
+							<tree>
+								<field name="move_id" />
+								<field name="date" />
+								<field name="name" />
+								<field name="partner_id" />
+								<field name="amount_residual" />
+								<field name="currency_id" invisible="1" />
+							</tree>
+						</field>
+					</group>					
+					<footer>
+						<button name="process" type="object" class="oe_highlight" string="Create Transactions" />
+						<button special="cancel" string="Cancel" class="btn-secondary" />
+					</footer>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+</odoo>

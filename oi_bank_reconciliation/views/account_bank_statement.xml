@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_bank_statement_form" model="ir.ui.view">
+		<field name="name">account.bank.statement.form</field>
+		<field name="model">account.bank.statement</field>
+		<field name="arch" type="xml">
+			<form string="Bank Statement">
+				<header>
+					<button name="action_transaction_generate" type="object" states="open"
+						string="Generate Transactions" />
+					<button name="action_reconcile" attrs="{'invisible': ['|', '|', ('is_reconciled','=', True), ('state','!=', 'open'), ('line_count','=', 0)]}" type="object"
+						class="oe_highlight" string="Reconcile" />
+
+					<button string="Validate" attrs="{'invisible': ['|', '|', ('is_complete','=', False), ('is_reconciled','=', False), ('state','!=', 'open')]}"
+						class="oe_highlight" name="button_validate" type="object" />
+
+					<button string="Reset to New" name="button_reopen" type="object" states="confirm" />
+
+					<field name="state" widget="statusbar" />
+				</header>
+				<sheet>
+					<field name="is_complete" invisible="1" />
+					<field name="is_valid" invisible="1" />
+					<field name="is_reconciled" invisible="1" />
+
+					<div class="oe_button_box" name="button_box">
+						<button class="oe_stat_button" name="action_view_lines" type="object" icon="fa-list-alt">
+							<field name="line_count" string="Transactions" widget="statinfo" />
+						</button>
+					</div>
+
+					<div class="oe_title oe_inline">
+						<label for="name" />
+						<h1>
+							<field name="name" placeholder="e.g. BNK/2021/0001" attrs="{'readonly': [('state', '!=', 'open')]}" />
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="journal_id" required="1" domain="[('type','=', context.get('journal_type'))]" attrs="{'readonly': [('line_count','!=', 0)]}"
+								options="{'no_create': True}" />
+							<field name="date" attrs="{'readonly': [('state', '!=', 'open')]}" options="{'datepicker': {'warn_future': true}}" />
+							<field name='company_id' options="{'no_create': True}" groups="base.group_multi_company" />
+							<field name='company_id' invisible="1"/>
+							<field name="currency_id" invisible="1" />
+							<field name="journal_type" invisible="1" />
+						</group>
+						<group>
+							<field name="balance_start" attrs="{'readonly': [('state', '!=', 'open')]}" />
+
+							<label for="balance_end_real" />
+							<div>
+								<field name="balance_end_real" class="oe_inline" attrs="{'readonly': [('state', '!=', 'open')]}" />
+								<button name="auto_balance_end" type="object" string="Compute" states="open" />
+							</div>
+						</group>
+					</group>
+
+					<notebook>
+						<page string="Transactions" name="statement_line_ids">
+							<field name="line_ids" attrs="{'readonly': [('state', '!=', 'open')]}"
+								context="{'default_date': date, 'default_journal_id': journal_id, 'default_internal_index' : '0'}">
+								<tree string="Statement lines" editable="bottom" decoration-muted="is_reconciled" limit="500">
+
+									<!-- Invisible fields -->
+									<field name="company_id" invisible="1" />
+									<field name="state" invisible="1" />
+									<field name="is_reconciled" invisible="1" />
+									<field name="currency_id" invisible="1" />
+									<field name="partner_bank_id" invisible="1" />
+									<field name="country_code" invisible="1" />
+									<field name="internal_index" invisible="1" />
+									<field name="journal_id" invisible="1" domain="[]" />
+
+									<!-- Visible fields -->
+									<field name="sequence" widget="handle" />
+									<field name="date" />
+									<field name="payment_ref" />
+									<field name="partner_id" domain="['|', ('parent_id','=', False), ('is_company','=',True)]" />
+									<field name="ref" optional="hidden" />
+									<field name="narration" string="Notes" optional="hidden" />
+									<field name="transaction_type" optional="hidden" />
+									<field name="amount_currency" optional="hidden" groups="base.group_multi_currency" />
+									<field name="foreign_currency_id" optional="hidden" groups="base.group_multi_currency" />
+									<field name="amount" />
+									<field name="account_number" optional="hidden" />
+									<field name="reconcile_state" string="Status" optional="show" widget="badge" decoration-success="reconcile_state == 'Reconciled'"
+										decoration-info="reconcile_state == 'Unreconciled'" />
+									<!-- Buttons -->
+									<button name="action_undo_reconciliation" type="object"
+										attrs="{'invisible': [('is_reconciled', '=', False)], 'column_invisible': [('parent.state', '!=', 'open')]}" title="Revert reconciliation" icon="fa-undo" />
+									<button name="button_reconciliation" type="object"
+										attrs="{'invisible': [('is_reconciled', '=', True)], 'column_invisible': [('parent.state', '!=', 'open')]}" title="Reconcile" icon="fa-puzzle-piece" />
+								</tree>
+								<form>
+									<group>
+										<group>
+											<field name="payment_ref" />
+											<field name="amount" />
+											<field name="amount_currency" optional="hidden" groups="base.group_multi_currency" />
+											<field name="foreign_currency_id" optional="hidden" groups="base.group_multi_currency" />
+											<field name="partner_id" />
+											<field name="ref" />
+										</group>
+										<group>
+											<field name="date" />
+											<field name="narration" />
+											<field name="transaction_type" />
+											<field name="reconcile_state" optional="show" widget="badge" decoration-success="reconcile_state == 'Reconciled'"
+												decoration-info="reconcile_state == 'Unreconciled'" />
+										</group>
+									</group>
+								</form>
+							</field>
+						</page>
+					</notebook>
+					<group>
+						<group>
+
+						</group>
+						<group class="oe_subtotal_footer oe_right">
+							<field name="balance_end" />
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" />
+					<field name="activity_ids" />
+					<field name="message_ids" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_bank_statement_tree" model="ir.ui.view">
+		<field name="name">account.bank.statement.tree</field>
+		<field name="model">account.bank.statement</field>
+		<field name="inherit_id" ref="account.view_bank_statement_tree" />
+		<field name="arch" type="xml">
+			<tree position="attributes">
+				<attribute name="create">true</attribute>
+				<attribute name="editable"/>
+			</tree>
+			<tree>
+				<field name="state" widget="badge" optional="show" decoration-success="state == 'confirm'" decoration-warning="state == 'open'" />
+			</tree>
+		</field>
+	</record>
+
+
+</odoo>

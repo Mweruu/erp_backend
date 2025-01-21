@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_module_filter" model="ir.ui.view">
+		<field name="name">ir.module.module.search</field>
+		<field name="model">ir.module.module</field>
+		<field name="inherit_id" ref="base.view_module_filter" />
+		<field name="arch" type="xml">
+			<search position="inside">
+				 <separator />
+				 <filter name="openinside" string="Openinside" domain="[('author','=ilike', 'Openinside')]" />
+			</search>
+		</field>
+	</record>
+
+
+</odoo>

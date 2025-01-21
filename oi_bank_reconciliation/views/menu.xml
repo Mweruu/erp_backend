@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<menuitem id="action_bank_statement_tree" action="account.action_bank_statement_tree" parent="account.menu_finance_entries_accounting_miscellaneous" sequence="20"/>
+	<menuitem id="action_cash_statement_tree" action="account.action_view_bank_statement_tree" parent="account.menu_finance_entries_accounting_miscellaneous" sequence="30"/>
+	
+</odoo>

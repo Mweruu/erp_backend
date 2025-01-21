@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-name="oi_base.record_info" owl="1">
+	<t t-set="is_system" t-value="env.services.user.isSystem" />
+	<t t-set="is_debug" t-value="env.debug" />
+	<Dialog size="'md'" title="props.title">
+		<main role="alert">
+		    <table class="table table-condensed table-striped">
+		        <tr>
+		            <th>ID:</th>
+		            <td><t t-esc="props.id" /></td>
+		        </tr>
+		        <tr>
+		            <th>Name:</th>
+		            <td><t t-esc="props.name" /></td>
+		        </tr>        
+		        <tr t-if="props.xmlid and is_system">
+		            <th>XML ID:</th>
+		            <td>
+		            	<div class="o_field_CopyClipboardChar">
+		            		<span id="record_xmlid"><t t-esc="props.xmlid" /></span>
+		            		<span>
+		            			<t t-raw="space" />
+		            		</span>		            		
+		            		<CopyButton t-if="props.xmlid" content="props.xmlid" copyText="copyText" successText="successText" />
+		            	</div>
+		            </td>
+		        </tr>
+		        <tr t-if="props.xmlid and is_system">
+		            <th>No Update:</th>
+		            <td><t t-esc="props.noupdate" /></td>
+		        </tr>
+		        <tr t-if="props.create_uid">
+		            <th>Creation By:</th>
+		            <td>
+		            	<t t-esc="props.create_uid" />
+		            	<t t-esc="' - '" />
+		            	<t t-esc="props.create_date" />
+		            </td>
+		        </tr>
+		        <tr t-if="props.write_uid">
+		            <th>Latest Modification:</th>
+		            <td>
+		            	<t t-esc="props.write_uid" />
+		            	<t t-esc="' - '" />
+		            	<t t-esc="props.write_date" />
+		            </td>
+		        </tr>        
+		    </table>
+		    <div>
+			    <t t-if="props.lines[0]">
+			    	<table class="table table-condensed table-striped">
+			    		<thead>
+			    			<tr>
+			    				<th>Date</th>
+			    				<th>User</th>
+			    				<th>Field</th>
+			    				<th>Old Value</th>
+			    				<th>New Value</th>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+			    			<tr t-foreach="props.lines" t-as="line" t-key="line_index">
+			    				<td><t t-esc="line.date" /></td>
+			    				<td><t t-esc="line.user" /></td>
+			    				<td><t t-esc="line.field" /></td>
+			    				<td><t t-esc="line.old_value" /></td>
+			    				<td><t t-esc="line.new_value" /></td>
+			    			</tr>
+			    		</tbody>
+			    	</table>
+			    </t>
+		    </div>		
+		</main>
+		<t t-set-slot="footer" owl="1">
+            <button class="btn btn-primary" t-ref="autofocus"  t-on-click="props.close">
+            Ok
+            </button>            	
+            <button class="btn btn-secondary" t-if="is_system and is_debug" t-on-click="open_xml_record">
+            	<t t-if="props.xmlid">XML ID</t>
+            	<t t-else="">Create XML ID</t>            	
+            </button>   
+            <button class="btn btn-secondary" t-if="props.update_log_count" t-on-click="open_update_log">
+            	Update Logs	(<t t-out="props.update_log_count" />)          	
+            </button>        
+            <button class="btn btn-secondary" t-if="props.tracking_value_count" t-on-click="open_chatter_log">
+            	Chatter Logs (<t t-out="props.tracking_value_count" />)          	
+            </button> 
+            <button class="btn btn-secondary" t-if="props.log_count" t-on-click="open_all_log">
+            	All Logs (<t t-out="props.log_count" />)          	
+            </button>                                                                                                                                                       
+        </t>		    					
+	</Dialog>
+</t>
+
+</templates>

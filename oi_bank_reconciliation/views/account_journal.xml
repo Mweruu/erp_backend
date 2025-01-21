@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="account_journal_dashboard_kanban_view" model="ir.ui.view">
+		<field name="name">account.journal.dashboard.kanban</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.account_journal_dashboard_kanban_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//div[@id='dashboard_bank_cash_left']/*[1]" position="before">
+				<t t-if="dashboard.show_reconcile_items">
+					<button type="object" name="action_statement_reconcile" class="btn btn-primary" groups="account.group_account_user">
+						Reconcile
+						<t t-esc="dashboard.number_to_reconcile" />
+						Items
+					</button>
+				</t>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_account_journal_form" model="ir.ui.view">
+		<field name="name">account.journal.form</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_journal_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='advanced_settings']/group" position="inside">
+				<group name="reconciliation" string="Reconciliation" attrs="{'invisible': [('type', 'not in', ['cash', 'bank'])]}">
+					<field name="reconciliation_range" />
+				</group>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_ir_model_fields_tree_data" model="ir.ui.view">
+		<field name="name">ir.model.fields.tree.data</field>
+		<field name="model">ir.model.fields</field>
+		<field name="priority">100</field>
+		<field name="arch" type="xml">
+			<tree duplicate="false">
+				 <field name="name"/>
+				 <field name="field_description" optional="show"/>				 
+				 <field name="record_value" optional="show"/>
+				 <field name="record_display" optional="show"/>
+				 <field name="ttype" optional="hide"/>
+				 <button name="action_open_field" type="object" string="Open Field" /> 
+				 <button name="action_open_record" type="object" string="Open Record" attrs="{'invisible' : ['!', ('ttype','like', 'many')]}" />
+				  
+			</tree>
+		</field>
+	</record>
+	
+</odoo>	

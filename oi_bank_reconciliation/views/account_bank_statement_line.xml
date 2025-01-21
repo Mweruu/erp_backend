@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_bank_statement_line_tree_reconciliation" model="ir.ui.view">
+		<field name="name">account.bank.statement.line.tree.reconciliation</field>
+		<field name="model">account.bank.statement.line</field>
+		<field name="priority">100</field>
+		<field name="arch" type="xml">
+			<tree string="Statement lines">
+				<!-- Invisible fields -->
+				<field name="state" invisible="1" />
+				<field name="company_id" invisible="1" />
+				<field name="journal_id" invisible="1" />
+				<field name="is_reconciled" invisible="1" />
+				<field name="partner_bank_id" invisible="1" />
+				<field name="currency_id" invisible="1" />
+				<field name="statement_id" invisible="not context.get('from_dashboard')" />
+				<field name="move_id" invisible="1" />
+
+				<!-- Displayed fields -->
+				<field name="sequence" widget="handle" invisible="context.get('from_dashboard')" attrs="{'invisible': [('state', '=', 'confirm')]}" />
+				<field name="date" />
+				<field name="payment_ref" optional="show" />
+				<field name="ref" optional="hidden" />
+				<field name="partner_id" optional="show" />
+				<field name="amount" />
+				<field name="amount_currency" optional="hidden" groups="base.group_multi_currency" />
+				<field name="foreign_currency_id" optional="hidden" groups="base.group_multi_currency" />
+				<field name="account_number" optional="hidden" />
+				<field name="transaction_type" optional="hidden" />
+				<field name="narration" optional="hidden" />
+
+				<field name="reconcile_state" optional="show" widget="badge" decoration-success="reconcile_state == 'Reconciled'"
+					decoration-info="reconcile_state == 'Unreconciled'" />
+
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_bank_statement_line_form_reconciliation" model="ir.ui.view">
+		<field name="name">account.bank.statement.line.form.reconciliation</field>
+		<field name="model">account.bank.statement.line</field>
+		<field name="priority">100</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_reconcile" type="object" class="oe_highlight" string="Reconcile"
+						attrs="{'invisible': ['|', '|', ('is_reconciled', '=', True), ('state', '!=', 'posted'), ('matched_balance','!=', 0)]}" />
+						
+					<button name="action_undo_reconciliation" type="object" string="Revert reconciliation" attrs="{'invisible': ['|', ('is_reconciled', '=', False), ('statement_state','=', 'confirm')]}" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+										
+					</div>
+
+					<widget name="web_ribbon" title="Reconciled" attrs="{'invisible': [('is_reconciled','!=', True)]}"/>
+					<group>
+						<group>
+							<field name="statement_id" invisible="not context.get('from_dashboard')" readonly="1" />
+							<field name="statement_state" invisible="1" />
+							<field name="edit_enabled" invisible="1" />
+							<field name="date" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="payment_ref" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="amount" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="amount_currency" groups="base.group_multi_currency" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="foreign_currency_id" groups="base.group_multi_currency" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="state" invisible="1" />
+							<field name="company_id" invisible="1" />
+							<field name="journal_id" invisible="1" />
+							<field name="is_reconciled" invisible="1" />
+							<field name="partner_bank_id" invisible="1" />
+							<field name="currency_id" invisible="1" />
+							<field name="suitable_journal_ids" invisible="1" />
+							<field name="move_id" required="0" />
+							<field name="reconciliation_range" invisible="1" />
+						</group>
+						<group>
+							<field name="partner_id" attrs="{'readonly': [('edit_enabled', '=', False)]}" />
+							<field name="ref" attrs="{'readonly': [('edit_enabled', '=', False)]}"/>
+							<field name="transaction_type" attrs="{'readonly': [('edit_enabled', '=', False)]}"/>
+							<field name="narration" attrs="{'readonly': [('edit_enabled', '=', False)]}"/>
+						</group>
+					</group>
+					<group string="Reconciliation">
+						<group>
+							<field name="matched_balance" string="Balance" />
+							<field name="matched_balance_absolute" invisible="1" />
+						</group>
+						<group>
+
+						</group>
+					</group>
+					<notebook>
+						<page name="matched_payments" string="Payment Matching">
+							<field name="matched_payment_ids"
+								context="{
+								'search_default_amount' : matched_balance_absolute, 
+								'search_range_default_date' : [None, date], 
+								'search_default_partner_id' : partner_id, 
+								'search_view_ref' : 'oi_bank_reconciliation.view_account_payment_search', 
+								'tree_view_ref' : 'oi_bank_reconciliation.view_account_payment_tree'}"
+								nolabel="1" attrs="{'readonly': [('edit_enabled', '=', False)]}"
+								domain="[('journal_id','=', journal_id), ('is_matched','=', False), ('state','=', 'posted'), amount > 0 and ('payment_type','=', 'inbound') or ('payment_type','=', 'outbound') ]">
+							</field>
+						</page>
+						<page name="matched_invoices" string="Customer/Vendor Matching">
+							<field name="matched_move_line_ids" nolabel="1"
+								context="{
+								'search_default_amount_residual' : amount,
+								'search_range_default_amount_residual' : [amount - reconciliation_range, amount + reconciliation_range], 
+								'search_range_default_date' : [None, date], 
+								'search_default_partner_id' : partner_id, 
+								'tree_view_ref' : 'oi_bank_reconciliation.view_move_line_tree', 
+								'search_view_ref' : 'oi_bank_reconciliation.view_account_move_line_filter'
+								}"
+								attrs="{'readonly': [('edit_enabled', '=', False)]}"
+								domain="[('parent_state','=', 'posted'), ('reconciled','=', False), ('payment_id','=', False),('amount_residual','!=', 0), ('account_id.account_type','!=', 'asset_cash')]" />
+						</page>
+						<page name="matched_manual" string="Manual Operations">
+							<field name="matched_manual_ids" nolabel="1" attrs="{'readonly': [('edit_enabled', '=', False)]}">
+								<tree editable="bottom">
+									<field name="sequence" widget="handle" />
+									<field name="name" />
+									<field name="account_id" />
+									<field name="balance" force_save="1" attrs="{'readonly': [('auto_tax_line', '=', True)]}" />
+									<field name="partner_id" optional="show" />
+									<field name="product_id" optional="hide" />
+									<field name="analytic_distribution" optional="show" widget="analytic_distribution" groups="analytic.group_analytic_accounting" />
+									<field name="tax_ids" domain="[('price_include','!=',True)]" context="{'append_type_to_tax_name': True}" widget="many2many_tags" optional="show" options="{'no_create' : 1}" />
+									<field name="company_id" invisible="1" />
+									<field name="currency_id" invisible="1" />
+									<field name="auto_tax_line" invisible="1" />
+									<field name="tax_tag_ids" invisible="1" />
+									<field name="tax_repartition_line_id" invisible="1" />
+									<field name="tax_line_id" invisible="1" />
+								</tree>
+								<form>
+									<field name="name" />
+									<field name="account_id" />
+									<field name="balance" />
+									<field name="partner_id" />
+									<field name="product_id" />
+									<field name="analytic_distribution" widget="analytic_distribution" groups="analytic.group_analytic_accounting" />
+									<field name="tax_ids" widget="many2many_tags" domain="[('price_include','!=',True)]" />
+									<field name="company_id" invisible="1" />
+									<field name="currency_id" invisible="1" />
+									<field name="tax_repartition_line_id" invisible="1" />
+									<field name="auto_tax_line" invisible="1" />
+								</form>
+							</field>
+						</page>
+						<page string="Auto-generated Payments" attrs="{'invisible': [('payment_ids', '=', [])]}">
+							<field name="payment_ids" readonly="1" />
+						</page>
+					</notebook>
+				</sheet>
+				<div class="o_attachment_preview" />
+				<div class="oe_chatter">
+					<field name="message_follower_ids" />
+					<field name="message_ids" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_bank_statement_line_form_reconciliation_popup" model="ir.ui.view">
+		<field name="name">account.bank.statement.line.form.reconciliation</field>
+		<field name="model">account.bank.statement.line</field>
+		<field name="inherit_id" ref="view_bank_statement_line_form_reconciliation" />
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<header position="replace" />
+			<sheet position="inside">
+				<footer>
+					<button name="action_reconcile" type="object" class="oe_highlight" string="Reconcile" attrs="{'invisible': [('is_reconciled', '=', True)]}" />
+					<button name="action_reconcile_next" type="object" string="Next" invisible="not context.get('reconcile_all_line')" />
+					<button special="cancel" string="Cancel" class="btn-secondary" />
+				</footer>
+			</sheet>
+		</field>
+	</record>
+
+	<!-- <record id="view_bank_statement_line_search" model="ir.ui.view"> <field name="name">account.bank.statement.line.search.reconciliation</field> <field name="model">account.bank.statement.line</field> 
+		<field name="inherit_id" ref="account.view_bank_statement_line_search" /> <field name="arch" type="xml"> <search> <filter string="To Check" name="to_check" domain="[('to_check', 
+		'=', True)]" /> <separator /> <filter string="Reconciled" name="reconciled" domain="[('is_reconciled', '=', True)]" /> <filter string="Unreconciled" name="unreconciled" domain="[('is_reconciled', 
+		'=', False)]" /> <group> <filter name="group_date" string="Date" context="{'group_by' : 'date'}" /> <filter name="group_statement" string="Statement" context="{'group_by' : 
+		'statement_id'}" /> </group> </search> </field> </record> -->
+</odoo>
